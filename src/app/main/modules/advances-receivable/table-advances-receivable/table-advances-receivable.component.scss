@@ -1,0 +1,183 @@
+app-table-advances-receivable {
+    table {
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid #cacee6;
+        min-width: 2300px;
+
+        .subExpandedDetail {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+
+        tr {
+            &.back-color-row {
+                //background-color: #f9f9f9;
+            }
+            
+        }
+
+        td {
+            &.column-btn-pay {
+                text-align: center;
+                .btn-pay {
+                    background-color: white;
+                    color:#3cf;
+                    font-weight: bold;
+                }
+            }
+
+            &.column-btn-cancel-service {
+                text-align: center;
+                .btn-cancel-service {
+                    background-color: white;
+                    color:#3cf;
+                }
+            }
+        }
+
+        .content-name {
+            display: flex;
+            align-items: center;
+        }
+
+        .element-action {
+            .sub-table {
+                td {
+                    padding: 0;
+                }
+            }
+        }
+
+        .sub-table {
+            border: 0;
+            min-width: 100%;
+
+            .id-user-details {
+                font-family: MontserratBold;
+                border-bottom: 1px solid black;
+                cursor: pointer;
+            }
+
+            td {
+                padding: 15px 0;
+                .btn-new-call-capital{
+                    font-size: 12px;
+                    background-color: #2865ff;
+                    color: white;
+                    text-align: center;
+                    padding: 5px 9px;
+                    border-radius: 5px;
+                    font-weight: bold;
+                }
+
+                .label-status-call-capital {
+                    font-size: 12px;
+                    background-color: #32379e;
+                    color: white;
+                    text-align: center;
+                    padding: 5px 9px;
+                    border-radius: 5px;
+                    font-weight: bold;
+                }
+
+                .label-status-inversion {
+                    font-size: 12px;
+                    background-color: #32379e;
+                    color: white;
+                    text-align: center;
+                    padding: 5px 9px;
+                    border-radius: 5px;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+    
+    tr.detail-row {
+        height: 0;
+        background-color: white;
+    }
+
+    tr.element-row {
+        background-color: #8e91a2;
+        font-weight: bold;
+    }
+    
+    .element-row td {
+        border-bottom-width: 0;
+    }
+    
+    .element-detail {
+        overflow: hidden;
+        display: flex;
+    }
+    
+    .element-diagram {
+        min-width: 80px;
+        border: 2px solid black;
+        padding: 8px;
+        font-weight: lighter;
+        margin: 8px 0;
+        height: 104px;
+    }
+    
+    .element-symbol {
+        font-weight: bold;
+        font-size: 40px;
+        line-height: normal;
+    }
+    
+    .element-description {
+        padding: 0 0 16px 0;
+    }
+    
+    .element-description-attribution {
+        opacity: 0.5;
+    }
+
+    th.mat-header-cell {
+        text-align: center;
+    }
+    
+    .spinner {
+        &:before {
+            content: '';
+            box-sizing: border-box;
+            position: absolute;
+            top: 50%;
+            left: 90%;
+            width: 20px;
+            height: 20px;
+            margin-top: -10px;
+            margin-left: -10px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            border-top-color: #41434C;
+            animation: spinner .8s linear infinite;
+        }
+    }
+
+    @keyframes giro{
+        0% {
+            transform: rotate(0deg);
+            border-radius: 50%;
+        }
+        50% {
+            border-radius: 20%;        
+        }    
+        100% {
+            border-radius: 50%;
+            transform: rotate(360deg);
+        }
+    }
+    
+    @keyframes spinner {
+        to {transform: rotate(360deg);}
+    }
+
+    .paided {
+        color: red;
+        text-decoration:line-through;
+    }
+}

@@ -1,0 +1,76 @@
+@import '../../scss/app';
+
+app-details-invesment {
+
+    .label-contrato {
+        color: #4d4d4d;
+        margin-bottom: 0;
+    }
+
+    .content-info-user {
+        display: flex;
+        .user {
+            margin-right: 25px;
+            margin-top: 5px;
+        }
+        
+        .rate {
+            margin-top: 5px;
+        }
+    }
+
+    table {
+        min-width: 1400px;
+        margin-bottom: 25px;
+
+        th {
+            background-color: #eff4ff;
+            color: #4d4d4d !important;
+        }
+
+        .text-footer {
+            color: #4d4d4d;
+        }
+
+        .btn-pay {
+            background-color: #33f;
+            color: white;
+
+            &:disabled {
+                background-color: #e3ecff;
+            }
+        }
+    }
+
+    .button-option-plus {
+        cursor: pointer;
+        height: 45px;
+        margin-top: 4px;
+        width: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #33f;
+        color: white;
+        border-radius: 4px;
+
+        @include media-breakpoint-down('sm') {
+            display: none;
+        }
+
+        .mat-icon {
+            color: white;
+        }
+    }
+
+    .content-loading {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff80;
+        z-index: 101;
+    } 
+}

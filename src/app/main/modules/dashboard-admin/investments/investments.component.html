@@ -1,0 +1,110 @@
+<div class="container" id="investmentDashboard">
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between">
+        <div fxFlex="80">
+            <div class="content-filter-title">
+                <div class="title">
+                    <p [ngStyle]="{'font-family': 'MontserratBold'}">Inversiones</p>
+                    <span class="line"></span>
+                </div>
+                <div class="filter">
+                  <mat-form-field appearance="outline">
+                    <mat-select [(value)]="filter" (selectionChange)="onChange($event)">
+
+                      <mat-option value="current-month">Mes actual</mat-option>
+                      <mat-option value="today" selected>Hoy</mat-option>
+                      <mat-option value="current-biweekly">Quincena actual</mat-option>
+                      <mat-option value="before-biweekly">Quincena anterior</mat-option>
+                      <mat-option value="current-week">Semana actual</mat-option>
+                      <mat-option value="before-week">Semana anterior</mat-option>
+                      <mat-option value="range-dates">Rango de fechas</mat-option>
+                      <mat-option value="specific-day">Día especifico</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div [hidden]="!visibleDates">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Seleccione una fecha</mat-label>
+                      <input matInput [matDatepicker]="pickerStart" #startDate (dateChange)="changeDate()">
+                      <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                      <mat-datepicker #pickerStart></mat-datepicker>
+                    </mat-form-field>
+                    &nbsp;
+                    <mat-form-field appearance="fill" *ngIf="specifiDate">
+                      <mat-label>Fecha límite</mat-label>
+                      <input matInput [matDatepicker]="pickerEnd" #endDate (dateChange)="changeDate()">
+                      <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                      <mat-datepicker #pickerEnd></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+            </div>
+            <div class="graph">
+                <div class="content-graph">
+                    <ngx-charts-bar-vertical-2d
+                        [scheme]="colorScheme"
+                        [results]="single"
+                        [xAxis]="true"
+                        [yAxis]="true"
+                        [showXAxisLabel]="false"
+                        [showYAxisLabel]="false"
+                        (select)="onSelect($event)">
+                    </ngx-charts-bar-vertical-2d>
+                </div>
+            </div>
+            <div class="label-graph">
+                <div class="content-label">
+                    <div class="label-comision">
+                        <div class="label-color"></div>
+                        <div class="label-text">INTERESES</div>
+                    </div>
+                    <div class="label-interes">
+                        <div class="label-color"></div>
+                        <div class="label-text">RETORNO PRINCIPAL</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxFlex="20">
+            <div class="options">
+                <div>
+                    <div class="button-option-plus">
+                        <button mat-icon-button [matMenuTriggerFor]="menuMore" style="background: url('assets/icons/icon-add.png');  background-repeat: no-repeat; background-position: 50% 50%;"></button>
+                        <mat-menu #menuMore="matMenu" xPosition="after">
+                            <!--<button mat-menu-item><mat-icon>print</mat-icon> <span>Imprimir</span></button>
+                            <button mat-menu-item><mat-icon>description</mat-icon> <span>Exportar a Excel</span></button>-->
+                            <button mat-menu-item (click)="exportFile('investmentDashboard')"><mat-icon>description</mat-icon> <span>Exportar a PDF</span></button>
+                        </mat-menu>
+                    </div>
+                </div>
+            </div>
+            <div class="widgets">
+                <div class="w-interes">
+                    <div class="icon-interes">
+                        <img src="assets/icons/ico-intereses-pagados.png" alt="">
+                    </div>
+                    <div class="promedio">
+                        <p class="text" [ngStyle]="{'font-family': 'MontserratBold'}">{{ promedioInteresPayed | currency }}</p>
+                        <p class="sub-text">Promedio de intereses pagados</p>
+                    </div>
+                    <div class="total">
+                        <p class="text" [ngStyle]="{'font-family': 'MontserratBold'}">{{ totalInteresPayed | currency }}</p>
+                        <p class="sub-text">Total de intereses pagados</p>
+                    </div>
+                </div>
+
+                <div class="w-comision">
+                    <div class="icon-comision">
+                        <img src="assets/icons/ico-retorno-principal.png" alt="">
+                    </div>
+                    <div class="promedio">
+                        <p class="text" [ngStyle]="{'font-family': 'MontserratBold'}">{{ promedioPrincipal | currency }}</p>
+                        <p class="sub-text">Promedio de retorno de principal</p>
+                    </div>
+                    <div class="total">
+                        <p class="text" [ngStyle]="{'font-family': 'MontserratBold'}">{{ totalPrincipal | currency }}</p>
+                        <p class="sub-text">Total de retorno de principal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,118 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Nueva llamada de Capital</span>
+            <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div class="pl-25 pr-25 m-0" mat-dialog-content [formGroup]="formGroup">
+        <div class="content-steps">
+            <div class="content-form" fxFlex fxLayout="column" [@fadeInOut]="step === 1 ? '1' : '0'">
+                <div class="content-title" fxFlex fxLayout="row">
+                    <div class="title" fxFlex fxLayout="row">
+                        <app-icon-user width="55" height="55" fontSize="21" fontFamily="MontserratBold" bgColor="#32379e" [nameUser]="data.user.name"></app-icon-user>
+                        <div class="content-user">
+                            <p [ngStyle]="{'font-family': 'MontserratBold'}">{{ data.user.name }}</p>
+                            <span>Inversionista</span>
+                        </div>
+                    </div>
+                    <div class="number-step">
+                        <p [ngStyle]="{'font-family': 'MontserratBold'}">1/2</p>
+                    </div>
+                </div>
+                <div class="content-inputs" fxFlex fxLayout="column">
+                    <div fxFlex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" class="row-data" fxLayoutAlign="space-between center" fxLayoutAlign.sm="start start" fxLayoutAlign.xs="start start">
+                        <div fxFlex="65" fxFlex.sm="50" fxFlex.xs="50" [ngClass]="{'invalid-input': formErrors.amount.required || formErrors.amount.pattern }">Monto</div>
+                        <div fxFlex="35" fxFlex.sm="50" fxFlex.xs="50">
+                            <input matInput placeholder="0" formControlName="amount" prefix="$" mask="separator" thousandSeparator=",">
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" class="row-data" fxLayoutAlign="space-between center" fxLayoutAlign.sm="start start" fxLayoutAlign.xs="start start">
+                        <div fxFlex="65" fxFlex.sm="50" fxFlex.xs="50" [ngClass]="{'invalid-input': formErrors.interest_rate.required || formErrors.interest_rate.pattern }">Tasa de interés</div>
+                        <div fxFlex="35" fxFlex.sm="50" fxFlex.xs="50">
+                            <input matInput placeholder="16" formControlName="interest_rate">
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" class="row-data" fxLayoutAlign="space-between center" fxLayoutAlign.sm="start start" fxLayoutAlign.xs="start start">
+                        <div fxFlex="65" fxFlex.sm="50" fxFlex.xs="50" [ngClass]="{'invalid-input': formErrors.default_interest.required || formErrors.default_interest.pattern }">Interés moratorio</div>
+                        <div fxFlex="35" fxFlex.sm="50" fxFlex.xs="50">
+                            <input matInput placeholder="16" formControlName="default_interest">
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" class="row-data" fxLayoutAlign="space-between center" fxLayoutAlign.sm="start start" fxLayoutAlign.xs="start start">
+                        <div fxFlex="65" fxFlex.sm="50" fxFlex.xs="50" [ngClass]="{'invalid-input': formErrors.investment_horizon.required || formErrors.investment_horizon.pattern }">Horizonte de inversión</div>
+                        <div fxFlex="35" fxFlex.sm="50" fxFlex.xs="50">
+                            <input matInput placeholder="1" formControlName="investment_horizon">
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" class="row-data" fxLayoutAlign="space-between center" fxLayoutAlign.sm="start start" fxLayoutAlign.xs="start start">
+                        <div fxFlex="65" fxFlex.sm="50" fxFlex.xs="50" [ngClass]="{'invalid-input': formErrors.bussiness_day.required || formErrors.bussiness_day.pattern}">Días hábiles para hacer la aportación</div>
+                        <div fxFlex="35" fxFlex.sm="50" fxFlex.xs="50">
+                            <input matInput placeholder="5" formControlName="bussiness_day">
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" class="row-data" fxLayoutAlign="space-between center" fxLayoutAlign.sm="start start" fxLayoutAlign.xs="start start">
+                        <div fxFlex="65" fxFlex.sm="50" fxFlex.xs="50" [ngClass]="{'invalid-input': formErrors.extension_day.required || formErrors.extension_day.pattern}">Días prórroga para hacer la aportación</div>
+                        <div fxFlex="35" fxFlex.sm="50" fxFlex.xs="50">
+                            <input matInput placeholder="5" formControlName="extension_day">
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" class="row-data" fxLayoutAlign="space-between center" fxLayoutAlign.sm="start start" fxLayoutAlign.xs="start start">
+                        <div fxFlex="65" fxFlex.sm="50" fxFlex.xs="50" [ngClass]="{'invalid-input': formErrors.period_id.required}">Periodo de pago de intereses</div>
+                        <div fxFlex="35" fxFlex.sm="50" fxFlex.xs="50">
+                            <mat-select formControlName="period_id">
+                                <mat-option *ngFor="let item of data.periodics" [value]="item.id">{{ item.description }}</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" class="row-data" fxLayoutAlign="space-between center" fxLayoutAlign.sm="start start" fxLayoutAlign.xs="start start">
+                        <div fxFlex="65" fxFlex.sm="50" fxFlex.xs="50">Correo de aviso de disposición</div>
+                        <div fxFlex="35" fxFlex.sm="50" fxFlex.xs="50">
+                            <mat-checkbox formControlName="notice_mail"></mat-checkbox>
+                        </div>
+                    </div>
+                    <div fxFlex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" class="row-data" fxLayoutAlign="space-between center" fxLayoutAlign.sm="start start" fxLayoutAlign.xs="start start">
+                        <div fxFlex="65" fxFlex.sm="50" fxFlex.xs="50">Persona que solicita</div>
+                        <div fxFlex="35" fxFlex.sm="50" fxFlex.xs="50">{{ username }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-authorize" [@fadeInOut]="step === 1 ? '0' : '1'">
+                <div class="content-form" fxFlex fxLayout="column" >
+                    <div class="content-title" fxFlex fxLayout="row">
+                        <div class="title" fxFlex fxLayout="row">
+                            <div class="content-user">
+                                <p [ngStyle]="{'font-family': 'MontserratBold'}">Contraseña de administrador</p>
+                            </div>
+                        </div>
+                        <div class="number-step">
+                            <p [ngStyle]="{'font-family': 'MontserratBold'}">2/2</p>
+                        </div>
+                    </div>
+                    <div class="content-inputs">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Contraseña</mat-label>
+                            <input matInput formControlName="password" type="password">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div mat-dialog-actions class="m-0" fxLayoutAlign="space-around center">
+        <div class="content-botton">
+            <div class="content-btn-left">
+                <button 
+                    mat-button 
+                    (click)="nextStep()"
+                    [disabled]="(formGroup.invalid || loading) && step != 1" [class.spinner]="loading && step == 2"
+                >{{ step == 1 ? 'CONTINUAR' : 'ENVIAR LLAMADA'}}</button>
+            </div>
+            <div class="content-btn-right"><button mat-button (click)="secondButton()">{{ step == 1 ? 'CANCELAR' : 'REGRESAR' }}</button></div>
+        </div>
+    </div>
+</div>

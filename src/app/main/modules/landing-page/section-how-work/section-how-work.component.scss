@@ -1,0 +1,157 @@
+@import "../../../../core/scss/app";
+
+app-section-how-work {
+    max-width: 452px;
+
+    .content-text {
+        margin-top: 149px;
+        text-align: center;
+
+        @include media-breakpoint-down('sm') {
+            margin-top: 70px;
+        }
+    
+        .question {
+            font-family: 'MontserratBold';
+            font-size: 50px;
+            letter-spacing: 1px;
+            color: #41434C;
+            max-width: 725px;
+            margin: auto;
+        }
+    
+        .separation-blue {
+            width: 105px;
+            height: 8px;
+            display: block;
+            margin: auto;
+            background-color: #3cf;
+            border-radius: 5px;
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }
+    
+        .description {
+            margin-bottom: 80px;
+            margin-top: 35px;
+            font-size: 24px;
+            color: #4d4d4d;
+    
+            b {
+                font-family: 'MontserratBold';
+                letter-spacing: 1px;
+            }
+        }
+    }
+
+    .content-carrousel {
+
+        ul {
+            display: flex;
+            list-style: none;
+            justify-content: space-between;
+            padding: 0;
+            overflow: auto;
+
+            @include media-breakpoint-down('sm') {
+                justify-content: start;
+                min-width: 100%;
+            }
+
+            li {
+                margin-right: 25px;
+
+                &:first-child {
+                    .content-item-carrousel {
+                        border-bottom-left-radius: 50px;
+                        overflow: hidden;
+                    }
+                }
+
+                &:last-child {
+                    margin-right: 0;
+
+                    .content-item-carrousel {
+                        border-top-right-radius: 50px;
+                        overflow: hidden;
+                    }
+                }
+
+                .content-item-carrousel {
+                    min-height: 600px;
+                    width: 450px;
+                    background-color: #41434C;
+                    position: relative;
+
+                    @include media-breakpoint-down('sm') {
+                        width: 370px;
+                        margin-right: 25px;
+                    }
+
+                    &:nth-child(2) {
+                        @include media-breakpoint-down('xs') {
+                            margin-left: 0px;
+                        }
+                    }
+
+                    .bg-image,  .content-info {
+                        position: absolute;
+                        height: 100%;
+                        width: 100%;
+                    }
+
+                    .content-info {
+                        background: rgb(0,0,102);
+                        background: linear-gradient(0deg, rgba(0,0,102,0.7455182756696428) 0%, rgba(255,255,255,0) 69%);
+
+                        .text {
+                            position: absolute;
+                            bottom: 51px;
+                            padding: 0px 40px;
+                            .content-number, .content-text-carousel {
+                                color: white;
+                                font-family: 'MontserratBold';
+                            }
+
+                            .content-number {
+                                width: 50px;
+                                height: 50px;
+                                background-color: #33f;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                font-size: 30px;
+                                border-radius: 6px;
+                                margin-bottom: 25px;
+                            }
+
+                            .content-text-carousel {
+                                font-size: 19px;
+                            }
+                        }
+                    }
+        
+                    .one {
+                        background: url('../../../../../assets/images/backgrounds/carrousel_1.jpg');
+                        background-position-x: -150%;
+                    }
+
+                    .two {
+                        background: url('../../../../../assets/images/backgrounds/carrousel_2.jpg');
+                        background-position-x: -118px;
+                    }
+
+                    .three {
+                        background: url('../../../../../assets/images/backgrounds/carrousel_3.jpg');
+                        background-position-x: -114%;
+                    }
+
+                    .four {
+                        background: url('../../../../../assets/images/backgrounds/carrousel_4.jpg');
+                        background-position-x: -118px;
+                    }
+                }
+            }
+        }
+    }
+}

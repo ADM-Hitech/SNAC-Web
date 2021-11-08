@@ -1,0 +1,30 @@
+<div class="container module-container" appPerfectScrollbar>
+    <div class="content-breadcrumbs">
+        <h1 [ngStyle]="{'font-family': 'MontserratBold'}">Ajustes</h1>
+        <div class="breadcrumbs">SNAC > Ajustes</div>
+    </div>
+    <br>
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center">
+        <div fxFlex="initial">
+            <div class="content-options">
+                <div class="option">
+                    <button mat-flat-button color="accent" [ngClass]="{'active': isIndex(), 'inactive': !isIndex()}" (click)="goTo('settings')">Seguridad</button>
+                </div>
+                <div class="option">
+                    <button mat-flat-button color="accent" [ngClass]="{'active': activeMenu('account-info'), 'inactive': !activeMenu('account-info')}" (click)="goTo('settings/account-info')">Informe de mi cuenta</button>
+                </div>
+                <div class="option">
+                    <button mat-flat-button color="accent" [ngClass]="{'active': activeMenu('platform-info'), 'inactive': !activeMenu('platform-info')}" (click)="goTo('settings/platform-info')">Informe de la plataforma</button>
+                </div>
+                <div class="option">
+                    <button mat-flat-button color="accent" [ngClass]="{'active': activeMenu('delete-account'), 'inactive': !activeMenu('delete-account')}" (click)="goTo('settings/delete-account')">Eliminar Cuenta</button>
+                </div>
+            </div>
+        </div>
+        <div fxFlex="auto">
+            <div class="content-child">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

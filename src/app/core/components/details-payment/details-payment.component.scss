@@ -1,0 +1,35 @@
+app-details-payment {
+    .mat-dialog-content {
+        padding: 25px;
+
+        .content-title {
+            margin-bottom: 10px;
+            min-height: 85px;
+
+            .title {
+                min-width: 450px;
+                .content-user {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    p {
+                        color: #4d4d4d;
+                        font-size: 16px;
+                        margin: 0;
+                    }
+
+                    span {
+                        color: #8e91a2;
+                        font-weight: 600;
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+
+        table {
+            min-width: 500px;
+        }
+    }
+}

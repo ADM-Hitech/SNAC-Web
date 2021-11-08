@@ -1,0 +1,143 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class="m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">ID {{ user?.id }}</span>
+      <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+          <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <div class="pl-25 pr-25 m-0" mat-dialog-content appPerfectScrollbar>
+
+    <div fxFlex fxLayout="column">
+      <div class="content-title" fxFlex fxLayout="row">
+        <div class="title" fxFlex fxLayout="row">
+            <app-icon-user width="55" height="55" fontSize="21" fontFamily="MontserratBold" bgColor="#32379e" [nameUser]="user?.name"></app-icon-user>
+            <div class="content-user">
+                <p [ngStyle]="{'font-family': 'MontserratBold'}">{{ user?.name }}</p>
+                <span>{{ user?.companyName }} | Contrato 101</span>
+            </div>
+        </div>
+        <div class="number-step">
+            
+        </div>
+      </div>
+    
+      <div class="table" appPerfectScrollbar>
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+  
+          <ng-container matColumnDef="advance">
+            <th mat-header-cell *matHeaderCellDef #cadvance>ADELANTO</th>
+            <td mat-cell *matCellDef="let element">{{ element.amount | currency }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef #cdate>FECHA</th>
+            <td mat-cell *matCellDef="let element">{{ element.created_at | date: 'dd/MM/yyyy' }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="day">
+            <th mat-header-cell *matHeaderCellDef #cdays>DÍA DE LA QUINCENA</th>
+            <td mat-cell *matCellDef="let element">{{ element.requested_Day }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="rate">
+            <th mat-header-cell *matHeaderCellDef #cinterestRate>TASA DE INTERES</th>
+            <td mat-cell *matCellDef="let element">{{ user?.interestRate }}%</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="comition">
+            <th mat-header-cell *matHeaderCellDef #ccommission>COMISIÓN</th>
+            <td mat-cell *matCellDef="let element">{{ element.comission }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="settings">
+            <th mat-header-cell *matHeaderCellDef #csettings>AJUSTES,<br>PROMOCIONES</th>
+            <td mat-cell *matCellDef="let element">{{ element.promotional_Setting | currency }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="totalForPayed">
+            <th mat-header-cell *matHeaderCellDef #csettingsForPay>TOTAL POR COBRAR</th>
+            <td mat-cell *matCellDef="let element">{{ totalWithOld(element) | currency }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef #cstate>ESTADO</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button [ngClass]="{'active': element.enabled}">{{ element.enabled ? 'ACTIVO' : 'NO ACTIVO' }}</button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="addSettings">
+            <th mat-header-cell *matHeaderCellDef #caddSettings></th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button (click)="addSettings(element)">AJUSTE</button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="subExpandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length" [ngStyle]="{'border-bottom-color': 'transparent'}">
+              <div class="element-detail" *ngIf="contentDetails(element)">
+                <div class="element-description">
+
+                  <table mat-table [dataSource]="element.details" class="sub-table" multiTemplateDataRows>
+                      <ng-container matColumnDef="advance">
+                          <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': cadvanceWidth + 'px'}"></td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="date">
+                          <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': cdateWidth + 'px'}">
+                              {{ subelement?.detail?.date_Payment | date: 'dd/MM/yyyy' }}
+                          </td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="day">
+                          <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': cdaysWidth + 'px'}"></td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="rate">
+                          <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': cinterestRateWidth + 'px'}"></td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="comition">
+                          <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': ccommissionWidth + 'px'}"></td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="settings">
+                          <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': csettingsWidth + 'px'}">
+                              {{ subelement?.detail?.promotional_Setting | currency }}
+                          </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="totalForPayed">
+                          <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': csettingsForPayWidth + 'px'}">
+                              {{ subelement?.detail?.total_Payment | currency }}
+                          </td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="state">
+                        <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': cstateWidth + 'px'}"></td>
+                      </ng-container>
+            
+                      <ng-container matColumnDef="addSettings">
+                        <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': caddSettingsWidth + 'px'}">
+                          <button mat-button (click)="addSettings(subelement, true)">AJUSTE</button>
+                        </td>
+                      </ng-container>
+                      
+                      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+                  </table>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+          <tr mat-row *matRowDef="let element; columns: columnsToDisplay"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['subExpandedDetail']; let i = even;"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

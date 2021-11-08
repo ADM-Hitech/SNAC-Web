@@ -1,0 +1,125 @@
+@import "../../../../core/scss/app";
+
+app-section-employer {
+    .container-employer {
+        background: url('../../../../../assets/images/backgrounds/background-employe.jpg');
+        height: 890px;
+        border-top-right-radius: 108px;
+        overflow: hidden;
+        position: relative;
+
+        @include media-breakpoint-down('sm') {
+            border-top-right-radius: 70px;
+        }
+
+        .content-section {
+            background-color: #41434Cd6;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+
+            padding-top: 149px;
+            text-align: center;
+
+            @include media-breakpoint-down('sm') {
+                padding-top: 70px;
+            }
+        
+            .question {
+                font-family: 'MontserratBold';
+                font-size: 50px;
+                letter-spacing: 1px;
+                color: white;
+                max-width: 725px;
+                margin: auto;
+            }
+        
+            .separation-blue {
+                width: 105px;
+                height: 8px;
+                display: block;
+                margin: auto;
+                background-color: #3cf;
+                border-radius: 5px;
+                margin-top: 10px;
+                margin-bottom: 25px;
+            }
+        
+            .description {
+                margin-bottom: 100px;
+                margin-top: 35px;
+                font-size: 24px;
+                color: white;
+
+                @include media-breakpoint-down('sm') {
+                    margin-bottom: 30px;
+                }
+            }
+
+            .content-widgets {
+                width: 80%;
+                display: flex;
+                margin: auto;
+                justify-content: space-between;
+
+                @include media-breakpoint-down('sm') {
+                    padding-top: 70px;
+                    flex-wrap: wrap;
+                }
+
+                .widget-info {
+
+                    @include media-breakpoint-down('sm') {
+                        margin: auto;
+                        margin-bottom: 30px;
+                    }
+
+                    .title {
+                        font-size: 55px;
+                        font-family: 'MontserratBold' !important;
+                        color: white;
+                        margin: 0;
+
+                        @include media-breakpoint-down('sm') {
+                            font-size: 35px;
+                        }
+                    }
+
+                    .subtitle {
+                        font-family: 'MontserratBold' !important;
+                        color: #3cf;
+                        font-size: 21px;
+                        margin: 0;
+
+                        @include media-breakpoint-down('sm') {
+                            font-size: 15px;
+                        }
+                    }
+
+                    .info {
+                        color: white;
+                        font-weight: bold;
+                        font-size: 18px;
+                        max-width: 380px;
+                        @include media-breakpoint-down('sm') {
+                            font-size: 15px;
+                        }
+                    }
+                }
+            }
+
+            .content-button {
+                margin-top: 80px;
+
+                button {
+                    background-color: white;
+                    border-radius: 50px;
+                    color: #41434C;
+                    font-weight: bold;
+                    padding: 6px 20px;
+                    font-family: 'MontserratBold' !important;
+                }
+            }
+        }
+    }
+}

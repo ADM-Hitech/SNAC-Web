@@ -1,0 +1,28 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Solicitar adelanto</span>
+            <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div class="pl-25 pr-25 m-0" mat-dialog-content [formGroup]="form">
+        <h2>¿Cuánto dinero necesitas?</h2>
+
+        <div class="content-input">
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-icon matPrefix>attach_money</mat-icon>
+                <input matInput disabled="true" [value]="form.get('amount').value">
+                <mat-icon matSuffix>keyboard</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <mat-slider formControlName="amount" style="width: 100%;" min="0" [max]="maxAmount" step="1000"></mat-slider>
+
+        <div class="ctn-btn mb-12" fxLayout="row" fxLayoutAlign="center center">
+            <button mat-button [disabled]="form.invalid" (click)="request()">SOLICITAR</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+app-edit-investor {
+
+    .mat-dialog-content {
+        padding-top: 10px;
+    }
+
+    .label {
+        color: #41434C;
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    mat-form-field {
+        width: 100%;
+    }
+
+    .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button {
+        padding-top: 11px;
+    }
+
+    .mat-dialog-actions {
+        .mat-button {
+            border-radius: 50px;
+            font-weight: bold;
+            padding: 5px 0;
+        }
+
+        .content-botton {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding-bottom: 20px;
+
+            .spinner {
+                &:before {
+                    content: '';
+                    box-sizing: border-box;
+                    position: absolute;
+                    top: 50%;
+                    left: 90%;
+                    width: 20px;
+                    height: 20px;
+                    margin-top: -10px;
+                    margin-left: -10px;
+                    border-radius: 50%;
+                    border: 2px solid #ffffff;
+                    border-top-color: #41434C;
+                    animation: spinner .8s linear infinite;
+                }
+            }
+
+            .content-btn-left {
+                width: 50%;
+                padding-right: 12.5px;
+                padding-left: 25px;
+
+                .mat-button {
+                    width: 100%;
+                    background: #41434C;
+                    color: white;
+                }
+            }
+
+            .content-btn-right {
+                width: 50%;
+                padding-left: 12.5px;
+                padding-right: 25px;
+
+                .mat-button {
+                    width: 100%;
+                    background-color: #8e91a2;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+@keyframes giro{
+    0% {
+        transform: rotate(0deg);
+        border-radius: 50%;
+    }
+    50% {
+        border-radius: 20%;        
+    }    
+    100% {
+        border-radius: 50%;
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}

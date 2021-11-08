@@ -1,0 +1,65 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Confirmar Adelanto</span>
+            <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div class="pl-25 pr-25 m-0" mat-dialog-content>
+        <div class="cnt-loading" *ngIf="loading">
+            <mat-spinner [diameter]="30"></mat-spinner>
+        </div>
+
+        <div class="content-amount">
+            <p class="label" [ngStyle]="{'font-family': 'MontserratBold'}">Cantidad Solicitada</p>
+            <p class="amount" [ngStyle]="{'font-family': 'MontserratBold'}">{{ amount | currency }}</p>
+            <span class="line"></span>
+        </div>
+
+        <div class="cnt-info">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div fxLayout="column" class="label">Banco</div>
+                <div fxLayout="column" class="value">{{ bank | uppercase }}</div>
+            </div>
+            <mat-divider></mat-divider>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div fxLayout="column" class="label">Cuenta</div>
+                <div fxLayout="column" class="value">{{ account }}</div>
+            </div>
+            <mat-divider></mat-divider>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div fxLayout="column" class="label">Total a descontar</div>
+                <div fxLayout="column" class="value">{{ totalDiscount | currency }}</div>
+            </div>
+            <mat-divider></mat-divider>
+            <br>
+        </div>
+
+        <div class="ctn-details">
+            <p>Fecha de cobro</p>
+
+            <ng-container *ngFor="let item of dateDetails">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <div fxLayout="column" class="value">{{ item }}</div>
+                </div>
+                <mat-divider></mat-divider>
+            </ng-container>
+        </div>
+    </div>
+
+    <div mat-dialog-actions class="m-0" fxLayoutAlign="space-around center">
+        <div class="content-btn-left">
+            <button
+                mat-button 
+                [disabled]="loading"
+                [class.spinner]="loading"
+            >ACEPTAR</button>
+        </div>
+        <div class="content-btn-right">
+            <button mat-button [mat-dialog-close]="false">RECHAZAR</button>
+        </div>
+    </div>
+</div>

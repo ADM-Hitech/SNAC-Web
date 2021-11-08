@@ -1,0 +1,272 @@
+@import '../../../../core/scss/app';
+
+app-table-fondeo-control {
+    table {
+        width: 100%;
+        min-width: 2850px;
+        border-radius: 5px;
+        border: 1px solid #cacee6;
+
+        .element-row {
+            &:nth-child(2n) {
+                background-color: #f9f9f9;
+            }
+        }
+
+        .element-footer {
+            background-color: #dee3ed;
+        }
+
+        tr {
+            &.back-color-row {
+                background-color: #f9f9f9;
+            }
+        }
+
+        th {
+            background-color: #eff4ff;
+            color: #4d4d4d !important;
+        }
+
+        .label-footer {
+            color: #41434C;
+        }
+
+        .total-footer {
+            color: #41434C;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        .content-name {
+            display: flex;
+            align-items: center;
+        }
+
+        .element-action {
+            .sub-table {
+                td {
+                    padding: 0;
+                }
+            }
+        }
+
+        .sub-table {
+            border: 0;
+            min-width: 100%;
+            border-spacing: 0;
+
+            td {
+                padding: 15px 0;
+                .btn-new-call-capital{
+                    font-size: 12px;
+                    background-color: #2865ff;
+                    color: white;
+                    text-align: center;
+                    padding: 5px 9px;
+                    border-radius: 5px;
+                    font-weight: bold;
+                }
+
+                .label-status-call-capital {
+                    font-size: 12px;
+                    background-color: #32379e;
+                    color: white;
+                    text-align: center;
+                    padding: 5px 9px;
+                    border-radius: 5px;
+                    font-weight: bold;
+                }
+
+                .label-status-inversion {
+                    font-size: 12px;
+                    background-color: #32379e;
+                    color: white;
+                    text-align: center;
+                    padding: 5px 9px;
+                    border-radius: 5px;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+    
+    tr.detail-row {
+        height: 0;
+    }
+    
+    tr.element-row:not(.expanded-row):hover {
+        background: whitesmoke;
+    }
+    
+    tr.element-row:not(.expanded-row):active {
+        background: #efefef;
+    }
+    
+    .element-row td {
+        border-bottom-width: 2px;
+    }
+    
+    .element-detail {
+        overflow: hidden;
+        display: flex;
+    }
+    
+    .element-diagram {
+        min-width: 80px;
+        border: 2px solid black;
+        padding: 8px;
+        font-weight: lighter;
+        margin: 8px 0;
+        height: 104px;
+    }
+    
+    .element-symbol {
+        font-weight: bold;
+        font-size: 40px;
+        line-height: normal;
+    }
+    
+    .element-description {
+        padding: 0;
+    }
+    
+    .element-description-attribution {
+        opacity: 0.5;
+    }
+
+    .link-details {
+        border-bottom: 1px solid black;
+        cursor: pointer;
+    }
+
+    .sticky-column {
+        position: sticky;
+        z-index: 1;
+        background: inherit;
+        @include media-breakpoint-down('sm') {
+            position: relative !important;
+            left: 0px !important;
+        }
+    }
+
+    .sticky-head {
+        z-index: 101 !important;
+        background: inherit;
+        @include media-breakpoint-down('sm') {
+            position: relative !important;
+            left: 0px !important;
+        }
+    }
+
+    #cname {
+        left: 58px !important;
+        padding-left: 20px;
+        @include media-breakpoint-down('sm') {
+            left: 0px !important;
+        }
+    }
+
+    #cid {
+        left: 1px !important;
+        @include media-breakpoint-down('sm') {
+            left: 0px !important;
+        }
+    }
+}
+
+.buttonStatusEnable {
+  text-align:center;
+  background-color: #41434C; /* button background */
+  color: white; /* label colour */
+  width: 90%;
+  border-radius: 5px; /* rounded corner style */
+  padding: 2px 0;
+}
+
+.buttonStatusDefault {
+    text-align:center;
+    background-color: #ff1414ba; /* button background */
+    color: white; /* label colour */
+    width: 90%;
+    border-radius: 5px; /* rounded corner style */
+    padding: 2px 0;
+  }
+
+.buttonStatusDisable {
+  text-align: center;
+  background-color: #808080bf; /* button background */
+  color: white; /* label colour */
+  width: 90%;
+  border-radius: 5px; /* rounded corner style */
+  padding: 2px 0;
+}
+
+.colorStatusEnable {
+    color: #41434C;
+}
+  
+.colorStatusDefault {
+    color: #ff1414;
+}
+
+.colorStatusDisable {
+    color: black;
+}
+
+.blue {
+    color: #41434C;
+}
+
+.yellow {
+    color: #d5b300;
+}
+
+.orange {
+    color: #ff7714;
+}
+
+.red {
+    color: #ff1414;
+}
+
+.buttonStatusblue {
+    text-align: center;
+    background-color: #41434C;
+    color: white; /* label colour */
+    width: 90%;
+    border-radius: 5px; /* rounded corner style */
+    padding: 2px 0;
+}
+
+.buttonStatusyellow {
+    text-align: center;
+    background-color: #d5b300;
+    color: white; /* label colour */
+    width: 90%;
+    border-radius: 5px; /* rounded corner style */
+    padding: 2px 0;
+}
+
+.buttonStatusorange {
+    text-align: center;
+    background-color: #ff7714;
+    color: white; /* label colour */
+    width: 90%;
+    border-radius: 5px; /* rounded corner style */
+    padding: 2px 0;
+}
+
+.buttonStatusred {
+    text-align: center;
+    background-color: #ff1414;
+    color: white; /* label colour */
+    width: 90%;
+    border-radius: 5px; /* rounded corner style */
+    padding: 2px 0;
+}
+
+.btn-pay {
+    background-color: #33f;
+    color: white;
+}

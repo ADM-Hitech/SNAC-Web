@@ -1,0 +1,61 @@
+app-dashboard-admin {
+    padding: 20px;
+    display: block;
+
+    .content-breadcrumbs {
+            
+        h1 {
+            color: #41434C;
+            font-size: 27px;
+        }
+    }
+
+    .content-tabs {
+        margin-top: 25px;
+        position: relative;
+
+        .content-loading {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffffb5;
+            z-index: 10;
+        }
+    }
+
+    .mat-tab-label {
+        border-radius: 10px 10px 0 0;
+        background-color: #dee3ed;
+        height: 40px;
+    }
+
+    .mat-tab-label-active {
+        background-color: white;
+        opacity: 1;
+    }
+
+    #mat-tab-label-0-1,
+    #mat-tab-label-0-2,
+    #mat-tab-label-0-3 {
+        margin-left: 7px;
+    }
+
+    .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+        background-color: transparent;
+    }
+
+    .mat-tab-nav-bar, .mat-tab-header {
+        border-bottom: 0;
+    }
+
+    .mat-tab-body-wrapper {
+        background-color: white;
+    }
+
+    .m-l-5 {
+        margin-left: 5px;
+    }
+}

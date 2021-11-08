@@ -1,0 +1,72 @@
+@import '../../../core/scss/app';
+
+app-request-advance {
+    .container {
+        padding: 25px;
+
+        .content-breadcrumbs {
+            h1 {
+                color: #41434C;
+                font-size: 27px;
+            }
+        }
+
+        .content-table {
+            margin-top: 25px;
+            background-color: white;
+            padding: 20px;
+            height: calc(100% - 92px);
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+
+            @include media-breakpoint-down('sm') {
+                height: auto;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+    
+            .title {
+                
+                h3 {
+                    margin: 0;
+                    color: #41434C;
+                    font-size: 20px;
+                }
+    
+                .line {
+                    background-color: #65BCB5;
+                    width: 78px;
+                    height: 5px;
+                    display: block;
+                    border-radius: 5px;
+                }
+            }
+
+            .ctn-btn {
+                button {
+                    border-radius: 50px;
+                    background-color: #41434C;
+                    color: white;
+                }
+            }
+
+            .table {
+                margin-top: 25px;
+                overflow: auto !important;
+                position: relative;
+                height: calc(100% - 55px);
+    
+                .content-loading {
+                    position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    height: 100%;
+                    background-color: #ffffff80;
+                    z-index: 101;
+                }
+            }
+        }
+    }
+}

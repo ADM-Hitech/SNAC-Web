@@ -1,0 +1,277 @@
+@import "../../../../core/scss/app";
+
+app-liquidity {
+  .container {
+    padding: 25px;
+  }
+
+  .content-filter-title {
+    display: flex;
+    position: relative;
+
+    @include media-breakpoint-down('sm') {
+      flex-direction: column;
+    }
+
+    .title {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      color: #41434C;
+      font-size: 18px;
+
+      @include media-breakpoint-down('sm') {
+        position: relative;
+      }
+
+      .line {
+        width: 70px;
+        height: 5px;
+        background-color: #65BCB5;
+        border-radius: 4px;
+        display: block;
+        margin: auto;
+        margin-top: -15px;
+      }
+    }
+
+    .filter {
+      @include media-breakpoint-down('sm') {
+        margin-top: 25px;
+
+        .mat-form-field {
+          width: 100%;
+        }
+      }
+
+      .mat-form-field-outline {
+        min-height: 46px;
+      }
+
+      .mat-form-field-appearance-outline .mat-form-field-infix {
+        padding-top: 8px;
+      }
+    }
+  }
+
+  .options {
+    display: flex;
+    justify-content: end;
+    @include media-breakpoint-down('sm') {
+      display: none;
+    }
+
+    .button-option-plus {
+      height: 45px;
+      margin-top: 4px;
+      width: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #33f;
+      color: white;
+      border-radius: 4px;
+
+      .mat-icon {
+        color: white;
+      }
+    }
+  }
+
+  .graph {
+    border: 1.5px solid #dee3ed;
+    border-radius: 7px;
+    padding: 20px;
+    display: flex;
+    margin-top: 25px;
+    margin-right: 12.5px;
+    overflow: auto;
+
+    @include media-breakpoint-down('sm') {
+      margin-right: 0px;
+    }
+
+    .content-graph {
+      min-height: 465px;
+      width: 100%;
+
+      ngx-charts-bar-vertical-2d {
+        display: flex;
+      }
+    }
+  }
+
+  .widgets {
+    margin-top: 36px; //18px;
+    margin-left: 12.5px;
+
+    @include media-breakpoint-down('sm') {
+      margin-top: 35px; //18px;
+      margin-left: 0px;
+    }
+
+    .icon-interes, .icon-comision {
+      width: 60px;
+      height: 60px;
+      //background-color: #32379e;
+      border-radius: 30px;
+      margin: auto;
+      margin-bottom: 20px;
+      background: linear-gradient(47deg, #33f 14%, #3cf 70%, #3cf 0%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .mat-icon {
+        color: white;
+        width: 40px;
+        height: 40px;
+      }
+
+      img {
+        width: 40px;
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .w-interes {
+      margin-bottom: 25px;
+    }
+
+    .w-interes, .w-comision {
+      padding: 25px;
+      background-color: #eff4ff;
+      border-radius: 7px;
+      border: 1.5px solid #dee3ed;
+    }
+
+    .promedio {
+      text-align: center;
+      margin-bottom: 20px;
+
+      .text {
+        font-size: 20px;
+        color: #41434C;
+      }
+
+      .sub-text {
+        font-weight: bold;
+        font-size: 11px;
+        color: #4d4d4d;
+      }
+    }
+
+    .total {
+      text-align: center;
+
+      .text {
+        font-size: 20px;
+        color: #41434C;
+      }
+
+      .sub-text {
+        font-weight: bold;
+        font-size: 11px;
+        color: #4d4d4d;
+      }
+    }
+  }
+
+  .label-graph {
+    margin-top: 50px;
+
+    .content-label {
+      display: flex;
+      justify-content: center;
+
+      @include media-breakpoint-down('sm') {
+        flex-wrap: wrap;
+        justify-content: left;
+        align-items: center;
+      }
+
+      .label-comision {
+        display: flex;
+
+
+        .label-color {
+          width: 45px;
+          height: 21px;
+          background-color: #cacee6;
+          border-radius: 5px;
+        }
+
+        .label-text {
+          margin-left: 10px;
+          color: #a6a6a6;
+        }
+      }
+
+      .label-pendiente {
+        display: flex;
+        margin: 0 25px;
+
+        @include media-breakpoint-down('sm') {
+          margin: 15px 0;
+        }
+
+        .label-color {
+          width: 45px;
+          height: 21px;
+          background-color: #2865ff;
+          border-radius: 5px;
+
+          @include media-breakpoint-down('sm') {
+            width: 66px;
+          }
+        }
+
+        .label-text {
+          margin-left: 10px;
+          color: #a6a6a6;
+        }
+      }
+
+      .label-interes {
+        display: flex;
+
+        .label-color {
+          width: 45px;
+          height: 21px;
+          background-color: #32379e;
+          border-radius: 5px;
+        }
+
+        .label-text {
+          margin-left: 10px;
+          color: #a6a6a6;
+        }
+      }
+    }
+  }
+
+  .custom-select {
+    display: flex;
+    align-items: center;
+
+    .mat-icon {
+      margin-right: 15px;
+    }
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 5px 0;
+  }
+
+  .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+    transform: translateY(-1px);
+  }
+
+  hr {
+    color: #dee3ed;
+    margin: 15px 0;
+  }
+}

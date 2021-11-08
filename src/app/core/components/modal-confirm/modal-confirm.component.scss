@@ -1,0 +1,75 @@
+app-modal-confirm {
+    .circle-icon {
+        text-align: center;
+        padding: 25px 0;
+
+        .mat-icon {
+            color: red;
+            width: 80px;
+            height: 80px;
+            
+            svg {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    }
+
+    .text {
+        text-align: center;
+        margin-bottom: 25px;
+
+        p {
+            margin: 0;
+
+            &:first-child {
+                color: #41434C;
+                font-size: 20px;
+            }
+
+            &:last-child {
+                color: #8e91a2;
+            }
+        }
+    }
+
+    .mat-dialog-actions {
+
+        .mat-button {
+            border-radius: 50px;
+            font-weight: bold;
+            padding: 5px 0;
+        }
+
+        .content-botton {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding-bottom: 20px;
+
+            .content-btn-left {
+                width: 50%;
+                padding-right: 12.5px;
+                padding-left: 25px;
+
+                .mat-button {
+                    width: 100%;
+                    background: #41434C;
+                    color: white;
+                }
+            }
+
+            .content-btn-right {
+                width: 50%;
+                padding-left: 12.5px;
+                padding-right: 25px;
+
+                .mat-button {
+                    width: 100%;
+                    background-color: #8e91a2;
+                    color: white;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,38 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class="m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}"></span>
+      <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+          <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <div class="pl-25 pr-25 m-0" mat-dialog-content appPerfectScrollbar>
+    <table>
+      <tbody>
+        <tr><td>Subtotal a Pagar en la Fecha Próxima:</td><td style="text-align: right;">{{ data?.pay?.subTotalPayNextDay | currency }}</td></tr>
+        <tr><td>IVA</td><td style="text-align: right;">{{ data?.pay?.iva | currency  }}</td></tr>
+        <tr><td>Retención de IVA</td><td style="text-align: right;">{{ data?.pay?.retencionIva | currency }}</td></tr>
+        <tr><td style="border-bottom: 1px solid black;">Retención de ISR</td><td style="border-bottom: 1px solid black;text-align: right;">{{ data?.pay?.retencionISR | currency }}</td></tr>
+        <tr><td>Intereses Netos por Pagar</td><td style="text-align: right;">{{ data?.pay?.interestNetoPerPay | currency }}</td></tr>
+        <tr><td style="border-bottom: 1px solid black;">Principal por Pagar</td><td style="border-bottom: 1px solid black;text-align: right;">{{ data?.pay?.principalPay | currency }}</td></tr>
+        <tr><td>Total a Pagar del Periodo</td><td style="text-align: right;">{{ data?.pay?.totalPayPeriodo | currency }}</td></tr>
+
+        <tr><td><br></td><td><br></td></tr>
+
+        <tr><td>Subtotal a Pagar en la Fecha Próxima:</td><td style="text-align: right;">{{ data?.adeudo?.subTotalPayNextDay | currency }}</td></tr>
+        <tr><td>IVA</td><td style="text-align: right;">{{ data?.adeudo?.iva | currency }}</td></tr>
+        <tr><td>Retención de IVA</td><td style="text-align: right;">{{ data?.adeudo?.retencionIva | currency }}</td></tr>
+        <tr><td>Retención de ISR</td><td style="text-align: right;">{{ data?.adeudo?.retencionISR | currency }}</td></tr>
+
+        <tr>
+          <td style="border-bottom: 1px solid black;">Intereses Netos por Pagar de Periodos Anteriores</td>
+          <td style="border-bottom: 1px solid black;text-align: right;">{{ data?.adeudo?.interestNetoPerPay | currency  }}</td>
+        </tr>
+
+        <tr><td>Deuda Total de Fondeo</td><td style="text-align: right;">{{ data?.adeudo?.total | currency  }}</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>

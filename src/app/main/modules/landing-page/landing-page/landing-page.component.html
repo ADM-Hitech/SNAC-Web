@@ -1,0 +1,105 @@
+<div class="module-container" appPerfectScrollbar (scroll)="onScroll($event)">
+
+    <div class="content-bg-menu" [@fadeInOut]="isOpenMenu ? '1' : '0'"></div>
+    <div class="content-menu" [@slideInRight]="isOpenMenu ? '1' : '0'">
+        <div class="close">
+            <mat-icon (click)="showMenu()">close</mat-icon>
+        </div>
+        <div class="container-item">
+            <ul>
+                <li (click)="goTo('howWork'); showMenu();" [ngClass]="{'active': activeMenu === 'howWork'}">¿Cómo funciona?</li>
+                <li (click)="goTo('requirement'); showMenu();" [ngClass]="{'active': activeMenu === 'requirement'}">Requisitos</li>
+                <li (click)="goTo('employer'); showMenu();" [ngClass]="{'active': activeMenu === 'employer'}">Empleador</li>
+                <li (click)="openContact(); showMenu();">Regístrate</li>
+            </ul>
+        </div>
+        <div class="footer">
+            <div class="container-socials">
+                <span>Siguenos</span>
+                <div class="social">
+                    <div>
+                        <img src="assets/icons/ico_facebook.png" alt="">
+                    </div>
+                    <div>
+                        <img src="assets/icons/ico_linkeding.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="container-icon">
+                <mat-icon svgIcon="logoWhite" class="icon-menu-logo"></mat-icon>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="header" [ngClass]="{'active': positionScroll > 65}">
+        <div class="content-logo">
+            <img src="assets/icons/icon_login_color.png" alt="" [@fadeInOut]="positionScroll > 65 ? '1' : '0'">
+        </div>
+        <div class="content-buttons">
+            <div>
+                <button mat-button class="btn-login" [routerLink]="['/login']">
+                    <img src="assets/icons/icon_login_landing.png" alt=""><span>Login</span>
+                </button>
+            </div>
+            <div>
+                <button mat-button class="toggle-button-navbar mat-icon-button" (click)="showMenu()">
+                    <mat-icon svgIcon="logoMenu" class="icon-menu"></mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <app-section-welcome #welcome (goTo)="goTo('howWork')"></app-section-welcome>
+    <app-section-intro #intro></app-section-intro>
+    <app-section-video (contact)="openContact()"></app-section-video>
+    <app-section-download #download></app-section-download>
+    <app-section-how-work id="howWork"></app-section-how-work>
+    <app-section-requirements (contact)="goTo('footer')" (registre)="openContact()" id="requirement"></app-section-requirements>
+    <app-section-employer (contact)="openContact()" id="employer"></app-section-employer>
+
+    <div class="content-footer">
+        <div class="footer" id="footer">
+            <div class="item-footer">
+                <img src="assets/icons/icon_login_color.png" alt="">
+            </div>
+            <div class="item-footer">
+                <p class="f-title">PRESTAQI</p>
+                <p class="f-subtitle ancla" (click)="goTo('howWork')">¿Cómo funciona?</p>
+                <p class="f-subtitle ancla" (click)="goTo('requirement')">Requisitos</p>
+                <p class="f-subtitle ancla" (click)="goTo('employer')">Empleador</p>
+            </div>
+            <div class="item-footer">
+                <p class="f-title">SÍGUENOS</p>
+                <div class="content-socials">
+                    <div>
+                        <img src="assets/icons/ico_facebook.png" alt="">
+                    </div>
+                    <div>
+                        <img src="assets/icons/ico_linkeding.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="item-footer">
+                <p class="f-title">CONTACTO</p>
+                <span class="sub-title-contact">Llámanos al</span>
+                <p class="telephone">+52 (55) 6284 8216</p>
+                <a class="link-email" href="mailto:soporte@prestaqi.com">soporte@prestaqi.com</a>
+                <a class="link-email" style="display: block;margin-top: 9px;">WhatsApp: +52 (55) 2890 1258</a>
+                <a class="link-email" style="display: block; margin-top: 9px;padding-left: 81px;">+52 (55) 7509 0158</a>
+                <a style="display: block;margin-top: 9px;">Horarios de atención al cliente</a>
+                <a style="display: block;margin-top: 9px;">Lun - Vie 8:00-20:00</a>
+            </div>
+        </div>
+        <hr>
+        <div class="sub-footer">
+            <div>
+                <p>Todos los derechos reservados <b>PrestaQi</b>&#174; 2020.</p>
+            </div>
+    
+            <div>
+                <p style="cursor: pointer;"><span routerLink="/aviso-privacidad">Aviso de privacidad</span> | <span routerLink="/terminos-y-condiciones">Términos y condiciones</span></p>
+            </div>
+        </div>
+    </div>
+</div>

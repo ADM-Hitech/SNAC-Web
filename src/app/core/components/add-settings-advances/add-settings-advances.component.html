@@ -1,0 +1,79 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class="m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Ajuste</span>
+      <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+          <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <div class="pl-25 pr-25 m-0" mat-dialog-content [formGroup]="formGroup">
+    <div class="content-steps">
+      <div class="content-form" fxFlex fxLayout="column" [@fadeInOut]="step === 1 ? '1' : '0'">
+        <div class="content-title" fxFlex fxLayout="row">
+          <div class="title" fxFlex fxLayout="row">
+            <p>Agregar ajuste</p>
+          </div>
+          <div class="number-step">
+              <p [ngStyle]="{'font-family': 'MontserratBold'}">1/2</p>
+          </div>
+        </div>
+        <div class="content-inputs" fxFlex fxLayout="column">
+          <div fxFlex="100">
+            <mat-form-field appearance="outline">
+                <mat-label>Ajuste</mat-label>
+                <input matInput type="number" name="amount" formControlName="Amount">
+                <mat-error *ngIf="formErrors.Amount.required">
+                    El ajuste es requerido
+                </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="100">
+            <mat-form-field appearance="outline">
+                <mat-label>Motivo</mat-label>
+                <textarea matInput name="motivo" formControlName="motivo"></textarea>
+                <mat-error *ngIf="formErrors.motivo.required">
+                    El motivo es requerido
+                </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="content-authorize" [@fadeInOut]="step === 1 ? '0' : '1'">
+        <div class="content-form" fxFlex fxLayout="column" >
+          <div class="content-title" fxFlex fxLayout="row">
+              <div class="title" fxFlex fxLayout="row">
+                  <div class="content-user">
+                      <p [ngStyle]="{'font-family': 'MontserratBold'}">Contraseña de administrador</p>
+                  </div>
+              </div>
+              <div class="number-step">
+                  <p [ngStyle]="{'font-family': 'MontserratBold'}">2/2</p>
+              </div>
+          </div>
+          <div class="content-inputs">
+              <mat-form-field appearance="outline">
+                  <mat-label>Contraseña</mat-label>
+                  <input matInput formControlName="password" type="password">
+              </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="m-0" fxLayoutAlign="space-around center">
+    <div class="content-botton">
+        <div class="content-btn-left">
+            <button 
+                mat-button 
+                (click)="nextStep()"
+                [disabled]="(formGroup.invalid || loading) && step != 1" [class.spinner]="loading && step == 2"
+            >{{ step == 1 ? 'CONTINUAR' : 'GUARDAR'}}</button>
+        </div>
+        <div class="content-btn-right"><button mat-button (click)="secondButton()">{{ step == 1 ? 'CANCELAR' : 'REGRESAR' }}</button></div>
+    </div>
+  </div>
+</div>

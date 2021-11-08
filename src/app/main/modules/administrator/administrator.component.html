@@ -1,0 +1,47 @@
+<div class="container module-container" appPerfectScrollbar>
+    <div class="content-breadcrumbs">
+        <h1 [ngStyle]="{'font-family': 'MontserratBold'}">Lista de Administradores</h1>
+        <div class="breadcrumbs">PrestaQi > Usuarios > Administradores</div>
+    </div>
+    <div class="content-widgets mat-elevation-z3">
+        <div class="content-loading" *ngIf="loading">
+            <mat-spinner></mat-spinner>
+        </div>
+        
+        <div class="content-head">
+            <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="30" fxFlex.sm="100" fxFlex.xs="100">
+                    <div class="title">
+                        <h3 [ngStyle]="{'font-family': 'MontserratBold'}">Listado de Administradores</h3>
+                        <span class="line"></span>
+                    </div>
+                </div>
+                <div fxFlex="30">
+                    <div class="options">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr style="color: #c4c4c470;">
+        <div class="widgets">
+            <div fxLayout="column" fxLayout.md="row wrap" fxLayout.lg="row wrap" fxLayout.xl="row wrap" fxLayoutAlign="space-between">
+                <ng-container *ngFor="let item of admins">
+                    <div fxFlex="100" fxFlex.md="50" fxFlex.lg="33" fxFlex.xl="33" class="p-20 content-w-u">
+                        <app-widget-user 
+                            [id]="item.id" 
+                            name="{{item.first_Name}} {{item.last_Name}}"
+                            position="Súper Administrador" 
+                            [email]="item.mail" 
+                            [telephone]="item.phone" 
+                            [active]="item.enabled"
+                            [editing]="permisitionEdit"
+                            (editUser)="editAdmin(item)"
+                            (changeStatus)="changeStatus($event, item.id, item.type)"
+                            (eventDelete)="delete(item.id, item.type)"
+                        ></app-widget-user>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

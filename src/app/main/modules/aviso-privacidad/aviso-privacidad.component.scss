@@ -1,0 +1,311 @@
+@import "../../../core/scss/app";
+
+app-aviso-privasidad {
+    background-color: white;
+    overflow: auto;
+
+    .content-bg-menu {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: #000000b5;
+        z-index: 14;
+    }
+
+    .content-menu {
+        position: fixed;
+        z-index: 15;
+        right: 0;
+        background: linear-gradient(45deg, rgb(51, 51, 255) 0%, rgb(51, 204, 255) 69%, rgb(51, 204, 255) 100%);
+        min-height: 100%;
+
+        .close {
+            display: flex;
+            justify-content: right;
+            padding: 15px;
+            padding-right: 40px;
+
+            .mat-icon {
+                font-size: 50px;
+                cursor: pointer;
+            }
+        }
+
+        .container-item {
+            margin-bottom: 90px;
+            margin-top: 90px;
+
+            ul {
+                list-style: none;
+                margin: 0;
+                padding: 0px 60px;
+                margin-top: 40px;
+
+                li {
+                    font-size: 35px;
+                    font-family: 'MontserratBold';
+                    color: white;
+                    margin: 10px 0;
+                    cursor: pointer;
+
+                    &:hover, &.active {
+                        color: #41434C;
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+        .footer {
+            display: flex;
+            padding: 0 60px;
+            margin-bottom: 25px;
+            justify-content: space-between;
+            align-items: end;
+            bottom: 0;
+            position: absolute;
+            width: 100%;
+
+            .container-socials {
+                span {
+                    color: white;
+                    font-size: 10px;
+                }
+
+                .social {
+                    display: flex;
+
+                    img {
+                        width: 30px;
+                    }
+                }
+            }
+
+            .container-icon {
+                width: 83px;
+                height: 50px;
+
+                .icon-menu-logo {
+                    color: #fff6;
+
+                    svg {
+                        width: 80px;
+                        height: 80px;
+                    }
+                }
+            }
+        }
+    }
+
+
+    .header {
+        position: absolute;
+        width: 100%;
+        z-index: 13;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .content-logo  {
+            padding-left: 25px;
+
+            img {
+                width: 150px;
+            }
+        }
+
+
+        .content-buttons {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 25px;
+            padding-top: 25px;
+
+            .btn-login {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #ffffff4f;
+                margin-right: 15px;
+
+                img {
+                    width: 25px;
+                    margin-right: 7px;
+                }
+            }
+
+            button {
+                color: white;
+
+                svg {
+                    color: white;
+                }
+            }
+        }
+
+        &.active {
+            background-color: #eff4ff;
+            position: fixed;
+
+            .content-buttons {
+                padding-top: 15px;
+                padding-bottom: 15px;
+
+                .btn-login {
+                    background-color: #41434C;
+                    color: white;
+                }
+
+                button {
+                    color: #41434C;
+    
+                    svg {
+                        color: #41434C;
+                    }
+                }
+            }
+        }
+    }
+
+    .content-head {
+        position: relative;
+        overflow: hidden;
+        height: 200px;
+        background-color: #122fb9;
+        background-image: url('../../../../assets/images/backgrounds/head-aviso-privacidad-bg.jpg');
+        background-repeat: no-repeat;
+        background-position-x: right;
+        background-position-y: center;
+        border-bottom-left-radius: 70px;
+        display: flex;
+
+        .content-text {
+            margin: auto;
+            width: 80%;
+
+            .text-head {
+                margin: 0;
+                color: #65BCB5;
+            }
+    
+            .text-body {
+                margin: 0;
+                color: white;
+                font-size: 40px;
+            }
+        }
+    }
+
+    .content-info {
+        width: 70%;
+        margin: auto;
+        margin-top: 60px;
+    
+        h2 {
+            margin: 0;
+            color: #41434C;
+            font-size: 20px;
+        }
+
+        .line {
+            background-color: #65BCB5;
+            width: 78px;
+            height: 5px;
+            display: block;
+            border-radius: 5px;
+        }
+    }
+
+    .content-footer {
+        background-color: #eff4ff;
+
+        .footer {
+            display: flex;
+            width: 80%;
+            margin: auto;
+            padding: 60px 0px;
+            justify-content: space-around;
+            flex-wrap: wrap;
+
+            @include media-breakpoint-down('sm') {
+                flex-direction: column;
+                text-align: center;
+            }            
+    
+            .item-footer {
+                &:first-child {
+                    img {
+                        max-width: 145px;
+                    }
+                }
+    
+                .f-title {
+                    color: #33f;
+                    font-weight: bold;
+                    margin: 0 0 25px 0;
+                    @include media-breakpoint-down('sm') {
+                        margin-top: 25px;
+                    }
+                }
+
+                .ancla {
+                    cursor: pointer;
+                }
+    
+                .f-subtitle {
+                    margin: 10px 0;
+                    color: #41434C;
+                }
+    
+                .content-socials {
+                    display: flex;
+
+                    @include media-breakpoint-down('sm') {
+                        justify-content: center;
+                    }
+    
+                    img {
+                        width: 40px;
+                    }
+                }
+    
+                .sub-title-contact {
+                    color: #41434C;
+                }
+    
+                .telephone {
+                    margin: 0;
+                    color: #41434C;
+                    font-family: 'MontserratBold';
+                    font-size: 25px;
+                }
+    
+                .link-email {
+                    color: #41434C;
+                    text-decoration-line: revert;
+                }
+            }
+        }
+
+        hr {
+            color: #bfc3e030;
+        }
+    
+        .sub-footer {
+            width: 80%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            background-color: #eff4ff;
+
+            @include media-breakpoint-down('sm') {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            p {
+                color: #4d4d4d;
+            }
+        }
+    }
+}

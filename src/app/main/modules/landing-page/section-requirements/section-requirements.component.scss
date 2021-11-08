@@ -1,0 +1,126 @@
+@import "../../../../core/scss/app";
+
+app-section-requirements {
+    max-width: 970px;
+    display: block;
+    margin: auto;
+    margin-bottom: 100px;
+
+    .content-text {
+        margin-top: 149px;
+        text-align: center;
+
+        @include media-breakpoint-down('sm') {
+            margin-top: 70px;
+        }
+    
+        .question {
+            font-family: 'MontserratBold';
+            font-size: 50px;
+            letter-spacing: 1px;
+            color: #41434C;
+            max-width: 725px;
+            margin: auto;
+        }
+    
+        .separation-blue {
+            width: 105px;
+            height: 8px;
+            display: block;
+            margin: auto;
+            background-color: #3cf;
+            border-radius: 5px;
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }
+    
+        .description {
+            margin-bottom: 80px;
+            margin-top: 35px;
+            font-size: 24px;
+            color: #4d4d4d;
+    
+            b {
+                font-family: 'MontserratBold';
+                letter-spacing: 1px;
+            }
+        }
+    }
+
+    .content-info {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+        @include media-breakpoint-down('sm') {
+            width: 90%;
+            margin: auto;
+        }
+
+        .content-item-requirement {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #41434C;
+            padding: 25px;
+            padding: 10px 25px;
+            -webkit-box-shadow: -16px 11px 10px 1px rgb(218, 218, 233);
+            -moz-box-shadow: -16px 11px 10px 1px rgb(218, 218, 233);
+            box-shadow: -16px 11px 10px 1px rgb(218, 218, 233);
+
+            &:first-child {
+                border-bottom-left-radius: 15px;
+
+                @include media-breakpoint-down('sm') {
+                    border-bottom-left-radius: 0px;
+                    border-top-left-radius: 15px;
+                    margin-bottom: 25px;
+                }
+            }
+
+            &:last-child {
+                border-top-right-radius: 15px;
+
+                @include media-breakpoint-down('sm') {
+                    border-top-right-radius: 0px;
+                    border-bottom-right-radius: 15px;
+                    min-height: 132px;
+                }
+            }
+
+            .text {
+                color: white;
+                p {
+                    max-width: 320px;
+                    margin-left: 25px;
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 18px;
+                }
+            }
+
+            .icon {
+                img {
+                    height: 75px;
+                    max-width: 75px;
+                }
+            }
+        }
+    }
+
+    .content-button {
+        text-align: center;
+        margin-top: 30px;
+
+        .mat-button {
+            background-color: #65BCB5;
+            color: white;
+            font-weight: bold;
+            border-radius: 50px;
+            font-size: 13px;
+            -webkit-box-shadow: -16px 11px 10px 1px rgb(218, 218, 233);
+            -moz-box-shadow: -16px 11px 10px 1px rgb(218, 218, 233);
+            box-shadow: -16px 11px 10px 1px rgb(218, 218, 233);
+        }
+    }
+}

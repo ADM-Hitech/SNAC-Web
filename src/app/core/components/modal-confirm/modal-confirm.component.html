@@ -1,0 +1,30 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class="m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">{{ data?.head }}</span>
+      <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+          <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <div class="pl-25 pr-25 m-0" mat-dialog-content>
+    <div class="icon">
+      <div class="circle-icon">
+          <mat-icon svgIcon="iconSecurity" class="icon-security"></mat-icon>
+      </div>
+    </div>
+    <div class="text">
+      <p [ngStyle]="{'font-family': 'MontserratBold'}">{{ data?.title }}</p>
+      <p>{{ data?.subTitle }}</p>
+    </div>
+  </div>
+  
+  <div mat-dialog-actions class="m-0" fxLayoutAlign="space-around center">
+    <div class="content-botton">
+        <div class="content-btn-left"><button mat-button [mat-dialog-close]="true">SÍ, SEGURO</button></div>
+        <div class="content-btn-right"><button mat-button [mat-dialog-close]="false">CANCELAR</button></div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,13 @@
+app-uploading-files {
+    .label {
+        color: gray;
+        text-align: center;
+    }
+
+    .loadingUpload {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+}

@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="title">
+        <h3 [ngStyle]="{'font-family': 'MontserratBold'}">Crear Grupo de Usuarios</h3>
+        <span class="line"></span>
+    </div>
+
+    <div class="content-form">
+        <div class="type-user">
+            <div fxFlex="50" style="padding-left: 12.5px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Elige tipo de grupo a crear</mat-label>
+                    <mat-select [(ngModel)]="typeUser">
+                        <mat-option [value]="2">Nuevo grupo de Inversionistas</mat-option>
+                        <mat-option [value]="3">Nuevo grupo de Acreditados</mat-option>
+                        <mat-option [value]="1" selected>Nuevo grupo de Administradores</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <ng-container [ngSwitch]="typeUser">
+            <a href="assets/examples/Administrador.csv" *ngSwitchCase="1" style="margin-left: 10px;">Ejemplo</a>
+            <a href="assets/examples/Inversionistas.csv" *ngSwitchCase="2" style="margin-left: 10px;">Ejemplo</a>
+            <a href="assets/examples/Acreditados.csv" *ngSwitchCase="3" style="margin-left: 10px;">Ejemplo</a>
+        </ng-container>
+
+        <div class="content-upload-file">
+            <div class="box-input" #boxInput>
+                <mat-icon svgIcon="logoUpload" class="icon-upload"></mat-icon>
+                <br>
+                <input type="file" class="input-file" id="file" #inputFile>
+                <label for="file">{{ labelInput }}</label>
+            </div>
+        </div>
+
+        <div class="content-error" *ngIf="!!errors">
+            <p [innerHTML]="errors"></p>
+        </div>
+
+        <div class="content-button">
+            <button mat-flat-button color="primary" [disabled]="loading" (click)="submit()" [class.spinner]="loading">CREAR GRUPO DE USUARIOS</button>
+        </div>
+    </div>
+</div>

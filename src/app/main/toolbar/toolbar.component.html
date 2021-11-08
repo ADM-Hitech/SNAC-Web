@@ -1,0 +1,62 @@
+<mat-toolbar class="p-0">
+
+    <mat-progress-bar *ngIf="showLoadingBar" class="loading-bar" color="accent" mode="indeterminate"></mat-progress-bar>
+
+    <div fxFlex fxFill fxLayout="row" fxLayoutAlign="start center">
+
+        <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+
+            <button mat-button class="toggle-button-navbar mat-icon-button"
+                appNavbar="toggleBar" fxHide.gt-md>
+                <mat-icon svgIcon="logoMenu" class="icon-menu"></mat-icon>
+            </button>
+
+            <button mat-button class="toggle-button-navbar mat-icon-button"
+                appNavbar="toggleFold" fxHide fxShow.lg fxShow.xl>
+                <mat-icon svgIcon="logoMenu" class="icon-menu"></mat-icon>
+            </button>
+
+            <!--<div class="toolbar-separator" fxHide.gt-md></div>-->
+
+        </div>
+
+        <div class="" fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
+
+            <button mat-button 
+                class="quick-panel-toggle-button mat-icon-button"
+                appMatSidenavToggler="quick-panel">
+                <mat-icon svgIcon="logoNotification" class="icon-notification"></mat-icon>
+                <span class="active-notification" *ngIf="activeNotification"></span>
+            </button>
+
+            <button mat-button [matMenuTriggerFor]="userMenu"
+                    class="user-button">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <app-icon-user height="40" width="40" padding="0" [nameUser]="username"></app-icon-user>
+                    <span class="username mr-12" fxHide fxShow.gt-sm>{{ username }}</span>
+                    <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
+                </div>
+            </button>
+
+            <mat-menu #userMenu="matMenu">
+
+                <button [routerLink]="['/my-profile']" mat-menu-item *ngIf="rol === 'Inversionista' || rol === 'Acreditado'">
+                    <mat-icon>account_circle</mat-icon>
+                    <span>Mi Perfil</span>
+                </button>
+
+                <button mat-menu-item (click)="changePassword()">
+                    <mat-icon>lock</mat-icon>
+                    <span>Cambiar Contraseña</span>
+                </button>
+
+                <button mat-menu-item (click)="logAuth()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>Cerrar sesión</span>
+                </button>
+
+            </mat-menu>
+
+        </div>
+    </div>
+</mat-toolbar>

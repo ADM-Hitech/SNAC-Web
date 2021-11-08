@@ -1,0 +1,139 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Editar Inversionista</span>
+            <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="pl-25 pr-25 m-0" appPerfectScrollbar [formGroup]="formGroup">
+        <p class="label">DATOS GENERALES</p>
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxFlex="50" style="padding-right: 12.5px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombres</mat-label>
+                    <input matInput formControlName="first_Name">
+                    <mat-error *ngIf="formErrors.first_Name.required">
+                        El nombre es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50" style="padding-left: 12.5px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellidos</mat-label>
+                    <input matInput formControlName="last_Name">
+                    <mat-error *ngIf="formErrors.last_Name.required">
+                        El apellido es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxFlex="50" style="padding-right: 12.5px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="mail">
+                    <mat-error *ngIf="formErrors.mail?.required">
+                        El mail es requerido
+                    </mat-error>
+                    <mat-error *ngIf="!formErrors?.mail?.required && formErrors?.mail?.email">
+                        Por favor ingresa un mail valido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50" style="padding-left: 12.5px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Monto total pactado</mat-label>
+                    <input matInput formControlName="total_Amount_Agreed">
+                    <mat-error *ngIf="formErrors.total_Amount_Agreed.required">
+                        El monto total pactado es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxFlex="33" style="padding-right: 12.5px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha inicio en comunidad <span [ngStyle]="{'font-family': 'MontserratBold'}">PrestaQi</span></mat-label>
+                    <input matInput [matDatepicker]="pickerComunity" formControlName="start_Date_Prestaqi">
+                    <mat-datepicker-toggle matSuffix [for]="pickerComunity"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerComunity></mat-datepicker>
+
+                    <mat-error *ngIf="formErrors.start_Date_Prestaqi.required">
+                        La fecha es requerida
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33" style="padding-left: 12.5px;padding-right: 12.5px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha limite de llamada de capital</mat-label>
+                    <input matInput [matDatepicker]="pickerCapital" formControlName="limit_Date">
+                    <mat-datepicker-toggle matSuffix [for]="pickerCapital"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerCapital></mat-datepicker>
+
+                    <mat-error *ngIf="formErrors.limit_Date.required">
+                        La fecha es requerida
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33" style="padding-left: 12.5px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>RFC</mat-label>
+                    <input matInput formControlName="rfc">
+
+                    <mat-error *ngIf="formErrors.rfc.required">
+                        El rfc es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <p class="label">DATOS BANCARIOS</p>
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxFlex="33" style="padding-right: 12.5px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Banco</mat-label>
+                    <mat-select formControlName="institution_Id">
+                        <mat-option *ngFor="let item of data.banks" [value]="item.id">{{ item.description }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formErrors.institution_Id.required">
+                        El banco es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33" style="padding-left: 12.5px;padding-right: 12.5px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>CLABE interbancaria (18 digitos)</mat-label>
+                    <input matInput formControlName="clabe">
+                    <mat-error *ngIf="formErrors.clabe.required">
+                        La clabe es requerida
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33" style="padding-left: 12.5px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Número de cuenta</mat-label>
+                    <input matInput formControlName="account_Number">
+                    <mat-error *ngIf="formErrors.account_Number.required">
+                        El número de cuenta es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="content-type-person">
+            <mat-checkbox formControlName="is_Moral_Person">
+                Persona Moral
+            </mat-checkbox>
+        </div>
+    </div>
+
+    <div mat-dialog-actions class="m-0" fxLayoutAlign="space-around center">
+        <div class="content-botton">
+            <div class="content-btn-left">
+                <button mat-button (click)="submit()" [disabled]="formGroup.invalid || loading" [class.spinner]="loading">GUARDAR CAMBIOS</button>
+            </div>
+            <div class="content-btn-right"><button mat-button [mat-dialog-close]="false">CANCELAR</button></div>
+        </div>
+    </div>
+</div>

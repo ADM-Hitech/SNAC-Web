@@ -1,0 +1,23 @@
+app-table-investments {
+    table {
+        width: 100%;
+        min-width: 1574px;
+        border-radius: 5px;
+        border: 1px solid #cacee6;
+
+        .btn-details {
+            background-color: #CACEE6;
+            color: white;
+        }
+
+        .active {
+            background-color: #2865ff;
+            color: white;
+        }
+
+        .noactive {
+            background-color: #32379e;
+            color: white;
+        }
+    }
+}

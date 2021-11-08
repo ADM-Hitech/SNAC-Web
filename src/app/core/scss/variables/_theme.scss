@@ -1,0 +1,93 @@
+@import '~@angular/material/theming';
+
+$mat-white: (
+    500: white,
+    contrast: (
+        500: $black-87-opacity
+    )
+);
+
+$mat-black: (
+    500: #41434C,
+    contrast: (
+        500: white,
+    )
+);
+
+$mat-dark-custom: (
+    50: #ECECEE,
+    100: #858686,
+    200: #717272,
+    300: #5c5e5e,
+    400: #484A4A,
+    500: #41434C, //primary
+    600: #000062,
+    700: #000063,
+    800: #000064,
+    900: #000065,
+    A100: #858686,
+    A200: #00006A,
+    A400: #00006B,
+    A700: #00006C,
+    contrast: (
+        50: #000051,
+        100: #000052,
+        200: #000053,
+        300: white,
+        400: white,
+        500: white, //primary
+        600: #000055,
+        700: #000056,
+        800: #00005A,
+        900: #00005B,
+        A100: #00005C,
+        A200: #00005D,
+        A400: #00005E,
+        A700: #00005F,
+    )
+);
+
+$mat-pink-custom: (
+  50: #fce4ec,
+  100: #eff4ff,
+  200: #eff4ff,
+  300: #eff4ff,
+  400: #eff4ff,
+  500: #41434C,
+  600: #41434C, //principal
+  700: #eff4ff,
+  800: #eff4ff,
+  900: #eff4ff,
+  A100: #eff4ff,
+  A200: #eff4ff,
+  A400: #eff4ff,
+  A700: #eff4ff,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: white,
+    600: white,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
+
+// Palettes
+$primary: mat-palette($mat-dark-custom);
+//$accent: mat-palette($mat-light-blue, 600, 400, 700);
+$accent: mat-palette($mat-pink-custom, 600, 400, 700);
+$warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$theme: mat-light-theme($primary, $accent, $warn);
+
+$background: map-get($theme, background);
+$foreground: map-get($theme, foreground);

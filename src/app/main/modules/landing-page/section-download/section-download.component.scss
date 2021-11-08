@@ -1,0 +1,104 @@
+@import "../../../../core/scss/app";
+
+app-section-download {
+    display: block;
+    position: relative;
+    min-height: 608px;
+    width: 100%;
+    background: rgb(51,51,255);
+    background: linear-gradient(62deg, rgba(51,51,255,1) 0%, rgba(51,204,255,1) 50%, rgba(51,204,255,1) 100%);
+
+    @include media-breakpoint-down('sm') {
+        min-height: 650px;
+    }
+
+    .container {
+        
+        .icon-bg {
+            img {
+                position: absolute;
+                top: -40px;
+                right: 80px;
+                z-index: 0;
+            }
+        }
+
+        .content {
+            display: flex;
+            padding-top: calc(608px - 550px);
+            justify-content: space-between;
+            z-index: 12;
+            position: relative;
+            width: 75%;
+            margin: auto;
+
+            .text {
+                padding-left: 119px;
+
+                @include media-breakpoint-down('sm') {
+                    padding-left: 0px;
+                }
+
+                h4 {
+                    font-size: 50px;
+                    font-family: "MontserratBold";
+                    color: white;
+                    max-width: 320px;
+                    margin-bottom: 10px;
+                    margin-top: 35px;
+                }
+
+                span {
+                    &.divider-text {
+                        width: 110px;
+                        height: 10px;
+                        background-color: #41434C;
+                        display: block;
+                        border-radius: 30px;
+                    }
+                }
+
+                p {
+                    font-size: 24px;
+                    color: white;
+                    max-width: 450px;
+                }
+
+                .stores {
+                    margin-top: 50px;
+                    @include media-breakpoint-down('sm') {
+                        text-align: center;
+                    }
+
+                    .app-store {
+                        margin-left: 25px;
+                        @include media-breakpoint-down('sm') {
+                            margin-left: 0px;
+                            margin-top: 25px;
+                        }
+
+                        @include media-breakpoint-down('md') {
+                            margin-left: 25px;
+                            margin-top: 0px;
+                        }
+            
+                        @include media-breakpoint-down('xs') {
+                            margin-left: 0px;
+                            margin-top: 25px;
+                        }
+                    }
+                }
+            }
+
+            .image {
+                img {
+                    height: 550px;
+                }
+
+                @include media-breakpoint-down('sm') {
+                    display: none;
+                }
+            }
+        }
+    }
+}

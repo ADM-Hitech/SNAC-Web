@@ -1,0 +1,12 @@
+<div class="icon-user-container {{ cls }}" [ngStyle]="{'padding': (padding >= 0 ? padding : 15) + 'px 0'}">
+    <div class="circle"
+        [ngStyle]="{
+            'width': (width > 0 ? width : 30) + 'px', 
+            'height': (height > 0 ? height : 30) + 'px',
+            'font-size': (fontSize > 0 ? fontSize : 11) + 'px',
+            'font-family': fontFamily ? fontFamily : '',
+            'background-color': bgColor ? bgColor : '#41434C'
+        }">
+        {{ letterName }}
+    </div>
+</div>

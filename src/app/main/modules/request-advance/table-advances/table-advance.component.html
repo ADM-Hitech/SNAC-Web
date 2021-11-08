@@ -1,0 +1,36 @@
+<table mat-table #table [dataSource]="dataSource">
+    <ng-container matColumnDef="folio">
+        <th mat-header-cell *matHeaderCellDef> Folio </th>
+        <td mat-cell *matCellDef="let row"> {{ row.id }} </td>
+    </ng-container>
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Fecha de Solicitud </th>
+        <td mat-cell *matCellDef="let row"> {{row.created_at | date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+        <td mat-cell *matCellDef="let row"> {{row.amount | currency}} </td>
+    </ng-container>
+    <ng-container matColumnDef="date_payment">
+        <th mat-header-cell *matHeaderCellDef> Fecha de Cobro </th>
+        <td mat-cell *matCellDef="let row"> {{row.limit_Date | date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="commission">
+        <th mat-header-cell *matHeaderCellDef> Comisión </th>
+        <td mat-cell *matCellDef="let row"> {{row.comission | currency}} </td>
+    </ng-container>
+    <ng-container matColumnDef="interes">
+        <th mat-header-cell *matHeaderCellDef> Interés </th>
+        <td mat-cell *matCellDef="let row"> {{row.interest | currency}} </td>
+    </ng-container>
+    <ng-container matColumnDef="vat">
+        <th mat-header-cell *matHeaderCellDef> IVA </th>
+        <td mat-cell *matCellDef="let row"> {{row.vat | currency}} </td>
+    </ng-container>
+    <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef> Total a Pagar </th>
+        <td mat-cell *matCellDef="let row"> {{row.total_Withhold | currency}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+</table>

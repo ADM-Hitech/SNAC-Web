@@ -1,0 +1,86 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class="m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+        <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Editar Administrador</span>
+        <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="pl-25 pr-25 m-0 content-form" appPerfectScrollbar [formGroup]="formGroup">
+    <p class="label">DATOS GENERALES</p>
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between">
+          <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="inpu-name">
+              <mat-form-field appearance="outline">
+                  <mat-label>Nombres</mat-label>
+                  <input matInput formControlName="first_name">
+                  <mat-error *ngIf="formErrors.first_name.required">
+                      El nombre es requerido
+                  </mat-error>
+              </mat-form-field>
+          </div>
+          <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="inpu-last-name">
+              <mat-form-field appearance="outline">
+                  <mat-label>Apellidos</mat-label>
+                  <input matInput formControlName="last_name">
+                  <mat-error *ngIf="formErrors.last_name.required">
+                      Los Apellidos son requeridos
+                  </mat-error>
+              </mat-form-field>
+          </div>
+      </div>
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between">
+          <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-employe-number">
+              <mat-form-field appearance="outline">
+                  <mat-label>Número de empleado</mat-label>
+                  <input matInput formControlName="employee_number">
+                  <mat-error *ngIf="formErrors.employee_number.required">
+                      El numero de empleado es requerido
+                  </mat-error>
+              </mat-form-field>
+          </div>
+          <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-email">
+              <mat-form-field appearance="outline">
+                  <mat-label>Correo electrónico</mat-label>
+                  <input matInput formControlName="mail">
+                  <mat-error *ngIf="formErrors.mail.required">
+                      El mail es requerido
+                  </mat-error>
+                  <mat-error *ngIf="!formErrors?.mail?.required && formErrors?.mail?.email">
+                      Por favor ingresa un mail valido
+                  </mat-error>
+              </mat-form-field>
+          </div>
+          <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-telephone">
+              <mat-form-field appearance="outline">
+                  <mat-label>Teléfono (10 digitos)</mat-label>
+                  <input matInput formControlName="phone">
+                  <mat-error *ngIf="formErrors.phone.required">
+                      El telefono es requerido
+                  </mat-error>
+                  <mat-error *ngIf="formErrors.phone.minlength">
+                      El telefono no es correcto
+                  </mat-error>
+              </mat-form-field>
+          </div>
+      </div>
+      <p class="label">Modulos</p>
+      <div class="content-modules">
+          <ul>
+              <li *ngFor="let item of modules">
+                  <mat-checkbox color="primary" (change)="checkModule(item, $event)" [checked]="findModule(item)">{{ item.description }}</mat-checkbox>
+              </li>
+          </ul>
+      </div>
+  </div>
+
+  <div mat-dialog-actions class="m-0" fxLayoutAlign="space-around center">
+    <div class="content-botton">
+        <div class="content-btn-left">
+            <button mat-button [disabled]="formGroup.invalid || loading" (click)="submit()" [class.spinner]="loading">GUARDAR CAMBIOS</button>
+        </div>
+        <div class="content-btn-right"><button mat-button [mat-dialog-close]="false">CANCELAR</button></div>
+    </div>
+  </div>
+</div>

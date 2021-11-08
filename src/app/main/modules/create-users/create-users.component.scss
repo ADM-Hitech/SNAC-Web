@@ -1,0 +1,40 @@
+app-create-users {
+    .container {
+        padding: 25px;
+
+        .content-breadcrumbs {
+            
+            h1 {
+                color: #41434C;
+                font-size: 27px;
+            }
+        }
+
+        .content-forms {
+            margin-top: 25px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+    
+            .content-options {
+                .option {
+                    text-align: center;
+                    margin: 10px 0;
+
+                    &:first-child {
+                        margin-top: 0px;
+                    }
+    
+                    .mat-flat-button {
+                        min-width: 205px;
+                    }
+                    
+                    .inactive {
+                        background-color: #dee3ed;
+                        color: #8e91a2;
+                    }
+                }
+            }
+        }
+    }
+}

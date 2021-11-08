@@ -1,0 +1,176 @@
+@import '../../../../core/scss/app';
+
+app-table-investor {
+    table {
+        width: 100%;
+        min-width: 2700px;
+        border-radius: 5px;
+        border: 1px solid #cacee6;
+
+        tr {
+            &.back-color-row {
+                background-color: #f9f9f9;
+            }
+            
+        }
+
+        .content-name {
+            display: flex;
+            align-items: center;
+        }
+
+        .element-action {
+            .sub-table {
+                td {
+                    padding: 0;
+                }
+            }
+        }
+
+        .sub-table {
+            border: 0;
+            min-width: 100%;
+
+            td {
+                padding: 15px 0;
+                .btn-new-call-capital{
+                    font-size: 12px;
+                    background-color: #2865ff;
+                    color: white;
+                    text-align: center;
+                    padding: 5px 9px;
+                    border-radius: 5px;
+                    font-weight: bold;
+
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    
+    tr.detail-row {
+        height: 0;
+    }
+    
+    tr.element-row:not(.expanded-row):hover {
+        background: whitesmoke;
+    }
+    
+    tr.element-row:not(.expanded-row):active {
+        background: #efefef;
+    }
+    
+    .element-row td {
+        border-bottom-width: 0;
+    }
+    
+    .element-detail {
+        overflow: hidden;
+        display: flex;
+    }
+    
+    .element-diagram {
+        min-width: 80px;
+        border: 2px solid black;
+        padding: 8px;
+        font-weight: lighter;
+        margin: 8px 0;
+        height: 104px;
+    }
+    
+    .element-symbol {
+        font-weight: bold;
+        font-size: 40px;
+        line-height: normal;
+    }
+    
+    .element-description {
+        padding: 0 0 16px 0;
+    }
+    
+    .element-description-attribution {
+        opacity: 0.5;
+    }
+
+    .label-status-call-capital {
+        font-size: 12px;
+        background-color: #32379e;
+        color: white;
+        text-align: center;
+        padding: 5px 9px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .label-status-call-capital-Solicitado {
+        font-size: 12px;
+        background-color: #32379e;
+        color: white;
+        text-align: center;
+        padding: 5px 9px;
+        border-radius: 5px;
+        font-weight: bold;
+        max-width: 85px;
+    }
+
+    .label-status-call-capital-Enviado {
+        font-size: 12px;
+        background-color: #2865ff;
+        color: white;
+        text-align: center;
+        padding: 5px 9px;
+        border-radius: 5px;
+        font-weight: bold;
+        max-width: 85px;
+        cursor: pointer;
+    }
+    
+    .label-status-call-capital-Terminado {
+        font-size: 12px;
+        background-color: #cacee6;
+        color: white;
+        text-align: center;
+        padding: 5px 9px;
+        border-radius: 5px;
+        font-weight: bold;
+        max-width: 85px;
+    }
+
+    .label-status-inversion {
+        font-size: 12px;
+        background-color: #32379e;
+        color: white;
+        text-align: center;
+        padding: 5px 9px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .sticky-column {
+        position: sticky;
+        z-index: 1;
+        background: inherit;
+        @include media-breakpoint-down('sm') {
+            position: relative !important;
+            left: 0px;
+        }
+    }
+
+    .sticky-head {
+        z-index: 101 !important;
+        background: inherit;
+        @include media-breakpoint-down('sm') {
+            position: relative !important;
+            left: 0px;
+        }
+    }
+
+    #cname {
+        left: 40px !important;
+    }
+
+    #cid {
+        left: 20px !important;
+    }
+}
+  

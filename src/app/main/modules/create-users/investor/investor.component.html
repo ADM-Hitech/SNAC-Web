@@ -1,0 +1,130 @@
+<div class="container">
+    <div class="title">
+        <h3 [ngStyle]="{'font-family': 'MontserratBold'}">Crear Inversionista</h3>
+        <span class="line"></span>
+    </div>
+
+    <div class="content-form" [formGroup]="formGroup">
+        <p class="label">DATOS GENERALES</p>
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+            <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="inpu-name">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombres</mat-label>
+                    <input matInput formControlName="first_name">
+                    <mat-error *ngIf="formErrors.first_name.required">
+                        El nombre es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="inpu-last-name">
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellidos</mat-label>
+                    <input matInput formControlName="last_name">
+                    <mat-error *ngIf="formErrors.last_name.required">
+                        El apellido es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+            <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="inpu-email">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="mail">
+                    <mat-error *ngIf="formErrors.mail?.required">
+                        El mail es requerido
+                    </mat-error>
+                    <mat-error *ngIf="!formErrors?.mail?.required && formErrors?.mail?.email">
+                        Por favor ingresa un mail valido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="inpu-amount-pactado">
+                <mat-form-field appearance="outline">
+                    <mat-label>Monto total pactado</mat-label>
+                    <input matInput formControlName="total_amount_agreed" prefix="$" mask="separator" thousandSeparator=",">
+                    <mat-error *ngIf="formErrors.total_amount_agreed.required">
+                        El monto total pactado es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-date-initial">
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha inicio en comunidad <span [ngStyle]="{'font-family': 'MontserratBold'}">PrestaQi</span></mat-label>
+                    <input matInput [matDatepicker]="pickerComunity" formControlName="start_date_prestaqi">
+                    <mat-datepicker-toggle matSuffix [for]="pickerComunity"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerComunity></mat-datepicker>
+
+                    <mat-error *ngIf="formErrors.start_date_prestaqi.required">
+                        La fecha es requerida
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-date-limit">
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha limite de llamada de capital</mat-label>
+                    <input matInput [matDatepicker]="pickerCapital" formControlName="limit_date">
+                    <mat-datepicker-toggle matSuffix [for]="pickerCapital"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerCapital></mat-datepicker>
+
+                    <mat-error *ngIf="formErrors.limit_date.required">
+                        La fecha es requerida
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-rfc">
+                <mat-form-field appearance="outline">
+                    <mat-label>RFC</mat-label>
+                    <input matInput formControlName="rfc">
+
+                    <mat-error *ngIf="formErrors.rfc.required">
+                        El rfc es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <p class="label">DATOS BANCARIOS</p>
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-bank">
+                <mat-form-field appearance="outline">
+                    <mat-label>Banco</mat-label>
+                    <mat-select formControlName="institution_id">
+                        <mat-option *ngFor="let item of instituciones" [value]="item.id">{{ item.description }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formErrors.institution_id.required">
+                        El banco es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-clave">
+                <mat-form-field appearance="outline">
+                    <mat-label>CLABE interbancaria (18 digitos)</mat-label>
+                    <input matInput formControlName="clabe">
+                    <mat-error *ngIf="formErrors.clabe.required">
+                        La clabe es requerida
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-account-number">
+                <mat-form-field appearance="outline">
+                    <mat-label>Número de cuenta</mat-label>
+                    <input matInput formControlName="account_number">
+                    <mat-error *ngIf="formErrors.account_number.required">
+                        El número de cuenta es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="content-type-person">
+            <mat-checkbox formControlName="is_moral_person">
+                Persona Moral
+            </mat-checkbox>
+        </div>
+        <br>
+        <div class="content-button">
+            <button mat-flat-button color="primary" [disabled]="formGroup.invalid || loading" (click)="submit()" [class.spinner]="loading">CREAR INVERSIONISTA</button>
+        </div>
+    </div>
+</div>

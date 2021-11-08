@@ -1,0 +1,94 @@
+@import '../../../core/scss/app';
+
+app-administrator {
+    .container {
+        padding: 25px;
+        overflow: auto;
+
+        .content-breadcrumbs {
+            
+            h1 {
+                color: #41434C;
+                font-size: 27px;
+            }
+        }
+    }
+
+    .content-widgets {
+        margin-top: 25px;
+        background-color: white;
+        border-radius: 10px;
+        position: relative;
+
+        .content-loading {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff80;
+            z-index: 101;
+        }
+
+        .content-head {
+            padding: 20px 20px 0px 20px;
+
+            .title {
+                margin-bottom: 25px;
+                
+                h3 {
+                    margin: 0;
+                    color: #41434C;
+                    font-size: 20px;
+                }
+    
+                .line {
+                    background-color: #65BCB5;
+                    width: 78px;
+                    height: 5px;
+                    display: block;
+                    border-radius: 5px;
+                }
+            }
+    
+            .options {
+                display: flex;
+                justify-content: flex-end;
+        
+                .button-option-plus {
+                    height: 45px;
+                    margin-top: 4px;
+                    width: 45px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #33f;
+                    color: white;
+                    border-radius: 4px;
+        
+                    .mat-icon {
+                        color: white;
+                    }
+                }
+            }
+        }
+
+        .widgets {
+            padding: 20px;
+
+            .content-w-u {
+                @include media-breakpoint-down('sm') {
+                    padding: 20px 0px !important;
+                }
+            }
+        }
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-infix {
+        padding: 11px 0;
+        .mat-form-field-label-wrapper {
+            padding: 0;
+        }
+    }
+}

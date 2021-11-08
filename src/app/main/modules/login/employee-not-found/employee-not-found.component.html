@@ -1,0 +1,20 @@
+<div class="container module-container">
+    <div class="icon">
+        <img src="assets/images/logo.png" alt="">
+    </div>
+
+    <form class="content-form">
+        <p>No encontramos tu numero de empleado en nuesta base de datos verifica que esté correcto, o modificar en caso de que no.</p>
+
+        <div class="content-inputs" [formGroup]="verifyForm">
+            <mat-form-field class="input-full-width">
+                <mat-label>Número de Empleado</mat-label>
+                <input matInput formControlName="number">
+            </mat-form-field>
+        </div>
+
+        <div class="content-button">
+            <button mat-button>Continuar</button>
+        </div>
+    </form>
+</div>

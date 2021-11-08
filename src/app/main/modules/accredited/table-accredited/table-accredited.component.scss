@@ -1,0 +1,61 @@
+@import '../../../../core/scss/app';
+
+app-table-accredited {
+    table {
+        width: 100%;
+        min-width: 3500px;
+        border-radius: 5px;
+        border: 1px solid #cacee6;
+
+        tr {
+            &:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            
+        }
+
+        .content-name {
+            display: flex;
+            align-items: center;
+        }
+
+        .id-user-details {
+            font-family: MontserratBold;
+            border-bottom: 1px solid black;
+            cursor: pointer;
+        }
+    }
+
+    .sticky-column {
+        position: sticky;
+        z-index: 1;
+        background: inherit;
+        @include media-breakpoint-down('sm') {
+            position: relative !important;
+            left: 0px !important;
+        }
+    }
+
+    .sticky-head {
+        z-index: 101 !important;
+        background: inherit;
+        @include media-breakpoint-down('sm') {
+            position: relative !important;
+            left: 0px !important;
+        }
+    }
+
+    #cname {
+        left: 35px !important;
+        @include media-breakpoint-down('sm') {
+            left: 0px !important;
+        }
+    }
+
+    #cid {
+        left: 0px !important;
+        @include media-breakpoint-down('sm') {
+            left: 0px !important;
+        }
+    }
+}

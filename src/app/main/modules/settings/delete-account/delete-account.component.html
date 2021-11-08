@@ -1,0 +1,28 @@
+<div class="container mat-elevation-z3" >
+    <div class="title">
+        <h3 [ngStyle]="{'font-family': 'MontserratBold'}">Eliminar Cuenta</h3>
+        <span class="line"></span>
+    </div>
+
+    <div class="content">
+        <div class="icon">
+            <div class="circle-icon">
+                <mat-icon svgIcon="iconAlert" class="icon-alert"></mat-icon>
+            </div>
+        </div>
+        <div class="text">
+            <p class="alert" [ngStyle]="{'font-family': 'MontserratBold'}">Si eliminas tu cuenta se borrarán:</p>
+            <ul>
+                <li>Tu cuenta de <span [ngStyle]="{'font-family': 'MontserratBold'}">SNAC</span>.</li>
+                <li>Tu historial de operaciones con <span [ngStyle]="{'font-family': 'MontserratBold'}">SNAC</span>.</li>
+                <li>Tus notificaciones.</li>
+            </ul>
+            <div class="content-button">
+                <button mat-button (click)="delete()">
+                    <mat-icon svgIcon="iconDeleteBtn" class="icon-del-btn"></mat-icon>
+                    <span [ngStyle]="{'font-family': 'MontserratBold'}">SOLICITAR ELIMINACIÓN</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="container module-container" style="margin-top: -30px; overflow: auto;">
+    <div class="content-breadcrumbs">
+        <h1 [ngStyle]="{'font-family': 'MontserratBold'}">Dashboard</h1>
+        <div class="breadcrumbs">PrestaQi > Dashboard de finanzas</div>
+    </div>
+
+    <div class="content-tabs" >
+        <div class="content-loading" *ngIf="loading">
+            <mat-spinner></mat-spinner>
+        </div>
+        
+        <mat-tab-group>
+            <mat-tab label="COMISIONES E INTERESES" class="m-l-5">
+                <app-commissions-and-interests [data]="dataComitionInterest" (filterChange)="filterCommission($event)" (exportPdf)="exportPdf($event)"></app-commissions-and-interests>
+            </mat-tab>
+            <mat-tab label="NÚMERO DE CRÉDITOS" class="m-l-5">
+                <app-credit-number [data]="dataCreditNumber" (filterChange)="filterCommission($event)" (exportPdf)="exportPdf($event)"></app-credit-number>
+            </mat-tab>
+            <mat-tab label="INVERSIONES" class="m-l-5">
+                <app-investments [data]="dataInvestments" (filterChange)="filterCommission($event)" (exportPdf)="exportPdf($event)"></app-investments>
+            </mat-tab>
+            <mat-tab label="LIQUIDEZ">
+                <app-liquidity [data]="dataLiquidity" (filterChange)="filterCommission($event)"  (exportPdf)="exportPdf($event)"></app-liquidity>
+            </mat-tab>
+        </mat-tab-group>          
+    </div>
+</div>

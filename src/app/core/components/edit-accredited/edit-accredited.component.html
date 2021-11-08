@@ -1,0 +1,349 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class="m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+        <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Editar Acreditado</span>
+        <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="pl-25 pr-25 m-0" appPerfectScrollbar [formGroup]="formGroup">
+    <p class="label">DATOS GENERALES</p>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Nombres</mat-label>
+                <input matInput formControlName="first_name">
+                <mat-error *ngIf="formErrors?.first_name?.required">
+                    El nombre es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5 p-l-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Apellidos</mat-label>
+                <input matInput formControlName="last_name">
+                <mat-error *ngIf="formErrors?.last_name?.required">
+                    El apellido es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="mail">
+                <mat-error *ngIf="formErrors.mail?.required">
+                    El mail es requerido
+                </mat-error>
+                <mat-error *ngIf="!formErrors?.mail?.required && formErrors?.mail?.email">
+                    Por favor ingresa un mail valido
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Compañia</mat-label>
+                <mat-select formControlName="Company_Id">
+                    <mat-option *ngFor="let item of data.companies" [value]="item.id">{{ item.description }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors.Company_Id.required">
+                    La compañia es requerida
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5 p-l-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>ID</mat-label>
+                <input matInput formControlName="identify">
+                <mat-error *ngIf="formErrors?.identify?.required">
+                    El ID es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Outsourcing</mat-label>
+                <mat-select formControlName="Outsourcing_Id">
+                    <mat-option *ngFor="let item of data.companies" [value]="item.id">{{ item.description }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors.Outsourcing_Id.required">
+                    Outsourcing es requerida
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Tipo de contratación</mat-label>
+                <mat-select formControlName="type_contract_id">
+                    <mat-option *ngFor="let item of data?.typeContracts" [value]="item.id">{{ item.description }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors.type_contract_id.required">
+                    El Tipo de contratación es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5 p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Número de contrato</mat-label>
+                <input matInput formControlName="contract_number">
+                <mat-error *ngIf="formErrors?.contract_number?.required">
+                    El Número de contrato es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Cargo</mat-label>
+                <input matInput formControlName="position">
+                <mat-error *ngIf="formErrors?.position?.required">
+                    El Cargo es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Sueldo mensual neto</mat-label>
+                <input matInput formControlName="net_monthly_salary" prefix="$" mask="separator" thousandSeparator=",">
+                <mat-error *ngIf="formErrors?.net_monthly_salary?.required">
+                    El Sueldo es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5 p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Sueldo mensual bruto</mat-label>
+                <input matInput formControlName="gross_monthly_salary" prefix="$" mask="separator" thousandSeparator=",">
+                <mat-error *ngIf="formErrors.gross_monthly_salary.required">
+                    El Sueldo es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Otras obligaciones</mat-label>
+                <input matInput formControlName="other_obligations" prefix="$" mask="separator" thousandSeparator=",">
+                <mat-error *ngIf="formErrors.other_obligations.required">
+                    El campo es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Periodicidad de Pago</mat-label>
+                <mat-select formControlName="period_id" (selectionChange)="changePeriodic($event.value)">
+                    <mat-option *ngFor="let item of data?.periodos" [value]="item.id">{{ item.description }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors?.period_id?.required">
+                    La periodicidad es requerida
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha de Pago 1</mat-label>
+                <input matInput formControlName="Period_Start_Date" *ngIf="!periodicIsWeek">
+                <mat-select formControlName="Period_Start_Date" *ngIf="periodicIsWeek">
+                    <mat-option *ngFor="let item of daysOfWeeks" [value]="item.id">{{ item.label }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha de Pago 2</mat-label>
+                <input matInput formControlName="Period_End_Date">
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+        <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Antigüedad en la compañia</mat-label>
+                <input matInput formControlName="seniority_company">
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>RFC</mat-label>
+                <input matInput formControlName="rfc">
+                <mat-error *ngIf="formErrors?.rfc?.required">
+                    El RFC es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Tasa de interés (%)</mat-label>
+                <input matInput formControlName="interest_rate" type="number">
+                <mat-error *ngIf="formErrors?.interest_rate?.required">
+                    El Interes es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5 p-l-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Tasa de interés moratoria (%)</mat-label>
+                <input matInput formControlName="moratoruim_interest_rate" type="number">
+                <mat-error *ngIf="formErrors?.moratoruim_interest_rate?.required">
+                    El Interes es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Ultima fecha de pago</mat-label>
+                <input matInput [matDatepicker]="endDatePay" formControlName="end_day_payment">
+                <mat-datepicker-toggle matSuffix [for]="endDatePay"></mat-datepicker-toggle>
+                <mat-datepicker #endDatePay></mat-datepicker>
+
+                <mat-error *ngIf="formErrors.end_day_payment.required">
+                    La fecha es requerida
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+        <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input matInput [matDatepicker]="pickerBirthday" formControlName="birth_date">
+                <mat-datepicker-toggle matSuffix [for]="pickerBirthday"></mat-datepicker-toggle>
+                <mat-datepicker #pickerBirthday></mat-datepicker>
+
+                <mat-error *ngIf="formErrors?.birth_date?.required">
+                    La fecha es requerida
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5r">
+            <mat-form-field appearance="outline">
+                <mat-label>Sexo</mat-label>
+                <mat-select formControlName="gender_id">
+                    <mat-option *ngFor="let item of data?.generos" [value]="item.id">{{ item.description }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors?.gender_id?.required">
+                    El Sexo es requerida
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <p class="label">DIRECCIÓN</p>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+        <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Dirección</mat-label>
+                <input matInput formControlName="address">
+                <mat-error *ngIf="formErrors.address.required">
+                    La dirección es requerida
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="30" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Colonia</mat-label>
+                <input matInput formControlName="colony">
+                <mat-error *ngIf="formErrors.colony.required">
+                    La colonia es requerida
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Delegación o Municipio</mat-label>
+                <input matInput formControlName="municipality">
+                <mat-error *ngIf="formErrors.municipality.required">
+                    La Delagacion/Municipio es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5 p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Codigo Postal</mat-label>
+                <input matInput formControlName="zip_code">
+                <mat-error *ngIf="formErrors.zip_code.required">
+                    El codigo postal es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Estado</mat-label>
+                <input matInput formControlName="state">
+                <mat-error *ngIf="formErrors.state.required">
+                    El codigo postal es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <p class="label">DATOS BANCARIOS</p>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Banco</mat-label>
+                <mat-select formControlName="institution_id">
+                    <mat-option *ngFor="let item of data?.banks" [value]="item.id">{{ item.description }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors?.institution_id?.required">
+                    El Banco es requerida
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5 p-l-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>CLABE interbancaria (18 digitos)</mat-label>
+                <input matInput formControlName="clabe">
+                <mat-error *ngIf="formErrors?.clabe?.required">
+                    La Clabe es requerida
+                </mat-error>
+                <mat-error *ngIf="formErrors.clabe.minlength">
+                    Formato invalido
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Número de cuenta</mat-label>
+                <input matInput formControlName="account_number">
+                <mat-error *ngIf="formErrors?.account_number?.required">
+                    El Número de cuenta es requerida
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <p class="label">NOTIFICACIÓN MAIL</p>
+    <div fxLayout="row" fxLayoutAlign="space-between">
+        <div fxFlex="100">
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="mail_mandate_latter">
+                <mat-error *ngIf="formErrors.mail_mandate_latter?.required">
+                    El mail es requerido
+                </mat-error>
+                <mat-error *ngIf="!formErrors?.mail_mandate_latter?.required && formErrors?.mail_mandate_latter?.email">
+                    Por favor ingresa un mail valido
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="m-0" fxLayoutAlign="space-around center">
+      <div class="content-botton">
+            <div class="content-btn-left">
+              <button mat-button [disabled]="formGroup.invalid || loading" (click)="submit()" [class.spinner]="loading">GUARDAR CAMBIOS</button>
+            </div>
+            <div class="content-btn-right"><button mat-button [mat-dialog-close]="false">CANCELAR</button></div>
+      </div>
+  </div>
+</div>

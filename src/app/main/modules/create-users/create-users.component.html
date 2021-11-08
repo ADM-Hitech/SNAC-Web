@@ -1,0 +1,31 @@
+<div class="container module-container" style=" overflow: auto;">
+    <div class="content-breadcrumbs">
+        <h1 [ngStyle]="{'font-family': 'MontserratBold'}">Usuarios</h1>
+        <div class="breadcrumbs">PrestaQi > Usuarios > Crear usuario</div>
+    </div>
+    <div class="content-forms mat-elevation-z3">
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
+            <div fxFlex="20">
+                <div class="content-options">
+                    <div class="option">
+                        <button mat-flat-button color="accent" [ngClass]="{'active': isIndex(), 'inactive': !isIndex()}" (click)="goTo('users/create-users')">Crear Inversionista</button>
+                    </div>
+                    <div class="option">
+                        <button mat-flat-button color="accent" [ngClass]="{'active': activeMenu('accredited'), 'inactive': !activeMenu('accredited')}" (click)="goTo('users/create-users/accredited')">Crear Acreditado</button>
+                    </div>
+                    <div class="option">
+                        <button mat-flat-button color="accent" [ngClass]="{'active': activeMenu('administrator'), 'inactive': !activeMenu('administrator')}" (click)="goTo('users/create-users/administrator')">Crear Administrador</button>
+                    </div>
+                    <div class="option">
+                        <button mat-flat-button color="accent" [ngClass]="{'active': activeMenu('group-users'), 'inactive': !activeMenu('group-users')}" (click)="goTo('users/create-users/group-users')">Crear Grupo de Usuarios</button>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="80">
+                <div class="content-child">
+                    <router-outlet  ></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

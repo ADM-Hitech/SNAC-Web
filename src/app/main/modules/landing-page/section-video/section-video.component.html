@@ -1,0 +1,32 @@
+<div class="container mt" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+    <div fxLayout="column" fxLayout.xs="row" fxLayout.sm="row" fxFlex="60" fxFlex.sm="100" fxFlex.xs="100" fxLayoutAlign="center">
+        <div class="content-video" fxFlex.sm="100" fxFlex.xs="100" fxLayoutAlign.sm="center center" fxLayoutAlign.xs="center center">
+            <div class="bg-video"></div>
+            <div class="video">
+                <youtube-player #player videoId="Yym_AwzwzLk" [width]="width" height="452" [playerVars]="playerVars" (ready)="onReady($event)" (stateChange)="onStateChange($event)"></youtube-player>
+                <div class="content-bg-video" [@fadeInOutSlow]="isPlaying ? '0' : '1'">
+                    <img src="assets/images/video-screen.jpg" alt="" srcset="">
+                </div>
+                <div class="content-btn-play" [@fadeInOutSlow]="isPlaying ? '0' : '1'">
+                    <img src="assets/images/video-play.png" alt="" srcset="" (click)="playVideo()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-text" fxLayout="column" fxFlex="40" fxFlex.sm="100" fxFlex.xs="100" fxLayoutAlign="center">
+        <div fxLayout="column" fxLayout.xs="row" fxLayout.sm="row">
+            <h2 class="text-video">Aprende a registrarte y a usar nuestra app</h2>
+        </div>
+        <div fxLayout="column" fxLayout.xs="row" fxLayout.sm="row">
+            <span class="separation-blue"></span>
+        </div>
+        <div fxLayout="column" fxLayout.xs="row" fxLayout.sm="row">
+            <p class="sub-text">Sé parte de la comunidad <b>PrestaQi</b>&#174;<br>totalmente gratis</p>
+        </div>
+        <div fxLayout="column" fxLayout.xs="row" fxLayout.sm="row" fxLayoutAlign="start start" fxLayoutAlign.sm="center center" fxLayoutAlign.xs="center center">
+            <div class="content-button">
+                <button mat-button (click)="openDialogContact()">QUIERO REGISTRARME</button>
+            </div>
+        </div>
+    </div>
+</div>

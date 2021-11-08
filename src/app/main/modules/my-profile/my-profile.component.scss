@@ -1,0 +1,133 @@
+@import '../../../core/scss/app';
+
+app-my-profile {
+    .container {
+        padding: 25px;
+        overflow: auto;
+
+        .content-breadcrumbs {
+            h1 {
+                color: #41434C;
+                font-size: 30px;
+                font-weight: bold;
+            }
+        }
+
+        .content {
+            margin-top: 25px;
+        }
+
+        .profile {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+
+            app-icon-user {
+                display: flex;
+                justify-content: center;
+            }
+
+            .name {
+                color: #41434C;
+                margin: 0;
+                font-size: 18px;
+            }
+
+            .email {
+                color: #41434C;
+                margin: 0;
+                overflow: hidden; 
+                text-overflow: ellipsis;
+            }
+        }
+
+        .content-bgcolor {
+            margin-left: 25px;
+            background-color: #41434C;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            position: relative;
+
+            @include media-breakpoint-down('sm') {
+                margin-left: 0px;
+                margin-top: 25px;
+            }
+
+            .content-loading {
+                position: absolute;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                background-color: #ffffff80;
+            }
+
+            .content-form { 
+                padding: 25px;
+                border-radius: 10px;
+                background-color: white;
+    
+                mat-form-field {
+                    width: 100%;
+                }
+
+                .pl-12-5 {
+                    padding-left: 12.5px;
+                    @include media-breakpoint-down('sm') {
+                        margin-right: 0px;
+                    }
+                }
+
+                .pr-12-5 {
+                    padding-right: 12.5px;
+                    @include media-breakpoint-down('sm') {
+                        margin-right: 0px;
+                    }
+                }
+    
+                .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button {
+                    padding-top: 11px;
+                }
+    
+                .label-title {
+                    margin-bottom: 25px;
+                
+                    h3 {
+                        margin: 0;
+                        color: #41434C;
+                        font-size: 20px;
+                    }
+    
+                    .line {
+                        background-color: #65BCB5;
+                        width: 78px;
+                        height: 5px;
+                        display: block;
+                        border-radius: 5px;
+                    }
+                }
+            }
+
+            .content-legents {
+                color: white;
+                padding: 25px;
+                span {
+                    color: #65BCB5;
+                    font-weight: 600;
+                    margin-bottom: 5px;
+                }
+
+                p {
+                    margin: 0;
+                    a {
+                        color: #65BCB5;
+                    }
+                }
+            }
+        }
+    }
+}

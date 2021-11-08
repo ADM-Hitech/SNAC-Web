@@ -1,0 +1,116 @@
+#page-splash-screen {    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffffed;
+    z-index: 99999;
+    pointer-events: none;
+    opacity: 0;
+}
+
+#page-splash-screen .content-loading {
+  height: calc(100% - 64px);  
+  z-index: 9999;
+  bottom: 0;
+  margin: auto;
+}
+
+#page-splash-screen .content-loading .body-loading {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#page-splash-screen .content-loading .body-loading img 
+{      
+  display: flex;
+  max-width: 300px;
+}
+
+#page-splash-screen .content-loading .body-loading .loader, 
+#page-splash-screen .content-loading .body-loading .wrapper 
+{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+
+#page-splash-screen .content-loading .body-loading .wrapper 
+{
+  margin-top: 30px;
+}
+
+#page-splash-screen .content-loading .body-loading .loader 
+{
+  width:90vw;
+  margin-top: 10px;
+}
+
+#page-splash-screen .content-loading .body-loading .loader .wrapper span {
+  width:5px;
+  height:5px;
+  background: #e5004e;
+  display:inline-block;
+  position:relative;
+  margin:0px 2px;
+  border-radius:50%;
+  opacity:0;
+  animation:loading 3000ms ease-in-out infinite;
+}
+
+#page-splash-screen .content-loading .body-loading .loader .wrapper span:nth-child(5) {
+    animation-delay:100ms;
+}
+
+#page-splash-screen .content-loading .body-loading .loader .wrapper span:nth-child(4) {
+    animation-delay:200ms;
+}
+
+#page-splash-screen .content-loading .body-loading .loader .wrapper span:nth-child(3) {
+    animation-delay:300ms;
+}
+
+#page-splash-screen .content-loading .body-loading .loader .wrapper span:nth-child(2) {
+    animation-delay:400ms;
+}
+
+#page-splash-screen .content-loading .body-loading .loader .wrapper span:nth-child(1) {
+    animation-delay:500ms;
+}
+
+@keyframes loading {
+    0% {
+        transform:translateX(-350px);
+        opacity:0;
+        width:0px;
+        height:0px;
+    }
+    40%{
+        transform:translateX(0px);
+        opacity:1;        
+    }   
+    50% {
+        width:7px;
+        height:7px;
+    } 
+    100% {
+        transform:translateX(350px);
+        opacity:0;
+        width:0px;
+        height:0px;
+    }  
+}
+
+app-modules {
+  .container {
+    width: 100%;
+  }
+
+  .content-router {
+    display: contents;
+  }
+}

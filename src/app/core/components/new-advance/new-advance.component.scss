@@ -1,0 +1,40 @@
+@import '../../scss/app';
+
+.mat-slider-horizontal .mat-slider-track-wrapper {
+    height: 5px !important;
+}
+
+.mat-slider-horizontal .mat-slider-wrapper {
+    height: 5px !important;
+}
+
+.mat-slider-horizontal .mat-slider-track-background {
+    height: 5px !important;
+}
+
+.mat-slider-horizontal .mat-slider-track-fill {
+    height: 5px !important;
+}
+
+app-new-advance {
+    .content-input {
+        input {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+    }
+    
+    .ctn-btn {
+        button {
+            border-radius: 50px;
+            background-color: #41434C;
+            color: white;
+
+            &:disabled {
+                color: white !important;
+                opacity: .5;
+            }
+        }
+    }
+}

@@ -1,0 +1,99 @@
+<div class="dialog-content-contact">
+  <mat-toolbar matDialogTitle class="m-0" style="border-bottom: none;background-color: transparent;">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Contáctanos</span>
+      <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+          <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="pl-25 pr-25 m-0 content-form" [formGroup]="formGroup">
+    <p>Llena tus datos y cuéntanos si eres una empresa o un colaborador y un ejecitivo se pondrá en contacto contigo.</p>
+
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between" class="content-field">
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+            <mat-form-field>
+                <mat-label>Nombres</mat-label>
+                <input matInput formControlName="name">
+                <mat-error *ngIf="formErrors.name.required">
+                  El nombre es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5 p-l-12-5">
+            <mat-form-field>
+                <mat-label>Correo electrónico</mat-label>
+                <input matInput formControlName="email">
+                <mat-error *ngIf="formErrors.mail.required">
+                  El correo es requerido
+                </mat-error>
+                <mat-error *ngIf="!formErrors?.mail?.required && formErrors?.mail?.email">
+                  Por favor ingresa un mail valido
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
+          <mat-form-field>
+              <mat-label>Telefono</mat-label>
+              <input matInput formControlName="telephone">
+              <mat-error *ngIf="formErrors.telephone.required">
+                El telefono es requerido
+              </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between" class="content-field">
+        <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+            <mat-form-field>
+                <mat-label>Soy un</mat-label>
+                <mat-select formControlName="type">
+                  <mat-option value="Colaborador" selected>Colaborador</mat-option>
+                  <mat-option value="Empleador">Empleador</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
+            <mat-form-field>
+                <mat-label>Empresa</mat-label>
+                <input matInput formControlName="company">
+                <mat-error *ngIf="formErrors.company.required">
+                  La empresa es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between" class="content-field">
+        <div fxFlex="100">
+            <mat-form-field>
+                <mat-label>Tu mensaje</mat-label>
+                <textarea matInput formControlName="message"></textarea>
+                <mat-error *ngIf="formErrors.message.required">
+                  El Mensaje es requerido
+                </mat-error>
+            </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row" class="content-field terminosycondiciones">
+        <div fxFlex="100">
+          <mat-checkbox formControlName="accept">
+            Acepto los <a href="">términos y condiciones</a> y el <a href="">aviso de privacidad</a> de <span [ngStyle]="{'font-family': 'MontserratBold'}">PrestaQi</span>
+          </mat-checkbox>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="m-0" fxLayoutAlign="center">
+    <div class="content-button">
+      <div class="content-button">
+        <button mat-button (click)="submitForm()" [disabled]="!formGroup.valid || !isAccepted" [mat-dialog-close]="true">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+app-icon-user {
+    .icon-user-container {
+        margin-right: 15px;
+        padding: 15px 0;
+        .circle {
+            width: 30px;
+            height: 30px;
+            background-color: #41434C;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: bold;
+        }
+    }
+
+    .myprofile {
+        margin-right: 0;
+
+        .circle {
+            background: linear-gradient(47deg, #4F96A1 14%, #65BCB5 70%, #65BCB5 0%);
+        }
+    }
+}

@@ -1,0 +1,144 @@
+app-upload-voucher-capital {
+    .content-steps {
+        margin-bottom: 25px;
+        overflow: auto;
+        position: relative;
+
+        .content-carta {
+            iframe {
+                height: 100%;
+                width: 100%;
+                min-height: 835px;
+                min-width: 630px;
+            }
+        }
+
+        .content-upload-file {
+            .box-input {
+                text-align: center;
+                outline: 2px dashed #92b0b3;
+                outline-offset: -10px;
+                -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+                transition: outline-offset .15s ease-in-out, background-color .15s linear;
+                font-size: 1.25rem;
+                position: relative;
+                padding: 100px 20px;
+    
+                &.error-file {
+                    outline: 2px dashed red;
+                }
+    
+                label {
+                    color: #a6a6a6;
+                    font-size: 15px;
+                    display: block;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+    
+                .input-file {
+                    opacity: 0;
+                    overflow: hidden;
+                    position: absolute;
+                    z-index: -1;
+                }
+    
+                .icon-upload {
+                    display: contents;
+                    color: #32379e;
+                    svg {
+                        width: 100px;
+                        height: 100px;
+                    }
+                }
+            }
+
+            .content-image {
+                img {
+                    max-width: 370px;
+                }
+            }
+        }
+    }
+
+    .mat-dialog-actions {
+        .mat-button {
+            border-radius: 50px;
+            font-weight: bold;
+            padding: 5px 0;
+            min-width: 130px !important;
+        }
+
+        .content-button {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding-bottom: 20px;
+            min-width: 200px;
+            text-align: center;
+
+            .spinner {
+                &:before {
+                    content: '';
+                    box-sizing: border-box;
+                    position: absolute;
+                    top: 50%;
+                    left: 90%;
+                    width: 20px;
+                    height: 20px;
+                    margin-top: -10px;
+                    margin-left: -10px;
+                    border-radius: 50%;
+                    border: 2px solid #ffffff;
+                    border-top-color: #41434C;
+                    animation: spinner .8s linear infinite;
+                }
+            }
+
+            .content-btn-left {
+                width: 50%;
+                padding-right: 12.5px;
+                padding-left: 25px;
+    
+                .mat-button {
+                    width: 100%;
+                    background: #41434C;
+                    color: white;
+                    &:disabled {
+                        opacity: .5;
+                    }
+                }
+            }
+    
+            .content-btn-right {
+                width: 50%;
+                padding-left: 12.5px;
+                padding-right: 25px;
+    
+                .mat-button {
+                    width: 100%;
+                    background-color: #8e91a2;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    @keyframes giro{
+        0% {
+            transform: rotate(0deg);
+            border-radius: 50%;
+        }
+        50% {
+            border-radius: 20%;        
+        }    
+        100% {
+            border-radius: 50%;
+            transform: rotate(360deg);
+        }
+    }
+    
+    @keyframes spinner {
+        to {transform: rotate(360deg);}
+    }
+}

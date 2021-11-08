@@ -1,0 +1,43 @@
+<div class="container module-container">
+  <div class="content-breadcrumbs">
+    <h1 [ngStyle]="{'font-family': 'MontserratBold'}">Adelantos por Cobrar</h1>
+    <div class="breadcrumbs">PrestaQi > Adelantos por Cobrar</div>
+  </div>
+  <div class="content-table mat-elevation-z3">
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between">
+      <div fxFlex="30">
+        <div class="title">
+          <h3 [ngStyle]="{'font-family': 'MontserratBold'}">Listado de Adelantos por Cobrar</h3>
+          <span class="line"></span>
+        </div>
+      </div>
+      <div fxFlex="30">
+        <div class="options">
+          <div class="content-search">
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Buscar" #Filter [formControl]="filterControl">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="btn-more">
+            <div class="button-option-plus">
+              <button mat-icon-button [matMenuTriggerFor]="menuMore"><mat-icon>add</mat-icon></button>
+              <mat-menu #menuMore="matMenu" xPosition="after">
+                <!--<button mat-menu-item><mat-icon>print</mat-icon> <span>Imprimir</span></button>-->
+                <button mat-menu-item (click)="exportFile(1)"><mat-icon>description</mat-icon> <span>Exportar a Excel</span></button>
+                <button mat-menu-item (click)="exportFile(2)"><mat-icon>description</mat-icon> <span>Exportar a PDF</span></button>
+              </mat-menu>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table" id="contentTable">
+      <div class="content-loading" *ngIf="loading">
+        <mat-spinner diameter="70"></mat-spinner>
+      </div>
+      <app-table-advances-receivable [data]="data" (changeTable)="fetchData()"></app-table-advances-receivable>
+      <br>
+    </div>
+  </div>
+</div>

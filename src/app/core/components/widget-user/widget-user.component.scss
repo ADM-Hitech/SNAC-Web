@@ -1,0 +1,113 @@
+@import '../../scss/app.scss';
+
+app-widget-user {
+    .widget-user {
+        padding: 20px;
+        display: flex;
+        min-width: 350px;
+        background-color: #eff4ff;
+        border-radius: 5px;
+        border: 2px solid #dee3ed;
+
+        @include media-breakpoint-down('sm') {
+            flex-direction: column;
+            min-width: 100%;
+            padding: 10px;
+        }
+
+
+        .content-circle {
+            .circle-id {
+                width: 80px;
+                height: 80px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 40px;
+                background: linear-gradient(47deg, #33f 14%, #3cf 70%, #3cf 0%);
+                font-weight: bold;
+                color: white;
+                font-size: 25px;
+
+                @include media-breakpoint-down('sm') {
+                    margin: auto;
+                    margin-bottom: 25px;
+                }
+            }
+        }
+
+        .content-info {
+            width: 100%;
+            padding-left: 20px;
+
+            @include media-breakpoint-down('sm') {
+                padding-left: 0px;
+            }
+
+            p {
+                margin: 0;
+            }
+
+            .content-name {
+                display: flex;
+                justify-content: space-between;
+
+                .name {
+                    p {
+                        font-family: MontserratBold;
+                        color: #41434C;
+                        font-size: 16px;
+                    }
+
+                    span {
+                        font-size: 11px;
+                        color: #8e91a2;
+                        font-weight: bold;
+                        display: block;
+                    }
+                }
+            }
+
+            .content-contact {
+                margin-top: 20px;
+
+                .email {
+                    display: flex;
+                    justify-content: left;
+                    align-items: center;
+                    color: #41434C;
+                    
+                    .mat-icon {
+                        color: #2865ff;
+
+                        svg {
+                            width: 17px;
+                            height: 17px;
+                        }
+                    }
+                }
+
+                .telephone {
+                    display: flex;
+                    justify-content: space-between;
+                    color: #41434C;
+
+                    .text-phone {
+                        display: flex;
+                        justify-content: left;
+                        align-items: center;
+
+                        .mat-icon {
+                            color: #2865ff;
+
+                            svg {
+                                width: 17px;
+                                height: 17px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

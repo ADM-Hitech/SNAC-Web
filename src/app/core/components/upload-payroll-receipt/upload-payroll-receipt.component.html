@@ -1,0 +1,52 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Recibo de Nómina</span>
+            <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div class="pl-25 pr-25 m-0" mat-dialog-content>
+        <div class="cnt-icon">
+            <mat-icon svgIcon="uploadPayRollReceipt"></mat-icon>
+        </div>
+        <p class="label">Suba sus recibos de su ultimo mes de pago</p>
+        <div class="cnt-files">
+            <ng-container *ngFor="let fileIndex of numberFilesRequire">
+                <ng-container *ngIf="!!listFiles[fileIndex - 1]">
+                    <div class="item-file active">
+                        <mat-icon class="left">remove_circle_outline</mat-icon>
+                        <span>{{ listFiles[fileIndex - 1].dateInitial | date: 'dd/MM/yyyy' }} - {{ listFiles[fileIndex - 1].dateFinish | date: 'dd/MM/yyyy' }}</span>
+                        <mat-icon class="rigth">done</mat-icon>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="!!!listFiles[fileIndex - 1]">
+                    <div class="item-file">
+                        <mat-icon class="left">file_copy</mat-icon>
+                        <span>Archivo</span>
+                        <mat-icon class="rigth">schedule</mat-icon>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+
+        <div class="content-upload-file">
+            <div class="box-input" #boxInput>
+                <mat-icon svgIcon="logoUpload" class="icon-upload"></mat-icon>
+                <br>
+                <input type="file" class="input-file" id="file" #inputFile>
+                <label for="file">Subir (formatos: jpg, jpeg, png, pdf)</label>
+            </div>
+
+            <div *ngIf="uploadingFile" class="loadingUpload">
+                <mat-spinner [diameter]="30"></mat-spinner>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="m-0" fxLayoutAlign="center center">
+        <button mat-button class="btn" [disabled]="uploadingFile || listFiles.length !== totalFilesRequire" (click)="continue()">SUBIR ARCHIVOS</button>
+    </div>
+</div>

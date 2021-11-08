@@ -1,0 +1,25 @@
+<div class="container mat-elevation-z3">
+  
+  <div class="title">
+    <h3 [ngStyle]="{'font-family': 'MontserratBold'}">Solicitar Informe de mi Cuenta</h3>
+    <span class="line"></span>
+  </div>
+
+  <div class="content">
+    <div class="icon">
+      <div class="circle-icon">
+        <mat-icon svgIcon="iconDocument" class="icon-security"></mat-icon>
+      </div>
+    </div>
+    <div class="text">
+      <p [ngStyle]="{'font-family': 'MontserratBold'}">Crear un informe de tus ajustes y configuración en SNAC.</p>
+      <p>Puedes acceder o transferir la información a otra aplicación. El informe no incluye configuraciones adicionales ni datos personales</p>
+      <div class="content-button">
+        <button mat-button (click)="exportMyInvestment()" [class.spinner]="loading">
+          <mat-icon svgIcon="iconDocumentBtn" class="icon-doc-btn"></mat-icon>
+          <span [ngStyle]="{'font-family': 'MontserratBold'}">SOLICITAR INFORME</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

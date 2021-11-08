@@ -1,0 +1,26 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class="m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+        <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Confirmación de Capital</span>
+        <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+  </mat-toolbar>
+
+  <div class="pl-25 pr-25 m-0 content-form" mat-dialog-content appPerfectScrollbar>
+    <div class="content-img" *ngIf="data.fileByte !== null">
+      <img [src]="fileImage" alt="voucher">
+    </div>
+    <p *ngIf="data.fileByte === null">El comprobante no ha sido enviado.</p>
+  </div>
+
+  <div mat-dialog-actions class="m-0" fxLayoutAlign="space-around center">
+    <div class="content-botton">
+        <div class="content-btn-left">
+            <button mat-button [disabled]="loading" (click)="submit()" [class.spinner]="loading">COMFIRMAR</button>
+        </div>
+        <div class="content-btn-right"><button mat-button [mat-dialog-close]="false">RECHAZAR</button></div>
+    </div>
+  </div>
+</div>

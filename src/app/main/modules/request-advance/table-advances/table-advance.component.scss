@@ -1,0 +1,16 @@
+@import '../../../../core/scss/app';
+
+app-table-advance {
+    table {
+        width: 100%;
+        //min-width: 2700px;
+        border-radius: 5px;
+        border: 1px solid #cacee6;
+
+        tr {
+            &.back-color-row {
+                background-color: #f9f9f9;
+            }
+        }
+    }
+}

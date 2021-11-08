@@ -1,0 +1,103 @@
+<div class="container module-container">
+    <div class="content-breadcrumbs">
+        <h1 [ngStyle]="{'font-family': 'MontserratBold'}">Mi Perfil</h1>
+        <div class="breadcrumbs">{{user?.user?.company_Name || 'PrestaQi'}} > Mi Perfil</div>
+    </div>
+    <div class="content">
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between">
+            <div fxFlex="20" fxFlex.sm="100" fxFlex.xs="100">
+                <div class="profile mat-elevation-z3">
+                    <app-icon-user width="100" height="100" fontSize="30" cls="myprofile" [nameUser]="username"></app-icon-user>
+                    <p [ngStyle]="{'font-family': 'MontserratBold'}" class="name">{{ username }}</p>
+                    <p class="email">{{ user?.user?.mail }}</p>
+                </div>
+            </div>
+            <div fxFlex="80" fxFlex.sm="100" fxFlex.xs="100">
+                <div class="content-bgcolor">
+                    <div class="content-loading" *ngIf="loading">
+                        <mat-spinner></mat-spinner>
+                    </div>
+
+                    <div class="content-form mat-elevation-z3">
+                        <div class="label-title">
+                            <h3 [ngStyle]="{'font-family': 'MontserratBold'}">Datos Personales</h3>
+                            <span class="line"></span>
+                        </div>
+                        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between">
+                            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="pr-12-5">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Nombre</mat-label>
+                                    <input matInput disabled [value]="user?.user?.first_Name">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="pr-12-5 pl-12-5">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Apellidos</mat-label>
+                                    <input matInput disabled [value]="user?.user?.last_Name">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="pl-12-5">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Correo electrónico</mat-label>
+                                    <input matInput disabled [value]="user?.user?.mail">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between">
+                            <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="pr-12-5">
+                                <mat-form-field appearance="outline" *ngIf="rol === 'Inversionista'">
+                                    <mat-label>Fecha inicio en comunidad <span [ngStyle]="{'font-family': 'MontserratBold'}">PrestaQi</span></mat-label>
+                                    <input matInput disabled [value]="user?.user?.created_at | date: 'dd/MM/yyyy'">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" *ngIf="rol === 'Acreditado'">
+                                    <mat-label>Esquema de pago <span [ngStyle]="{'font-family': 'MontserratBold'}">{{user?.user?.company_Name}}</span></mat-label>
+                                    <input matInput disabled [value]="user?.user?.period_Name">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="pr-12-5 pl-12-5" *ngIf="rol === 'Inversionista'">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Monto total pactado</mat-label>
+                                    <input matInput disabled [value]="user?.user?.total_Amount_Agreed">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="pl-12-5">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>RFC</mat-label>
+                                    <input matInput disabled [value]="user?.user?.rfc">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="label-title">
+                            <h3 [ngStyle]="{'font-family': 'MontserratBold'}">Datos Bancarios</h3>
+                            <span class="line"></span>
+                        </div>
+                        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between">
+                            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="pr-12-5">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Banco</mat-label>
+                                    <input matInput disabled [value]="user?.user?.institution_Name">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="input-clabe">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>CLABE interbancaria (18 digitos)</mat-label>
+                                    <input matInput disabled [value]="user?.user?.clabe">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="pl-12-5">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Número de cuenta</mat-label>
+                                    <input matInput disabled [value]="user?.user?.account_Number">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-legents">
+                        <span>¿Quieres modificar alguno de tus datos?</span>
+                        <p>Para cualquier aclaración o modificacón de datos escribe un correo a <a href="mailto:soporte@prestaqi.com">soporte@prestaqi.com</a> y un ejecutivo se pondrá en contacto contigo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+
+@import "../../../../core/scss/app";
+
+.content-welcome {
+
+    position: relative;
+    overflow: hidden;
+    height: 900px;
+    background-color: #1f3898;
+    background-image: url('../../../../../assets/images/backgrounds/landing-welcome-bg-2.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    border-bottom-left-radius: 108px;
+
+    @include media-breakpoint-down('sm') {
+        height: 800px;
+        border-bottom-left-radius: 60px;
+    }
+
+    .content-image {
+        img {
+            position: absolute;
+            z-index: 0;
+        }
+    }
+
+    .content-text {
+        z-index: 3;
+        position: inherit;
+        width: 75%;
+        margin: auto;
+
+        .icon-logo {
+            color: white;
+
+            svg {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        .welcome {
+            font-size: 21px;
+            color: #65BCB5;
+            margin-top: -28px;
+
+            @include media-breakpoint-down('sm') {
+                font-size: 20px;
+            }
+        }
+
+        .eslogan {
+            margin-top: 0;
+            color: white;
+            font-size: 67px;
+            font-family: 'MontserratLight';
+            line-height: 1.2;
+
+            @include media-breakpoint-down('sm') {
+                font-size: 40px;
+            }
+
+            b {
+                font-family: 'MontserratBold';
+            }
+        }
+
+        .how-function {
+            background-color: #41434C;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 22px;
+            cursor: pointer;
+
+            -webkit-box-shadow: -17px 14px 5px 2px rgba(0, 0, 102, 0.3);
+            -moz-box-shadow: -17px 14px 5px 2px rgba(0, 0, 102, 0.3);
+            box-shadow: -17px 14px 5px 2px rgba(0, 0, 102, 0.3);
+        }
+    }
+}

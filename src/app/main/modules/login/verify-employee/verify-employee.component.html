@@ -1,0 +1,20 @@
+<div class="container module-container">
+    <div class="icon">
+        <img src="assets/images/logo.png" alt="">
+    </div>
+
+    <form class="content-form">
+        <p>Escribe tu número de empleado</p>
+
+        <div class="content-inputs" [formGroup]="loginForm">
+            <mat-form-field class="input-full-width">
+                <mat-label>Número de Empleado</mat-label>
+                <input matInput formControlName="number">
+            </mat-form-field>
+        </div>
+
+        <div class="content-button">
+            <button mat-button (click)="initialProcess()">Confirmar Registro</button>
+        </div>
+    </form>
+</div>

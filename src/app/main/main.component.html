@@ -1,0 +1,18 @@
+<mat-sidenav-container class="mat-sidenav-init">
+  <div id="app-main-content">
+    <div id="wrapper">
+      <app-navbar class="left-navbar" 
+        [folded]="appSettings.layout.navigationFolded"
+        *ngIf="appSettings.layout.navigation === 'left'"></app-navbar>
+
+      <div class="content-wrapper">
+        <app-toolbar class="above" *ngIf="appSettings.layout.toolbar === 'above'"></app-toolbar>
+        <app-modules> </app-modules>
+      </div>
+    </div>
+  </div>
+
+  <mat-sidenav appMatSidenavHelper="quick-panel" appMatSidenavMode="over" appMatSidenavPosition="end">
+    <app-quick-panel></app-quick-panel>
+  </mat-sidenav>
+</mat-sidenav-container>

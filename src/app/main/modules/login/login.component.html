@@ -1,0 +1,47 @@
+<div class="container module-container">
+    <div class="icon">
+        <img src="assets/images/logo.png" alt="">
+    </div>
+
+    <form class="content-form" [formGroup]="loginForm">
+        <h3>Bienvenido</h3>
+        <p>Ingresa tus datos para continuar</p>
+        <div class="content-inputs">
+            <mat-form-field class="input-full-width">
+                <mat-label>Correo electrónico</mat-label>
+                <input matInput formControlName="mail">
+                <mat-error *ngIf="loginFormErrors.mail.required">
+                    Email is required
+                </mat-error>
+                <mat-error *ngIf="!loginFormErrors.mail.required && loginFormErrors.mail.email">
+                    Please enter a valid email address
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="input-full-width">
+                <mat-label>Contraseña</mat-label>
+                <input matInput type="password" formControlName="password" >
+                <mat-error *ngIf="loginFormErrors.password.required">
+                    Password is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <span *ngIf="loginError !== ''" class="errorLogin">{{loginError}}</span>
+        <div class="content-button">
+            <button mat-button [disabled]="loginForm.invalid || loading" (click)="submit()" [class.spinner]="loading">INGRESAR</button>
+        </div>
+        <div class="content-options">
+            <div class="options">
+                <div>
+                    <mat-checkbox formControlName="rememberLogin">
+                        Recordar mis datos
+                    </mat-checkbox>
+                </div>
+                <div (click)="changePassword()">
+                    <mat-icon svgIcon="logoCandado" class="icon-candado"></mat-icon>
+                    <span>Recuperar contraseña</span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

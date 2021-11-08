@@ -1,0 +1,47 @@
+<div class="widget-user" >
+    <div class="content-circle">
+        <div class="circle-id">{{ id }}</div>
+    </div>
+    <div class="content-info">
+        <div class="content-name">
+            <div class="name">
+                <p>{{ name }}</p>
+                <span>{{ position }}</span>
+            </div>
+            <div class="options" *ngIf="editing">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="edit()">
+                        <mat-icon svgIcon="iconEdit"></mat-icon>
+                        <span>Editar Usuario</span>
+                    </button>
+                    <button mat-menu-item (click)="delete()">
+                        <mat-icon svgIcon="iconDelete"></mat-icon>
+                        <span>Eliminar</span>
+                    </button>
+                </mat-menu>
+            </div>
+        </div>
+        <div class="content-contact">
+            <div class="email">
+                <mat-icon svgIcon="iconMail"></mat-icon>
+                <p style="text-overflow: ellipsis; width: 160px; white-space: nowrap;  overflow: hidden;">{{ email }}</p>
+            </div>
+            <div class="telephone">
+                <div class="text-phone">
+                    <mat-icon svgIcon="iconPhone"></mat-icon>
+                    <p>{{ telephone }}</p>
+                </div>
+                <div *ngIf="editing">
+                    <ui-switch 
+                        [checked]="active" 
+                        size="small" 
+                        color="#2865ff"
+                        (change)="statusChange($event)"
+                    ></ui-switch></div>
+            </div>
+        </div>
+    </div>
+</div>
