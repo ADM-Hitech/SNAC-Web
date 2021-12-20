@@ -16,6 +16,9 @@ import { AccountStatusModel } from "src/app/core/models/account-status.model";
 import { SnakBarAlertComponent } from "src/app/core/components/snak-bar-alert/snak-bar-alert.component";
 import { UploadingFilesComponent } from "src/app/core/components/uploading-files/uploading-files.component";
 import { PaySheetModel } from "src/app/core/models/pay-sheet.model";
+import { Router } from "@angular/router";
+import { EditEmailComponent } from "src/app/core/components/edit-email/edit-email.component";
+import { AvisoPrivacidadComponent } from "src/app/core/components/aviso-privacidad/aviso-privacidad.component";
 
 @Component({
     selector: 'app-verify-employee',
@@ -31,13 +34,15 @@ export class VerifyEmployeeComponent {
     public ine: Array<IneModel>;
     public statusAccount: AccountStatusModel;
     public payrollReceipt: Array<PaySheetModel>;
+    private employeeId: number;
 
     constructor(
         private rest: LoginService,
         private formBuild: FormBuilder,
         private readonly matDialog: MatDialog,
         private readonly advanceReq: RequestAdvanceService,
-        private readonly snackBar: MatSnackBar
+        private readonly snackBar: MatSnackBar,
+        private readonly router: Router
     ) {
         this.loginForm = this.formBuild.group({
             number: ['', Validators.required]
@@ -45,10 +50,24 @@ export class VerifyEmployeeComponent {
     }
 
     public initialProcess(): void {
-        const welcomeDialog = this.matDialog.open(WelcomeSnacComponent);
+        this.loading = true;
 
-        welcomeDialog.afterClosed().subscribe((response) => {
-            this.uploadSelfie();
+        this.rest.verifyEmployeeNumber(this.loginForm.get('number').value).subscribe(response => {
+            if (response.success) {
+                this.employeeId = response.data.id;
+                const welcomeDialog = this.matDialog.open(WelcomeSnacComponent);
+
+                welcomeDialog.afterClosed().subscribe((response) => {
+                    this.uploadSelfie();
+                });
+            } else {
+                this.loading = false;
+                this.rest.prevError.next(response.message);
+                this.rest.previewPage.next(true);
+                this.router.navigate(['/login/not-found']);
+            }
+        }, err => {
+            this.showAlert('ERROR', 'El usuario no fue encontrado o sus documentos ya fueron aprovados', 'error');
         });
     }
 
@@ -100,20 +119,53 @@ export class VerifyEmployeeComponent {
         const payRollReceipt = this.matDialog.open(UploadPayrollReceiptComponent, {
             data: {
                 service: this.advanceReq,
-                rfc
+                rfc,
+                onlyOne: true
             }
         });
 
         payRollReceipt.afterClosed().subscribe((response) => {
-            const uploadingDialog = this.matDialog.open(UploadingFilesComponent);
-            this.payrollReceipt = response;
-            forkJoin([
-                this.advanceReq.syncIneAccredited(this.ine[0] as IneFrontModel, this.ine[1]),
-                this.advanceReq.syncStatusAccount(this.statusAccount),
-                this.advanceReq.syncPaysheet(this.payrollReceipt),
-                this.advanceReq.syncSelfie(this.selfie)
-            ]).subscribe((response) => {
-                uploadingDialog.close();
+            var changeEmailDialog = this.matDialog.open(EditEmailComponent, {
+                data: {
+                    id: this.employeeId
+                }
+            });
+
+            changeEmailDialog.afterClosed().subscribe((responseEmail) => {
+                if (responseEmail) {
+
+                    const dialogRef = this.matDialog.open(AvisoPrivacidadComponent);
+
+                    dialogRef.afterClosed().subscribe((raviso) => {
+                        if (typeof raviso == 'boolean' && (raviso as boolean)) {
+                            const uploadingDialog = this.matDialog.open(UploadingFilesComponent);
+                            uploadingDialog.disableClose = true;
+                            this.payrollReceipt = response;
+                            forkJoin([
+                                this.advanceReq.syncIneAccredited(this.ine[0] as IneFrontModel, this.ine[1], this.employeeId),
+                                this.advanceReq.syncStatusAccount(this.statusAccount, this.employeeId),
+                                this.advanceReq.syncPaysheet(this.payrollReceipt, this.employeeId),
+                                this.advanceReq.syncSelfie(this.selfie, this.employeeId)
+                            ]).subscribe((response) => {
+
+                                this.advanceReq.completeUploadFiles(this.employeeId).subscribe((res) => {
+                                    uploadingDialog.close();
+                                    this.loading = false;
+
+                                    this.showAlert('EXITOSO', 'Los documentos fueron enviados.', 'success');
+                                    this.router.navigate(['/login']);
+                                }, err => {
+                                    this.showAlert('ERROR', 'Ocurrio un error al procesar los archivos favor de intentarlo mas tarde', 'error');
+                                });
+
+                            }, err => {
+                                this.showAlert('ERROR', 'Ocurrio un error al procesar los archivos favor de intentarlo mas tarde', 'error');
+                            });
+                        } else {
+                            this.loading = false;
+                        }
+                    });
+                }
             });
         });
     }
@@ -128,7 +180,7 @@ export class VerifyEmployeeComponent {
             panelClass: 'snack-message',
             horizontalPosition: 'right',
             verticalPosition: 'top',
-            duration: 2500
+            duration: 3300
         });
     }
 }

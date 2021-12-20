@@ -1,9 +1,13 @@
-import { AfterViewInit, Component, ElementRef, Inject, ViewChild, ViewEncapsulation } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { MatDialogRef, MatIconRegistry, MatSnackBar, MAT_DIALOG_DATA } from "@angular/material";
 import { DomSanitizer } from "@angular/platform-browser";
 import { LoginService } from "src/app/main/modules/login/login.service";
 import { FaceDetectModal } from "../../models/face-detected-model";
 import { SnakBarAlertComponent } from "../snak-bar-alert/snak-bar-alert.component";
+
+import { HubConnection, HubConnectionBuilder } from "@aspnet/signalr";
+import { Constant } from "../../services/constant";
+import { Utils } from "../../utils";
 
 @Component({
 	selector: 'app-verify-selfie',
@@ -11,11 +15,12 @@ import { SnakBarAlertComponent } from "../snak-bar-alert/snak-bar-alert.componen
 	styleUrls: ['./verify-selfie.component.scss'],
 	encapsulation: ViewEncapsulation.None
 })
-export class VerifySelfieComponent implements AfterViewInit {
+export class VerifySelfieComponent implements AfterViewInit, OnInit {
 
 	@ViewChild('boxInput') boxInput: ElementRef;
 	@ViewChild('inputFile') inputFile: ElementRef;
 	public uploadingSelfie: boolean = false;
+	public hubConnection: HubConnection;
 
 	constructor(
 		private dialogRef: MatDialogRef<VerifySelfieComponent>,
@@ -24,7 +29,8 @@ export class VerifySelfieComponent implements AfterViewInit {
 		},
 		private matIconRegistry: MatIconRegistry,
 		private domSanitizer: DomSanitizer,
-		private snackBar: MatSnackBar
+		private snackBar: MatSnackBar,
+		private constant: Constant
 	) {
 
 		this.dialogRef.disableClose = true;
@@ -38,6 +44,8 @@ export class VerifySelfieComponent implements AfterViewInit {
 			this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../../assets/icons/ico-subir-archivo.svg')
 		);
 	}
+
+	ngOnInit(): void {}
 
 	ngAfterViewInit() {
 		(this.boxInput.nativeElement as HTMLDivElement).addEventListener('click', (event) => {

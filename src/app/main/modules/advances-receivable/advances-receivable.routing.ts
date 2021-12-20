@@ -10,7 +10,7 @@ const router: Routes = [
         component: AdvancesReceivableComponent,
         canActivate: [AuthGuardService, CheckRolesGuardService],
         data: {
-            roles: ['Administrador']
+            roles: ['Administrador', 'License']
         }
     },
 ];

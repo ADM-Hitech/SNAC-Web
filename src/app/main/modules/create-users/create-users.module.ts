@@ -8,6 +8,9 @@ import { AccreditedComponent } from './accredited/accredited.component';
 import { SharedModule } from 'src/app/core/modules/shared.module';
 import { CreateUsersRouting } from './create-users.routing';
 import { CreateUserService } from './create-users.service';
+import { GroupSnacComponent } from './group-snac/group-snac.component';
+import { LicenseComponent } from './license/license.component';
+
 
 @NgModule({
   declarations: [
@@ -15,7 +18,9 @@ import { CreateUserService } from './create-users.service';
     AdministratorComponent,
     GroupUsersComponent,
     InvestorComponent,
-    AccreditedComponent
+    AccreditedComponent,
+    GroupSnacComponent,
+    LicenseComponent
   ],
   imports: [
     CommonModule,

@@ -69,6 +69,10 @@ export class AuthService {
     return localStorage.getItem('rfc') || '';
   }
 
+  public get curp(): string {
+    return localStorage.getItem('curp') || '';
+  }
+
   public get modules(): Array<any> {
     const token = localStorage.getItem('token');
     const user = this.jwtHelper.decodeToken(token);

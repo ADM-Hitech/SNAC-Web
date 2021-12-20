@@ -1,0 +1,14 @@
+<div class="container module-container">
+    <div class="content-breadcrumbs">
+        <h1 [ngStyle]="{'font-family': 'MontserratBold'}">Listado de Licencias</h1>
+        <div class="breadcrumbs">SNAC > Licencias</div>
+    </div>
+    <div class="content-table mat-elevation-z3">
+        <div class="table" id="contentTable">
+            <div class="content-loading" *ngIf="loading">
+                <mat-spinner></mat-spinner>
+            </div>
+            <app-table-license [dataSource]="dataSource" [totalRow]="totalRow" (changePage)="changePage($event)"></app-table-license>
+        </div>
+    </div>
+</div>

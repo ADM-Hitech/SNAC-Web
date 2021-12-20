@@ -2,7 +2,7 @@
     <mat-toolbar matDialogTitle class="m-0">
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
             <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Recibo de Nómina</span>
-            <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+            <button mat-button *ngIf="closeModal" class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
                 <mat-icon>close</mat-icon>
             </button>
         </div>
@@ -12,7 +12,7 @@
         <div class="cnt-icon">
             <mat-icon svgIcon="uploadPayRollReceipt"></mat-icon>
         </div>
-        <p class="label">Suba sus recibos de su ultimo mes de pago</p>
+        <p class="label">{{ message }}</p>
         <div class="cnt-files">
             <ng-container *ngFor="let fileIndex of numberFilesRequire">
                 <ng-container *ngIf="!!listFiles[fileIndex - 1]">
@@ -33,7 +33,7 @@
             </ng-container>
         </div>
 
-        <div class="content-upload-file">
+        <div class="content-upload-file" *ngIf="listFiles.length !== totalFilesRequire">
             <div class="box-input" #boxInput>
                 <mat-icon svgIcon="logoUpload" class="icon-upload"></mat-icon>
                 <br>
@@ -47,6 +47,6 @@
         </div>
     </div>
     <div mat-dialog-actions class="m-0" fxLayoutAlign="center center">
-        <button mat-button class="btn" [disabled]="uploadingFile || listFiles.length !== totalFilesRequire" (click)="continue()">SUBIR ARCHIVOS</button>
+        <button mat-button class="btn" [disabled]="uploadingFile || listFiles.length !== totalFilesRequire" (click)="continue()">CONTINUAR</button>
     </div>
 </div>

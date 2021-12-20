@@ -20,6 +20,7 @@ export class AccreditedComponent implements OnInit {
   public genders: Array<any> = [];
   public periodos: Array<any> = [];
   public typeContract: Array<any> = [];
+  public licenses: Array<any> = [];
   public loadingCatalog = false;
   public daysOfWeeks: Array<{id: number, label: string}> = [{
     id: 0,
@@ -83,7 +84,8 @@ export class AccreditedComponent implements OnInit {
       other_obligations: {},
       Outsourcing_Name: {},
       Period_Start_Date: {},
-      Period_End_Date: {}
+      Period_End_Date: {},
+      License_Id: {}
     };
   }
 
@@ -121,7 +123,8 @@ export class AccreditedComponent implements OnInit {
       other_obligations: ['', Validators.required],
       Outsourcing_Name: [''],
       Period_Start_Date: ['', Validators.required],
-      Period_End_Date: ['']
+      Period_End_Date: [''],
+      License_Id: ['']
     });
 
     this.formGroup.valueChanges.subscribe(() => {
@@ -138,7 +141,8 @@ export class AccreditedComponent implements OnInit {
       this.rest.getTypeContract(),
       this.rest.getPeriodos(2),
       this.rest.getGender(),
-      this.rest.getInstitutions()
+      this.rest.getInstitutions(),
+      this.rest.getLicenses()
     ]).subscribe((response) => {
       if (response[0].success) {
         this.typeContract = response[0].data;
@@ -154,6 +158,10 @@ export class AccreditedComponent implements OnInit {
 
       if (response[3].success) {
         this.instituciones = response[3].data;
+      }
+
+      if (response[4].success) {
+        this.licenses = response[4].data;
       }
 
       this.loadingCatalog = false;

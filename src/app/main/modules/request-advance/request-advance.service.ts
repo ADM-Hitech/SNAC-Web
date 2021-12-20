@@ -25,23 +25,39 @@ export class RequestAdvanceService {
     public getMyAdvances(): Observable<any> {
         const userId = this.auth.id;
 
-        return this.http.get(`${this.constant.api}/Advances/GetByAccredited/${userId}`);
+        return this.http.get(`${this.constant.api}Advances/GetByAccredited/${userId}`);
     }
 
-    public calculateAdvance(): Observable<number> {
-        return this.http.post<Object>(`${this.constant.api}/Advances/CalculateAdvance`, {}).pipe(
+    public calculateAdvance(paysheet: Array<PaySheetModel>): Observable<number> {
+        const formData = new FormData();
+        formData.append('amount', '0');
+        formData.append('PaySheetsJson', JSON.stringify(paysheet.map(item => item.toJson())));
+
+        paysheet.forEach((element) => {
+            formData.append(element.uuid, element.file);
+        });
+
+        return this.http.post<Object>(`${this.constant.api}Advances/CalculateAdvance`, formData).pipe(
             map((response: any) => {
                 return response.data?.advance?.maximum_Amount || 0;
             })
         );
     }
 
-    public preAdvance(amount?: number): Observable<any> {
-        return this.http.post<Object>(`${this.constant.api}/Advances/CalculateAdvance`, { amount });
+    public preAdvance(paysheet: Array<PaySheetModel>, amount?: number): Observable<any> {
+        const formData = new FormData();
+        formData.append('amount', amount.toString());
+        formData.append('PaySheetsJson', JSON.stringify(paysheet.map(item => item.toJson())));
+
+        paysheet.forEach((element) => {
+            formData.append(element.uuid, element.file);
+        });
+
+        return this.http.post<Object>(`${this.constant.api}Advances/CalculateAdvance`, formData);
     }
 
     public getInfoBank(): Observable<any> {
-        return this.http.get(`${this.constant.api}/Users/GetUser`);
+        return this.http.get(`${this.constant.api}Users/GetUser`);
     }
 
     public uploadPaySheet(base64file: string): Observable<any> {
@@ -55,7 +71,7 @@ export class RequestAdvanceService {
         });
     }
 
-    public syncIneAccredited(front: IneFrontModel, back: IneModel): Observable<any> {
+    public syncIneAccredited(front: IneFrontModel, back: IneModel, id: number): Observable<any> {
         const dateBirth = moment(front.birthDate);
         const formData = new FormData();
         formData.append('Name', front.name);
@@ -66,14 +82,14 @@ export class RequestAdvanceService {
         formData.append('ClaveElector', front.claveElector);
         formData.append('ClaveElectorBack', back.claveElector);
         formData.append('Meta', front.meta);
-        //formData.append('AccreditedId', front.meta);
+        formData.append('AccreditedId', id.toString());
         formData.append('File', front.file);
         formData.append('FileBack', back.file);
 
         return this.http.post(`${this.constant.api}BinariaFiles/IneAccount`, formData);
     }
 
-    public syncStatusAccount(statusAccount: AccountStatusModel): Observable<any> {
+    public syncStatusAccount(statusAccount: AccountStatusModel, id: number): Observable<any> {
         const formData = new FormData();
         formData.append('KeyAccount', statusAccount.keyAccount);
         formData.append('Address', statusAccount.address);
@@ -83,16 +99,17 @@ export class RequestAdvanceService {
         formData.append('NameBank', statusAccount.nameBank);
         formData.append('BusinessNameBank', statusAccount.businesNameBank);
         formData.append('NumberAccount', statusAccount.numberAccount);
-        //formData.append('AccreditedId', pref.me().userId.toString());
+        formData.append('AccreditedId', id.toString());
         formData.append('Meta', statusAccount.meta);
         formData.append('File', statusAccount.file);
 
         return this.http.post(`${this.constant.api}BinariaFiles/StatusAccount`, formData);
     }
 
-    public syncPaysheet(paysheet: Array<PaySheetModel>): Observable<any> {
+    public syncPaysheet(paysheet: Array<PaySheetModel>, id: number): Observable<any> {
 
         const formData = new FormData();
+        formData.append('AccreditedId', id.toString());
         formData.append('PaySheetsJson', JSON.stringify(paysheet.map(item => item.toJson())));
         
         paysheet.forEach((item) => {
@@ -102,13 +119,31 @@ export class RequestAdvanceService {
         return this.http.post(`${this.constant.api}BinariaFiles/Paysheet`, formData);
     }
 
-    public syncSelfie(selfie: FaceDetectModal): Observable<any> {
+    public requestAdvance(amount: number, paysheet: Array<PaySheetModel>): Observable<any> {
         const formData = new FormData();
-        // formData.append('AccreditedId', pref.me().userId.toString());
+        formData.append('amount', amount.toString());
+        formData.append('PaySheetsJson', JSON.stringify(paysheet.map(item => item.toJson())));
+
+        paysheet.forEach((element) => {
+            formData.append(element.uuid, element.file);
+        });
+
+        return this.http.post(`${this.constant.api}Advances`, formData);
+    }
+
+    public syncSelfie(selfie: FaceDetectModal, id: number): Observable<any> {
+        const formData = new FormData();
+        formData.append('AccreditedId', id.toString());
         formData.append('metadata', selfie.meta);
         formData.append('FaceId', selfie.faceId);
         formData.append('File', selfie.file);
 
         return this.http.post(`${this.constant.api}BinariaFiles/Selfie`, formData);
+    }
+
+    public completeUploadFiles(id: number): Observable<any> {
+        return this.http.put(`${this.constant.api}BinariaFiles/CompleteUploadFiles`, {
+            id
+        });
     }
 }

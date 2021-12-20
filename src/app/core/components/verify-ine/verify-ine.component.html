@@ -2,9 +2,6 @@
     <mat-toolbar matDialogTitle class="m-0">
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
             <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Subir INE</span>
-            <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
-                <mat-icon>close</mat-icon>
-            </button>
         </div>
     </mat-toolbar>
 
@@ -13,7 +10,7 @@
 
         <div class="content-ine">
             <div class="item" [ngClass]="{'active': type === 'front'}">
-                <mat-icon class="clock">schedule</mat-icon>
+                <mat-icon class="clock"> {{ type === 'front' ? 'schedule' : 'done' }}</mat-icon>
                 <span>FRONTAL</span>
             </div>
             <div class="item" [ngClass]="{'active': type !== 'front'}">

@@ -111,6 +111,7 @@ app-upload-payroll-receipt {
 
         &:disabled {
             color: white !important;
+            opacity: .5;
         }
     }
 }

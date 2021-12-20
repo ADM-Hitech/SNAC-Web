@@ -1,0 +1,26 @@
+<table mat-table #table [dataSource]="dataSource">
+
+  <ng-container matColumnDef="claveRastreo">
+    <th mat-header-cell *matHeaderCellDef> Clave de Rastreo </th>
+    <td mat-cell *matCellDef="let row"> {{ row.claveRastreo }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="dateTransaction">
+    <th mat-header-cell *matHeaderCellDef> Fecha </th>
+    <td mat-cell *matCellDef="let row"> {{ row.dateTransaction | date }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="monto">
+    <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+    <td mat-cell *matCellDef="let row"> {{ row.monto | currency }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="estado">
+    <th mat-header-cell *matHeaderCellDef> Estatus </th>
+    <td mat-cell *matCellDef="let row"> {{ row.estado }} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+
+</table>

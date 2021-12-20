@@ -7,6 +7,8 @@ import { AccreditedComponent } from './accredited/accredited.component';
 import { CreateUsersComponent } from './create-users.component';
 import { AuthGuardService } from '../../../core/services/auth/auth-guard.service';
 import { CheckRolesGuardService } from '../../../core/services/auth/check-roles-guard.service';
+import { GroupSnacComponent } from './group-snac/group-snac.component';
+import { LicenseComponent } from './license/license.component';
 
 const routes: Routes = [
     {
@@ -28,6 +30,14 @@ const routes: Routes = [
             {
                 path: 'group-users',
                 component: GroupUsersComponent
+            },
+            {
+                path: 'group-snac',
+                component: GroupSnacComponent
+            },
+            {
+                path: 'license',
+                component: LicenseComponent
             }
         ],
         canActivate: [AuthGuardService, CheckRolesGuardService],

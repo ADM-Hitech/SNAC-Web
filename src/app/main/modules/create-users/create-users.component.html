@@ -1,12 +1,15 @@
 <div class="container module-container" style=" overflow: auto;">
     <div class="content-breadcrumbs">
         <h1 [ngStyle]="{'font-family': 'MontserratBold'}">Usuarios</h1>
-        <div class="breadcrumbs">PrestaQi > Usuarios > Crear usuario</div>
+        <div class="breadcrumbs">SNAC > Usuarios > Crear usuario</div>
     </div>
     <div class="content-forms mat-elevation-z3">
         <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
             <div fxFlex="20">
                 <div class="content-options">
+                    <div class="option">
+                        <button mat-flat-button color="accent" [ngClass]="{'active': activeMenu('license'), 'inactive': !activeMenu('license')}" (click)="goTo('users/create-users/license')">Crear Licencia</button>
+                    </div>
                     <div class="option">
                         <button mat-flat-button color="accent" [ngClass]="{'active': isIndex(), 'inactive': !isIndex()}" (click)="goTo('users/create-users')">Crear Inversionista</button>
                     </div>
@@ -18,6 +21,9 @@
                     </div>
                     <div class="option">
                         <button mat-flat-button color="accent" [ngClass]="{'active': activeMenu('group-users'), 'inactive': !activeMenu('group-users')}" (click)="goTo('users/create-users/group-users')">Crear Grupo de Usuarios</button>
+                    </div>
+                    <div class="option">
+                        <button mat-flat-button color="accent" [ngClass]="{'active': activeMenu('group-snac'), 'inactive': !activeMenu('group-snac')}" (click)="goTo('users/create-users/group-snac')">Cargar Empleados SNAC</button>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,54 @@
+<div class="container module-container">
+  <div class="content-breadcrumbs">
+      <h1 [ngStyle]="{'font-family': 'MontserratBold'}">Lista de Acreditados</h1>
+      <div class="breadcrumbs">PrestaQi > Licencia > Acreditados</div>
+  </div>
+  <div class="content-table mat-elevation-z3">
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between">
+          <div fxFlex="30" fxFlex.sm="100" fxFlex.xs="100">
+              <div class="title">
+                  <h3 [ngStyle]="{'font-family': 'MontserratBold'}">Listado de Acreditados</h3>
+                  <span class="line"></span>
+              </div>
+          </div>
+          <div fxFlex="30" fxFlex.sm="100" fxFlex.xs="100">
+              <div class="options">
+                  <div class="content-search">
+                      <mat-form-field appearance="outline">
+                          <input matInput placeholder="Buscar" #Filter [formControl]="filterControl">
+                          <mat-icon matSuffix>search</mat-icon>
+                      </mat-form-field>
+                  </div>
+                  <div class="btn-more">
+                      <div class="button-option-plus">
+                          <button mat-icon-button [matMenuTriggerFor]="menuMore"><mat-icon>add</mat-icon></button>
+                          <mat-menu #menuMore="matMenu" xPosition="after">
+                            <!--<button mat-menu-item><mat-icon>print</mat-icon> <span>Imprimir</span></button>-->
+                            <button mat-menu-item (click)="exportFile(1)"><mat-icon>description</mat-icon> <span>Exportar a Excel</span></button>
+                            <button mat-menu-item (click)="exportFile(2)"><mat-icon>description</mat-icon> <span>Exportar a PDF</span></button>
+                          </mat-menu>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="table" id="contentTable">
+          <div class="content-loading" *ngIf="loading">
+              <mat-spinner></mat-spinner>
+          </div>
+          <app-table-license-accredited
+              [data]="data"
+              [totalRow]="totalRow"
+              (changePage)="changePage($event)"
+              [banks]="institutions"
+              [generos]="genders"
+              [companies]="companies"
+              [periodos]="periodos"
+              [typeContracts]="typeContracts"
+              [licenses]="licenses"
+              (eventDelete)="delete($event)"
+          ></app-table-license-accredited>
+          <br>
+      </div>
+  </div>
+</div>

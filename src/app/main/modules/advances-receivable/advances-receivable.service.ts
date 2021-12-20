@@ -14,8 +14,22 @@ export class AdvancesReceivableService {
     private constant: Constant
   ) { }
 
-  public fetchData(filter: string = ''): Observable<any> {
-    return this.http.get(`${this.constant.api}Accrediteds/ListAdvancesReceivable?filter=` + filter);
+  public fetchData(filter: string = '', licenseid: number = 0): Observable<any> {
+    let filters = '';
+
+    if (licenseid > 0) {
+      filters += `?LicenseId=${licenseid}`;
+    }
+
+    if (filter !== '') {
+      if (filters.includes('?')) {
+        filters += `&Filter=${filter}`;
+      } else {
+        filters += `?Filter=${filter}`;
+      }
+    }
+
+    return this.http.get(`${this.constant.api}Accrediteds/ListAdvancesReceivable${filters}`);
   }
 
   public fetchFile(type: number) {

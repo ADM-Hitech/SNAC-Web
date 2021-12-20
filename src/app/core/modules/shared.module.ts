@@ -45,6 +45,14 @@ import { VerifySelfieComponent } from '../components/verify-selfie/verify-selfie
 import { VerifyIneComponent } from '../components/verify-ine/verify-ine.component';
 import { VerifyAccountStatusComponent } from '../components/verify-account-status/verify-account-status.component';
 import { UploadingFilesComponent } from '../components/uploading-files/uploading-files.component';
+import { EditLicenseComponent } from '../components/edit-license/edit-license.component';
+import { PreviewDocumentComponent } from '../components/preview_document/preview_document.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { EditEmailComponent } from '../components/edit-email/edit-email.component';
+import { ShowCartaMandatoComponent } from '../components/show-carta-mandato/show-carta-mandato.component';
+import { ShowConvenioComponent } from '../components/show-convenio/show-convenio.component';
+import { ShowCartaTransferenciaDataComponent } from '../components/show-carta-transferencia-data/show-carta-transferencia-data.component';
+import { AvisoPrivacidadComponent } from '../components/aviso-privacidad/aviso-privacidad.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +87,14 @@ import { UploadingFilesComponent } from '../components/uploading-files/uploading
     VerifySelfieComponent,
     VerifyIneComponent,
     VerifyAccountStatusComponent,
-    UploadingFilesComponent
+    UploadingFilesComponent,
+    EditLicenseComponent,
+    PreviewDocumentComponent,
+    EditEmailComponent,
+    ShowCartaMandatoComponent,
+    ShowConvenioComponent,
+    ShowCartaTransferenciaDataComponent,
+    AvisoPrivacidadComponent
   ],
   imports: [
     CommonModule,
@@ -91,7 +106,8 @@ import { UploadingFilesComponent } from '../components/uploading-files/uploading
     ObserversModule,
     UiSwitchModule,
     TranslateModule.forChild(),
-    NgxMaskModule.forChild()
+    NgxMaskModule.forChild(),
+    PdfViewerModule
   ],
   exports: [
     TranslateModule,
@@ -117,7 +133,8 @@ import { UploadingFilesComponent } from '../components/uploading-files/uploading
     AppNavbarService,
     AppMatchMedia,
     Constant,
-    CookieService
+    CookieService,
+    PdfViewerModule
   ],
   entryComponents: [
     ModalConfirmComponent,
@@ -144,7 +161,14 @@ import { UploadingFilesComponent } from '../components/uploading-files/uploading
     VerifySelfieComponent,
     VerifyIneComponent,
     VerifyAccountStatusComponent,
-    UploadingFilesComponent
+    UploadingFilesComponent,
+    EditLicenseComponent,
+    PreviewDocumentComponent,
+    EditEmailComponent,
+    ShowCartaMandatoComponent,
+    ShowConvenioComponent,
+    ShowCartaTransferenciaDataComponent,
+    AvisoPrivacidadComponent
   ]
 })
 export class SharedModule { }

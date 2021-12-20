@@ -29,6 +29,8 @@ export class TableAccreditedComponent implements OnInit {
     'interestRate',
     'interestMora',
     'rfc',
+    'curp',
+    'employeeNumber',
     'bank',
     'code',
     'numberAcount',
@@ -37,9 +39,6 @@ export class TableAccreditedComponent implements OnInit {
     'oldYears',
     'position',
     'oldCompany',
-    'otherObligations',
-    'advanceAfterObligations',
-    'limitCredit'
   ];
 
   @Input() set data(data: any) {
@@ -52,6 +51,7 @@ export class TableAccreditedComponent implements OnInit {
   @Input() companies: Array<any> = [];
   @Input() periodos: Array<any> = [];
   @Input() typeContracts: Array<any> = [];
+  @Input() licenses: Array<any> = [];
   @Output() changePage: EventEmitter<any> = new EventEmitter<any>();
   @Output() eventDelete: EventEmitter<any> = new EventEmitter<any>();
 
@@ -74,7 +74,8 @@ export class TableAccreditedComponent implements OnInit {
         generos: this.generos,
         companies: this.companies,
         periodos: this.periodos,
-        typeContracts: this.typeContracts
+        typeContracts: this.typeContracts,
+        licenses: this.licenses
       },
       panelClass: 'edit-accredited-modal'
     });

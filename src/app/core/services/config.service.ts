@@ -73,13 +73,7 @@ export class AppConfigService {
         router.events.subscribe(
             (event) => {
                 if ( event instanceof NavigationStart ) {
-                    if (event.url === '/login' ||
-                        event.url === '/login/auth' ||
-                        event.url === '/login/snac' ||
-                        event.url === '/' ||
-                        event.url === '/login/recovery-password' ||
-                        event.url === '/login/change-password' ||
-                        event.url.includes('login') || 
+                    if (event.url.includes('login') || 
                         event.url === '/aviso-privacidad' ||
                         event.url === '/terminos-y-condiciones')
                     {

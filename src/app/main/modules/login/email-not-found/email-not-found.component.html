@@ -1,0 +1,25 @@
+<div class="container module-container">
+    <div class="icon">
+        <img src="assets/images/logo.png" alt="">
+    </div>
+
+    <form class="content-form">
+        <p>Por favor ingresa tus datos y nos pondremos en contacto contigo.</p>
+
+        <div class="content-inputs" [formGroup]="form">
+            <mat-form-field class="input-full-width">
+                <mat-label>CURP</mat-label>
+                <input matInput formControlName="Curp">
+            </mat-form-field>
+
+            <mat-form-field class="input-full-width">
+                <mat-label>Correo</mat-label>
+                <input matInput formControlName="Email">
+            </mat-form-field>
+        </div>
+
+        <div class="content-button" fxLayout="column" fxLayoutGap="12px">
+            <button mat-button [disabled]="loading || form.invalid" (click)="submit()">ENVIAR</button>
+        </div>
+    </form>
+</div>

@@ -333,6 +333,17 @@
                 </mat-form-field>
             </div>
         </div>
+        <p class="label">LICENCIA</p>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxFlex="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <mat-select formControlName="License_Id">
+                        <mat-option *ngFor="let license of licenses" [value]="license.id">{{ license.name }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
         <div class="content-button">
             <button mat-flat-button color="primary" [disabled]="formGroup.invalid || loading" (click)="submit()" [class.spinner]="loading">CREAR ACREDITADO</button>
         </div>

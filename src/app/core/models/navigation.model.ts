@@ -50,6 +50,25 @@ export class AppNavigationModel {
                     ]
                 }
             ];
+        } else if (rol === 'License') {
+            this.model = [
+                {
+                    id: 'menu',
+                    title: 'MENÚ',
+                    type: 'group',
+                    icon: '',
+                    children: [
+                        {
+                            id: 'license',
+                            title: 'Licencia',
+                            type: 'item',
+                            url: 'licencias',
+                            icon: 'vpn_key',
+                            iconCustom: false
+                        }
+                    ]
+                }
+            ];
         } else if (rol === 'Acreditado') {
             this.model = [
                 {
@@ -136,6 +155,29 @@ export class AppNavigationModel {
                     title: 'Administradores',
                     type : 'item',
                     url  : 'users/administrator'
+                });
+
+                allMenus.push({
+                    id: 'license',
+                    title: 'Licencia',
+                    type: 'item',
+                    url: 'licencias',
+                    icon: 'vpn_key',
+                    iconCustom: false,
+                }, {
+                    id: 'pending-record',
+                    title: 'Solicitudes',
+                    type: 'item',
+                    url: 'registros-pendientes',
+                    icon: 'group_add',
+                    iconCustom: false,
+                }, {
+                    id: 'pending-record-not-found',
+                    title: 'Accreditados Sin Curp',
+                    type: 'item',
+                    url: 'registros-sin-rfc',
+                    icon: 'group_add',
+                    iconCustom: false,
                 });
             }
 

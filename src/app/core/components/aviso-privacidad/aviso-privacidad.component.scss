@@ -1,0 +1,20 @@
+app-aviso-privacidad {
+    .dialog-content-wrapper {
+
+        .title-aviso {
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .cnt-button {
+            margin-bottom: 12px;
+            margin-top: 12px;
+
+            .bnt {
+                background-color: #41434C;
+                color: white;
+                border-radius: 20px;
+            }
+        }
+    }
+}

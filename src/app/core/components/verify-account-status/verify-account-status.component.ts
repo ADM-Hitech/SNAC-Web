@@ -29,7 +29,7 @@ export class VerifyAccountStatusComponent implements AfterViewInit {
         private snackBar: MatSnackBar,
         private auth: AuthService
     ) {
-        this.dialogRef.disableClose = false;
+        this.dialogRef.disableClose = true;
 
         this.matIconRegistry.addSvgIcon(
 			'uploadPayRollReceipt',

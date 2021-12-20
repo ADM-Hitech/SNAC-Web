@@ -26,7 +26,7 @@ export class PaySheetModel {
         paysheet.dateFinish = moment(object['fechafin'] ?? '', 'DD/MM/YYYY').toDate();
         paysheet.neto = parseFloat((object['netonomina'] ?? '0').replace(',', '').replace('$', '')) ?? 0;
         paysheet.total = parseFloat((object['netopagar'] ?? '0').replace(',', '').replace('$', '')) ?? 0;
-        paysheet.meta = object;
+        paysheet.meta = JSON.stringify(object);
 
         return paysheet;
     }

@@ -56,6 +56,10 @@ export class DetailsAdvancesAcreditedComponent implements OnInit {
   ) {
     if (!!data.advances) {
       this.dataSource = [...data.advances];
+
+      setTimeout(() => {
+        this.updatedWidthColumn();
+      }, 500);
     }
 
     if (!!data.user) {
@@ -95,15 +99,15 @@ export class DetailsAdvancesAcreditedComponent implements OnInit {
   }
 
   updatedWidthColumn(): void {
-    this.cadvanceWidth = (this.cadvance.nativeElement as HTMLTableHeaderCellElement).clientWidth - 24;
-    this.cdateWidth = (this.cdate.nativeElement as HTMLTableHeaderCellElement).clientWidth;
-    this.cdaysWidth = (this.cdays.nativeElement as HTMLTableHeaderCellElement).clientWidth;
-    this.cinterestRateWidth = (this.cinterestRate.nativeElement as HTMLTableHeaderCellElement).clientWidth;
-    this.ccommissionWidth = (this.ccommission.nativeElement as HTMLTableHeaderCellElement).clientWidth;
-    this.csettingsWidth = (this.csettings.nativeElement as HTMLTableHeaderCellElement).clientWidth;
-    this.csettingsForPayWidth = (this.csettingsForPay.nativeElement as HTMLTableHeaderCellElement).clientWidth;
-    this.cstateWidth = (this.cstate.nativeElement as HTMLTableHeaderCellElement).clientWidth;
-    this.caddSettingsWidth = (this.caddSettings.nativeElement as HTMLTableHeaderCellElement).clientWidth - 24;
+    this.cadvanceWidth = (this.cadvance.nativeElement as HTMLTableCellElement).clientWidth - 24;
+    this.cdateWidth = (this.cdate.nativeElement as HTMLTableCellElement).clientWidth;
+    this.cdaysWidth = (this.cdays.nativeElement as HTMLTableCellElement).clientWidth;
+    this.cinterestRateWidth = (this.cinterestRate.nativeElement as HTMLTableCellElement).clientWidth;
+    this.ccommissionWidth = (this.ccommission.nativeElement as HTMLTableCellElement).clientWidth;
+    this.csettingsWidth = (this.csettings.nativeElement as HTMLTableCellElement).clientWidth;
+    this.csettingsForPayWidth = (this.csettingsForPay.nativeElement as HTMLTableCellElement).clientWidth;
+    this.cstateWidth = (this.cstate.nativeElement as HTMLTableCellElement).clientWidth;
+    this.caddSettingsWidth = (this.caddSettings.nativeElement as HTMLTableCellElement).clientWidth - 24;
 
     this.cdRef.detectChanges();
   }

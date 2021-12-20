@@ -183,7 +183,7 @@
                     >.children {
                         .nav-link {
                             &:hover {                
-                                background-color: #1f1fc2;
+                                background-color: #555862;
                                 //border-left: 5px solid mat-color($accent);
                                 width: 100%;
                                 border-top-right-radius: 0;
@@ -191,7 +191,7 @@
                             }
 
                             &.active {
-                                background-color: #1f1fc2;
+                                background-color: #555862;
                                 width: 100%;
                                 border-top-right-radius: 0;
                                 border-bottom-right-radius: 0;

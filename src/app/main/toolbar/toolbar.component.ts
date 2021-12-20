@@ -5,6 +5,7 @@ import { NotificationService } from '../../core/services/notification/notificati
 import { Alert } from '../quick-panel/alert.model';
 import { MatDialog } from '@angular/material';
 import { ChangePasswordModalComponent } from '../../core/components/change-password/change-password.component';
+import { ChangePasswordComponent } from '../modules/login/change-password/change-password.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -55,7 +56,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   changePassword(): void {
-    window.open('https://pliis.mx/web_app/#/olvidePassw');
+    this.router.navigate(['/login/change-password']);
   }
 
 }

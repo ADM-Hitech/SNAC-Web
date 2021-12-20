@@ -4,17 +4,17 @@
     </div>
 
     <form class="content-form">
-        <p>Escribe tu número de empleado</p>
+        <p>Escribe tu CURP, tal cual aparece en tu INE</p>
 
         <div class="content-inputs" [formGroup]="loginForm">
             <mat-form-field class="input-full-width">
-                <mat-label>Número de Empleado</mat-label>
+                <mat-label>CURP</mat-label>
                 <input matInput formControlName="number">
             </mat-form-field>
         </div>
 
         <div class="content-button">
-            <button mat-button (click)="initialProcess()">Confirmar Registro</button>
+            <button mat-button (click)="initialProcess()" [disabled]="loginForm.invalid || loading" [class.spinner]="loading">Comenzar Registro</button>
         </div>
     </form>
 </div>

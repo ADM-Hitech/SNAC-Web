@@ -1,0 +1,29 @@
+@import '../../../../core/scss/app';
+
+app-table-license {
+    table {
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid #cacee6;
+
+        tr {
+            &:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            
+        }
+
+        .content-name {
+            display: flex;
+            align-items: center;
+        }
+
+        .element-action {
+            .sub-table {
+                td {
+                    padding: 0;
+                }
+            }
+        }
+    }
+}

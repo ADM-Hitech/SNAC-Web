@@ -1,0 +1,131 @@
+@import '../../../../core/scss/app';
+
+app-group-snac {
+    .container {
+        padding: 0;
+        
+        @include media-breakpoint-down('sm') {
+            margin-top: 25px;
+        }
+
+        .title {
+            margin-bottom: 25px;
+
+            h3 {
+                margin: 0;
+                color: #41434C;
+                font-size: 20px;
+            }
+
+            .line {
+                background-color: #65BCB5;
+                width: 78px;
+                height: 5px;
+                display: block;
+                border-radius: 5px;
+            }
+        }
+
+        .content-form {
+            .label {
+                color: #41434C;
+                font-weight: bold;
+                font-size: 12px;
+            }
+
+            .content-upload-file {
+                .box-input {
+                    text-align: center;
+                    outline: 2px dashed #92b0b3;
+                    outline-offset: -10px;
+                    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+                    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+                    font-size: 1.25rem;
+                    position: relative;
+                    padding: 100px 20px;
+
+                    label {
+                        color: #a6a6a6;
+                        font-size: 15px;
+                    }
+
+                    .input-file {
+                        opacity: 0;
+                        overflow: hidden;
+                        position: absolute;
+                        z-index: -1;
+                    }
+
+                    .icon-upload {
+                        display: contents;
+                        color: #32379e;
+                        svg {
+                            width: 100px;
+                            height: 100px;
+                        }
+                    }
+                }
+            }
+
+            mat-form-field {
+                min-width: 230px;
+                @include media-breakpoint-down('sm') {
+                    width: 100%;
+                }
+            }
+
+            .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button {
+                padding-top: 11px;
+            }
+
+            .content-button {
+                margin-top: 10px;
+                .mat-flat-button {
+                    width: 100%;
+                    border-radius: 24px;
+                    padding: 4px 0;
+                }
+
+                .spinner {
+                    &:before {
+                        content: '';
+                        box-sizing: border-box;
+                        position: absolute;
+                        top: 50%;
+                        left: 90%;
+                        width: 20px;
+                        height: 20px;
+                        margin-top: -10px;
+                        margin-left: -10px;
+                        border-radius: 50%;
+                        border: 2px solid #ffffff;
+                        border-top-color: #41434C;
+                        animation: spinner .8s linear infinite;
+                    }
+                }
+            }
+        }
+    }
+
+    .content-error {
+        color: red;
+    }
+}
+
+@keyframes giro{
+    0% {
+        transform: rotate(0deg);
+        border-radius: 50%;
+    }
+    50% {
+        border-radius: 20%;        
+    }    
+    100% {
+        border-radius: 50%;
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}

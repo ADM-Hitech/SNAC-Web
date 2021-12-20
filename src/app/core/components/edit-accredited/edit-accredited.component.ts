@@ -81,7 +81,11 @@ export class EditAccreditedComponent implements OnInit {
       other_obligations: {},
       Outsourcing_Id: {},
       Period_Start_Date: {},
-      Period_End_Date: {}
+      Period_End_Date: {},
+      License_Id: {},
+
+      curp: {},
+      numberEmployee: {}
     };
 
     this.formGroup = this.formBuilder.group({
@@ -107,10 +111,10 @@ export class EditAccreditedComponent implements OnInit {
       mail: [data?.user?.mail, [Validators.required, Validators.email]],
       mail_mandate_latter: [data?.user?.mail_Mandate_Latter],
       institution_id: [data?.user?.institution_Id, Validators.required],
-      address: [data?.user?.address, Validators.required],
-      colony: [data?.user?.colony, Validators.required],
-      municipality: [data?.user?.municipality, Validators.required],
-      zip_code: [data?.user?.zip_Code, [
+      address: [data?.user?.address ?? '-', Validators.required],
+      colony: [data?.user?.colony ?? '-', Validators.required],
+      municipality: [data?.user?.municipality ?? '-', Validators.required],
+      zip_code: [data?.user?.zip_Code ?? '00000', [
           Validators.required, Validators.pattern('^\\d*$'), Validators.minLength(5), Validators.maxLength(5)
         ]
       ],
@@ -122,7 +126,10 @@ export class EditAccreditedComponent implements OnInit {
       other_obligations: [data?.user?.other_Obligations, Validators.required],
       Outsourcing_Id: [data?.user?.outsourcing_id],
       Period_Start_Date: [data?.user?.period_Start_Date, [Validators.required, Validators.min(1), Validators.max(31) ]],
-      Period_End_Date: [data?.user?.period_End_Date, [Validators.min(1), Validators.max(31)]]
+      Period_End_Date: [data?.user?.period_End_Date, [Validators.min(1), Validators.max(31)]],
+      License_Id: [data?.user?.license_Id],
+      curp: [data?.user?.curp, Validators.required],
+      numberEmployee: [data?.user?.numberEmployee]
     });
 
     this.changePeriodic(data?.user?.period_Id);

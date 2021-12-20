@@ -1,0 +1,38 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class="m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">{{ data.title }}</span>
+      <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+          <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <div class="pl-25 pr-25 m-0" mat-dialog-content appPerfectScrollbar>    
+    <div fxLayout="row" *ngFor="let item of data.type; let i=index">
+      <div fxLayout="column">
+        <img *ngIf="item === 'image'" [src]="data.path[i]" alt="" srcset="">
+        <pdf-viewer [src]="data.path[i]" *ngIf="item === 'pdf'" style="display: block;width: 500px;height: 400px;"></pdf-viewer>
+
+        <a [href]="data.path[i]" style="margin-top: 10px" target="_blank" [download]="getNameFile(data.path[i])">Descargar</a>
+      </div>
+    </div>
+
+    <div fxLayout="row">
+      <textarea
+        [(ngModel)]="message"
+       matInput 
+       placeholder="Motivo de rechazo" 
+       style="border: 1px solid #ddd;margin-top: 24px;padding: 8px;"></textarea>
+    </div>
+
+  </div>
+
+  <div mat-dialog-actions class="m-0" fxLayoutAlign="space-around center">
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="24px">
+        <div class="content-btn-left">
+            <button mat-button color="warn" (click)="close(false)">RECHAZAR</button>
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="container module-container">
+    <div class="content-breadcrumbs">
+        <h1 [ngStyle]="{'font-family': 'MontserratBold'}">Lista de Solicitudes</h1>
+        <div class="breadcrumbs">SNAC > Solicitudes</div>
+    </div>
+    <div class="content-table mat-elevation-z3">
+        <div class="table" id="contentTable">
+            <div class="content-loading" *ngIf="loading">
+                <mat-spinner diameter="40"></mat-spinner>
+            </div>
+
+            <app-table-pending-records [dataSource]="dataSource" [totalRow]="totalRow" (changePage)="changePage($event)"></app-table-pending-records>
+        </div>
+    </div>
+</div>

@@ -60,6 +60,8 @@ export class RecoveryPasswordComponent implements OnInit {
         } else {
           this.loginError = response.message;
         }
+        
+        this.loading = false;
       },
       (error) => {
         this.loginError = 'Error al recuperar la contraseña';

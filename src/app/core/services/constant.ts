@@ -22,4 +22,8 @@ export class Constant {
     get ws() {
         return environment.ws;
     }
+
+    get hubConnectionBinaria() {
+        return environment.hubConnectionBinaria;
+    }
 }

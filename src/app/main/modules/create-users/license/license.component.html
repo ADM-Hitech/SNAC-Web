@@ -1,0 +1,151 @@
+<div class="container">
+    <div class="title">
+        <h3 [ngStyle]="{'font-family': 'MontserratBold'}">Crear Licencia</h3>
+        <span class="line"></span>
+    </div>
+
+    <div class="content-form" [formGroup]="formGroup">
+        <p class="label">DATOS GENERALES</p>
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between" fxLayoutGap="24px">
+            
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Centro de Costo</mat-label>
+                    <input matInput formControlName="CostCenter">
+                    <mat-error *ngIf="formErrors.CostCenter.required">
+                        El centro de costo es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-name">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="Name">
+                    <mat-error *ngIf="formErrors.Name.required">
+                        El nombre es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-last-name">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre del Responsable</mat-label>
+                    <input matInput formControlName="NamePersonCharge">
+                    <mat-error *ngIf="formErrors.NamePersonCharge.required">
+                        El Responsable es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between" fxLayoutGap="24px">
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-name">
+                <mat-form-field appearance="outline">
+                    <mat-label>Número de contrato</mat-label>
+                    <input matInput formControlName="ContractNumber">
+                    <mat-error *ngIf="formErrors.ContractNumber.required">
+                        El Numero de contrato es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" >
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha de pago (DD/MM)</mat-label>
+                    <input matInput [matDatepicker]="dp" placeholder="Día y Mes" formControlName="DatePayment">
+                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                    <mat-datepicker #dp startView="year" panelClass="example-month-picker">
+                    </mat-datepicker>
+                    <mat-error *ngIf="formErrors.DatePayment.required">
+                        La fecha de pago es requerido
+                    </mat-error>
+                  </mat-form-field>
+            </div>
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-name">
+                <mat-form-field appearance="outline">
+                    <mat-label>Numero de Licencia</mat-label>
+                    <input matInput formControlName="LicenseNumber">
+                    <mat-error *ngIf="formErrors.LicenseNumber.required">
+                        El numero de licencia es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="start center" fxLayoutGap="24px">
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Cuenta Origen (STP)</mat-label>
+                    <input matInput formControlName="OriginatorAccount">
+                    <mat-error *ngIf="getFielForm('OriginatorAccount').invalid">
+                        Ingrese una cuenta valida
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-name">
+                <mat-form-field appearance="outline">
+                    <mat-label>Correo Electrónico</mat-label>
+                    <input matInput formControlName="Mail" type="email">
+                    <mat-error *ngIf="getFielForm('Mail').invalid">
+                        Ingrese un email con un formato valido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="inpu-name">
+               
+            </div>
+        </div>
+        <div class="content-type-person">
+            <mat-checkbox formControlName="ModelPrestaqi">
+                Modelo Prestaqi
+            </mat-checkbox>
+        </div>
+        <p class="label mt-24">INTERVALOS DE PRECIOS</p>
+        <div 
+            fxLayout="row" 
+            fxLayout.xs="column" 
+            fxLayout.sm="column" 
+            fxLayoutAlign="space-between center" 
+            fxLayoutGap="24px"
+            *ngFor="let price of priceArray.controls; let i = index;"
+            [formGroup]="price"
+        >
+            <div fxFlex="30" fxFlex.sm="100" fxFlex.xs="100" class="inpu-name">
+                <mat-form-field appearance="outline">
+                    <mat-label>Cantidad Inicial</mat-label>
+                    <input matInput formControlName="InitialQuantity">
+                    <mat-error *ngIf="errorInPrice(price, 'InitialQuantity') != null">
+                        {{ errorInPrice(price, 'InitialQuantity') }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="30" fxFlex.sm="100" fxFlex.xs="100" class="inpu-name">
+                <mat-form-field appearance="outline">
+                    <mat-label>Cantidad Final</mat-label>
+                    <input matInput formControlName="FinalQuantity" type="email">
+                    <mat-error *ngIf="errorInPrice(price, 'FinalQuantity') != null">
+                        {{ errorInPrice(price, 'FinalQuantity') }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="30" fxFlex.sm="100" fxFlex.xs="100" class="inpu-name">
+                <mat-form-field appearance="outline">
+                    <mat-label>Costo</mat-label>
+                    <input matInput formControlName="Cost" type="email">
+                    <mat-error *ngIf="errorInPrice(price, 'Cost') != null">
+                        {{ errorInPrice(price, 'Cost') }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="10" fxFlex.sm="100" fxFlex.xs="100" class="inpu-name">
+                <button mat-fab color="warn" class="mb-24 add-intervalos" (click)="deletePrice(i)" *ngIf="(i + 1) != priceArray.controls.length">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-fab color="accent" class="mb-24 add-intervalos" (click)="addPrices()" *ngIf="(i + 1) == priceArray.controls.length">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
+        <br>
+        <div class="content-button">
+            <button mat-flat-button color="primary" [disabled]="formGroup.invalid || loading" [class.spinner]="loading" (click)="sumit()">CREAR LICENCIA</button>
+        </div>
+    </div>
+</div>

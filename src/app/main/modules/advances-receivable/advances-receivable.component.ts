@@ -3,6 +3,7 @@ import { AdvancesReceivableService } from './advances-receivable.service';
 import { MatInput } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-advances-receivable',
@@ -16,11 +17,14 @@ export class AdvancesReceivableComponent implements OnInit {
   public loading: boolean;
   @ViewChild('Filter') filter: MatInput;
   public filterControl = new FormControl();
+  public licenseId = 0;
 
   constructor(
-    private rest: AdvancesReceivableService
+    private rest: AdvancesReceivableService,
+    private route: ActivatedRoute
   ) {
     this.loading = false;
+    this.licenseId = this.route.snapshot.params.licenseid;
   }
 
   ngOnInit(): void {
@@ -34,7 +38,7 @@ export class AdvancesReceivableComponent implements OnInit {
   fetchData(filter: string = ''): void {
     this.loading = true;
 
-    this.rest.fetchData(filter).subscribe((response) => {
+    this.rest.fetchData(filter, this.licenseId).subscribe((response) => {
       this.loading = false;
       if (response.success) {
         this.data = response.data;

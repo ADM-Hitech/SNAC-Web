@@ -4,11 +4,12 @@
 
 export const environment = {
   production: false,
-  api: 'http://104.41.132.36:81/api/',
+  api: 'http://192.168.15.3:5000/api/',
   apiBinaria: 'https://apimarketplace.azure-api.net/',
   tokenBinariaOCR: '655ff315512745a69652bd815447c0f2',
   tokenBinariaFace: '238371a1791b4c518b26915f8d1863ac',
-  ws: 'wss://prestaqi.com:81/ws'
+  ws: 'wss://prestaqi.com:81/ws',
+  hubConnectionBinaria: 'https://binariaapiservices.azurewebsites.net/ChatHub'
 };
 
 /*

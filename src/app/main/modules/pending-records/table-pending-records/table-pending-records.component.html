@@ -1,0 +1,81 @@
+<table mat-table #table [dataSource]="dataSource">
+    <ng-container matColumnDef="fullname">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let row"> {{ row.first_Name }} {{ row.last_Name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="employee_number">
+        <th mat-header-cell *matHeaderCellDef> Numero de Empleado </th>
+        <td mat-cell *matCellDef="let row"> {{ row.numberEmployee }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="curp">
+        <th mat-header-cell *matHeaderCellDef> CURP </th>
+        <td mat-cell *matCellDef="let row"> {{ row.curp }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="account_number">
+        <th mat-header-cell *matHeaderCellDef> Numero de Cuenta </th>
+        <td mat-cell *matCellDef="let row"> {{ row.account_Number }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clabe">
+        <th mat-header-cell *matHeaderCellDef> CLABE interbancaria </th>
+        <td mat-cell *matCellDef="let row"> {{ row.clabe }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Fecha de Registro </th>
+        <td mat-cell *matCellDef="let row"> {{ row.created_at | date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Estatus </th>
+        <td mat-cell *matCellDef="let row"> {{ row.approvedDocuments ? 'Aprobado' : 'Por Aprobar' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let row">
+            
+            <mat-spinner [diameter]="30" *ngIf="loadingProccess(row.id)"></mat-spinner>
+
+            <ng-container *ngIf="!loadingProccess(row.id)">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="approveDocuments(row.id)">
+                        <mat-icon>done</mat-icon>
+                        <span>Aprobar</span>
+                    </button>
+                    <button mat-menu-item (click)="viewDocument('SELFIE', row)" >
+                        <mat-icon>photo_camera</mat-icon>
+                        <span>Selfie</span>
+                    </button>
+                    <button mat-menu-item (click)="viewDocument('INE', row)">
+                        <mat-icon>account_box</mat-icon>
+                        <span>Ine</span>
+                    </button>
+                    <button mat-menu-item (click)="viewDocument('ESTADO DE CUENTA', row)">
+                        <mat-icon>description</mat-icon>
+                        <span>Estado de Cuenta</span>
+                    </button>
+                    <button mat-menu-item (click)="viewDocument('RECIBO DE NOMINA', row)">
+                        <mat-icon>receipt_long</mat-icon>
+                        <span>Recibo de Nomina</span>
+                    </button>
+                </mat-menu>
+            </ng-container>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnToDisplay;"></tr>
+</table>
+
+<mat-paginator 
+    [length]="totalRow"
+    [pageSize]="50"
+    [pageSizeOptions]="[50, 100, 500]"
+    (page)="changeTable($event)"></mat-paginator>

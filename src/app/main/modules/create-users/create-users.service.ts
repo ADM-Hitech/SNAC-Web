@@ -25,6 +25,10 @@ export class CreateUserService {
         return this.http.post(`${this.constant.api}Users`, user);
     }
 
+    public createLicense(license: any): Observable<any> {
+        return this.http.post(`${this.constant.api}License`, license);
+    }
+
     public fetchModule(): Observable<any> {
         return this.http.get(`${this.constant.api}Modules`);
     }
@@ -35,6 +39,13 @@ export class CreateUserService {
             Type: type
         });
     }
+
+    public groupSnac(file: Array<any>, companyId: number): Observable<any> {
+        return this.http.post(`${this.constant.api}Administrative/SaveSnacGroup`, {
+            File: file,
+            companyId
+        });
+    } 
 
     public getInstitutions(): Observable<any> {
         return this.http.get(`${this.constant.api}Institutions/GetList`);
@@ -50,5 +61,13 @@ export class CreateUserService {
 
     public getTypeContract(): Observable<any> {
         return this.http.get(`${this.constant.api}TypeContract`);
+    }
+
+    public getLicenses(): Observable<any> {
+        return this.http.get(`${this.constant.api}License/All`);
+    }
+
+    public getCompanies(): Observable<any> {
+        return this.http.get(`${this.constant.api}Companies/GetList`);
     }
 }

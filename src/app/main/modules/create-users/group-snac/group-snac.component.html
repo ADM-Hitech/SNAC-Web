@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="title">
+        <h3 [ngStyle]="{'font-family': 'MontserratBold'}">Cargar Empleados SNAC</h3>
+        <span class="line"></span>
+    </div>
+
+    <div class="content-form">
+
+        <div class="company">
+            <div fxFlex="50" style="padding-left: 12.5px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Empresa</mat-label>
+                    <mat-select [(ngModel)]="selectedCompany">
+                        <mat-option *ngFor="let company of companies" [value]="company.id">
+                            {{ company.description }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="content-upload-file">
+            <div class="box-input" #boxInput>
+                <mat-icon svgIcon="logoUpload" class="icon-upload"></mat-icon>
+                <br>
+                <input type="file" class="input-file" id="file" #inputFile>
+                <label for="file">{{ labelInput }}</label>
+            </div>
+        </div>
+
+        <div class="content-error" *ngIf="!!errors">
+            <p [innerHTML]="errors"></p>
+        </div>
+
+        <div class="content-button">
+            <button mat-flat-button color="primary" [disabled]="loading || !(selectedCompany > 0)" (click)="submit()" [class.spinner]="loading">CARGAR</button>
+        </div>
+    </div>
+</div>

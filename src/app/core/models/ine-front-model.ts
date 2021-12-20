@@ -15,6 +15,7 @@ export class IneFrontModel extends IneModel {
         ine.claveElector = object['ClaveElector'] ?? '';
         ine.birthDate = object['FechaDeNacimiento'] ?? '';
         ine.address = object['Direccion'] ?? '';
+        ine.meta = JSON.stringify(object);
         
         return ine;
     }

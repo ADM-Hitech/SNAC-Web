@@ -65,4 +65,8 @@ export class AccreditedService {
   public getTypeContract(): Observable<any> {
     return this.http.get(`${this.constant.api}TypeContract`);
   }
+
+  public getLicenses(): Observable<any> {
+    return this.http.get(`${this.constant.api}License/All`);
+  }
 }

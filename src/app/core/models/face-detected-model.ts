@@ -10,7 +10,7 @@ export class FaceDetectModal {
         const face = new FaceDetectModal();
         face.faceId = object['faceId'] ?? '';
         face.faceRectangle = FaceRectangleModel.fromJson(object['faceRectangle'] ?? {});
-        face.meta = object;
+        face.meta = JSON.stringify(object);
 
         return face;
     }

@@ -1,0 +1,59 @@
+<div class="container module-container">
+    <div class="icon">
+        <img src="assets/images/logo.png" alt="">
+    </div>
+
+    <form class="content-form">
+        <p>Por favor ingresa los siguientes datos:</p>
+
+        <div class="content-inputs" [formGroup]="registerForm" fxLayout="column" fxLayoutGap="12px">
+            <mat-form-field class="input-full-width">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="Name">
+            </mat-form-field>
+
+            <mat-form-field class="input-full-width">
+                <mat-label>Apellido Paterno</mat-label>
+                <input matInput formControlName="Lastname">
+            </mat-form-field>
+
+            <mat-form-field class="input-full-width">
+                <mat-label>Apellido Materno</mat-label>
+                <input matInput formControlName="MLastname">
+            </mat-form-field>
+
+            <mat-form-field class="input-full-width">
+                <mat-label>Numero de Empleado</mat-label>
+                <input matInput formControlName="EmployeeNumber">
+            </mat-form-field>
+
+            <mat-form-field class="input-full-width">
+                <mat-label>CURP</mat-label>
+                <input matInput formControlName="Curp">
+            </mat-form-field>
+
+            <mat-form-field class="input-full-width">
+                <mat-label>Empresa</mat-label>
+                <mat-select formControlName="CompanyId">
+                    <mat-option *ngFor="let company of companies" [value]="company.id">{{ company.description }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+ 
+            <mat-form-field class="input-full-width">
+                <mat-label>Correo Electrónico</mat-label>
+                <input matInput formControlName="Email">
+            </mat-form-field>
+
+            <mat-form-field class="input-full-width">
+                <mat-label>Teléfono</mat-label>
+                <input matInput formControlName="Phone">
+            </mat-form-field>
+        </div>
+
+        <p>En cuanto te localicemos en nuestra base de datos te llegará una notificación para que vuelvas a intentarlo.</p>
+
+        <div class="content-button" fxLayout="column" fxLayoutGap="12px">
+            <button mat-button [disabled]="loading || registerForm.invalid" (click)="submit()">ENVIAR INFORMACIÓN</button>
+        </div>
+    </form>
+</div>

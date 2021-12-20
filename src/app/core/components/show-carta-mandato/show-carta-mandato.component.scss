@@ -1,0 +1,27 @@
+app-show-carta-mandato {
+    .dialog-content-wrapper {
+        .mat-dialog-content {
+            max-height: none;
+            background-image: url('../../../../assets/images/loading.gif');
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .iframe-content {
+            border: none;
+            min-height: 600px;
+            min-width: 450px;
+        }
+
+        .cnt-button {
+            margin-bottom: 12px;
+            margin-top: 12px;
+
+            .btn {
+                background-color: #41434C;
+                color: white;
+                border-radius: 20px;
+            }
+        }
+    }
+}

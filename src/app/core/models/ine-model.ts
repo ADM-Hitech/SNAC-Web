@@ -7,7 +7,7 @@ export class IneModel {
         const ine = new IneModel();
 
         ine.claveElector = object['text'] ?? '';
-        ine.meta = object;
+        ine.meta = JSON.stringify(object);
 
         return ine;
     }

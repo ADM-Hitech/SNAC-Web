@@ -67,6 +67,26 @@ const routes: Routes = [
   {
     path: 'solicitar-adelanto',
     loadChildren: () => import('./main/modules/request-advance/request-advance.module').then(module => module.RequestAdvanceModule)
+  },
+  {
+    path: 'licencias',
+    loadChildren: () => import('./main/modules/license/license.module').then(module => module.LicenseModule)
+  },
+  {
+    path: 'licencias/:licenseid/estado-cuenta',
+    loadChildren: () => import('./main/modules/account-status-license/account-status-license.module').then(module => module.AccountStatusLicenseModule)
+  },
+  {
+    path: 'licencias/:licenseid/adelanto-cobrar',
+    loadChildren: () => import('./main/modules/advances-receivable/advances-receivable.module').then(module => module.AdvancesReceivableModule)
+  },
+  {
+    path: 'registros-pendientes',
+    loadChildren: () => import('./main/modules/pending-records/pending-records.module').then(module => module.PendingRecordModule)
+  },
+  {
+    path: 'registros-sin-rfc',
+    loadChildren: () => import('./main/modules/request-without-rfc/request-without-rfc.module').then(module => module.RequestWithoutRfcModule)
   }
 ];
 

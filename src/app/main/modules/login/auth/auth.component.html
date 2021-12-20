@@ -3,12 +3,17 @@
         <img src="assets/images/logo.png" alt="">
     </div>
 
+    <!--<div *ngIf="connectId !== ''">
+        <iframe [src]="iframeUrl" allow="camera; microphone" frameborder="0" width="550px" height="500px"></iframe>
+    </div>-->
+    
+
     <div class="content">
         <div class="content-button" [routerLink]="['auth']" >
             <button mat-button>Iniciar Sesión</button>
         </div>
         <div class="content-button">
-            <button mat-button>Aprende a Usarlo</button>
+            <button mat-button (click)="dialog()">Aprende a Usarlo</button>
         </div>
         <div class="content-button" [routerLink]="['snac']">
             <button mat-button>Registrarte</button>

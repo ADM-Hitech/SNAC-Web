@@ -27,14 +27,15 @@ export class UploadPayrollReceiptComponent implements AfterViewInit {
         private dialogRef: MatDialogRef<UploadPayrollReceiptComponent>,
         @Inject(MAT_DIALOG_DATA) private data: {
             service: RequestAdvanceService,
-            rfc: string | undefined
+            rfc: string | undefined,
+            onlyOne: boolean
         },
         private matIconRegistry: MatIconRegistry,
         private domSanitizer: DomSanitizer,
         private auth: AuthService,
         private snackBar: MatSnackBar
     ) {
-      this.dialogRef.disableClose = false;
+      this.dialogRef.disableClose = true;
       this.matIconRegistry.addSvgIcon(
           'uploadPayRollReceipt',
           this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/icons/ico-recibo-nomina.svg')
@@ -44,6 +45,14 @@ export class UploadPayrollReceiptComponent implements AfterViewInit {
           'logoUpload',
           this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../../assets/icons/ico-subir-archivo.svg')
       );
+    }
+
+    public get closeModal(): boolean {
+      return !this.data.onlyOne;
+    }
+
+    public get message(): string {
+      return this.data.onlyOne ? 'Sube tu Último Recibo de Nómina' : 'Suba sus recibos de su ultimo mes de pago';
     }
 
     ngAfterViewInit() {
@@ -145,6 +154,25 @@ export class UploadPayrollReceiptComponent implements AfterViewInit {
 
     private profilePaySheet(response: any, file: File): void {
       const paysheet: PaySheetModel = PaySheetModel.fromJson(response);
+
+      console.log(paysheet.dateFinish.toString() === 'Invalid Date');
+      var invalidDateFinish = paysheet.dateFinish.toString() === 'Invalid Date';
+      var invalidDateIntial = paysheet.dateInitial.toString() === 'Invalid Date';
+      var invalidTotal = paysheet.total === null || paysheet.total === 0;
+      var invalidNeto = paysheet.neto === null || paysheet.neto === 0;
+
+      if (invalidDateFinish || invalidDateIntial) {
+        this.showMessage('ERROR', 'El documento tiene una fecha no valida', 'error');
+        
+        return;
+      }
+
+      if (invalidTotal || invalidNeto) {
+        this.showMessage('ERROR', 'El total no es valido', 'error');
+        
+        return;
+      }
+
       const dateNow = moment();
       const dateInitial = moment(paysheet.dateInitial);
       const dateFin     = moment(paysheet.dateFinish);
@@ -155,53 +183,23 @@ export class UploadPayrollReceiptComponent implements AfterViewInit {
         
       this.countRequired(daysindates);
 
-      if (limitDays > 32) {
-          this.snackBar.openFromComponent(SnakBarAlertComponent, {
-            data: {
-              message: 'ERROR',
-              subMessage: 'El documento no pertenece al ultimo periodo',
-              type: 'error'
-            },
-            panelClass: 'snack-message',
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-            duration: 2500
-          });
+      if (limitDays > 38) {
+        this.showMessage('ERROR', 'El documento no pertenece al ultimo periodo', 'error');
           
-          return;
+        return;
       }
 
       if (this.listFiles.some((element) => Utils.formatDate(element.dateInitial) === Utils.formatDate(response.fechainicio) && Utils.formatDate(element.dateFinish) === Utils.formatDate(response.fechafin) ) ) {
-          this.snackBar.openFromComponent(SnakBarAlertComponent, {
-            data: {
-              message: 'ERROR',
-              subMessage: 'El periodo ya fue agregado',
-              type: 'error'
-            },
-            panelClass: 'snack-message',
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-            duration: 2500
-          });
+        this.showMessage('ERROR', 'El periodo ya fue agregado', 'error');
 
-          return;
+        return;
       }
 
       if (userRfc.substring(0, userRfc.length > 7 ? 8 : 0).toLowerCase() !== rfc.substring(0, rfc.length > 7 ? 8 : 0).toLowerCase()) {
 
-          this.snackBar.openFromComponent(SnakBarAlertComponent, {
-            data: {
-              message: 'ERROR',
-              subMessage: 'El documento tiene un rfc distinto al del usuario',
-              type: 'error'
-            },
-            panelClass: 'snack-message',
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-            duration: 2500
-          });
+        this.showMessage('ERROR', 'El documento tiene un rfc distinto al del usuario', 'error');
 
-          return;
+        return;
       }
 
       paysheet.uuid = Date.now().toString();
@@ -218,12 +216,30 @@ export class UploadPayrollReceiptComponent implements AfterViewInit {
         } else if (days > 6 && days <= 16) {
             this.totalFilesRequire = 2;
         }
+
+        if (this.data.onlyOne) {
+          this.totalFilesRequire = 1;
+        }
     }
 
     public continue(): void {
       if (this.listFiles.length === this.totalFilesRequire) {
         this.dialogRef.close(this.listFiles);
       }
+    }
+
+    public showMessage(message: string, subMessage: string, type: 'error' | 'success'): void {
+      this.snackBar.openFromComponent(SnakBarAlertComponent, {
+        data: {
+          message,
+          subMessage,
+          type
+        },
+        panelClass: 'snack-message',
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        duration: 3500
+      });
     }
     
 }

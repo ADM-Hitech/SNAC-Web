@@ -22,6 +22,7 @@ export class AccreditedComponent implements OnInit {
   public companies: Array<any> = [];
   public periodos: Array<any> = [];
   public typeContracts: Array<any> = [];
+  public licenses: Array<any> = [];
   @ViewChild('Filter') filter: MatInput;
   public filterControl = new FormControl();
 
@@ -101,13 +102,15 @@ export class AccreditedComponent implements OnInit {
       this.rest.getInstitutions(),
       this.rest.getCompanies(),
       this.rest.getPeriodos(),
-      this.rest.getTypeContract()
+      this.rest.getTypeContract(),
+      this.rest.getLicenses()
     ).subscribe(response => {
       this.genders = response[0].data;
       this.institutions = response[1].data;
       this.companies = response[2].data;
       this.periodos = response[3].data;
       this.typeContracts = response[4].data;
+      this.licenses = response[5].data;
     }, error => {
 
     });

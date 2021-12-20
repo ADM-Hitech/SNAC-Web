@@ -70,6 +70,10 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const userId = this.auth.id;
 
+    if (this.wsNotification.notification === undefined) {
+      return;
+    }
+
     this.onWsNotification = this.wsNotification.notification.subscribe((notification: any) => {
 
       try {

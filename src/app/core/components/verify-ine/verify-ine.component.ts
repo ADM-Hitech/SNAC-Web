@@ -29,6 +29,7 @@ export class VerifyIneComponent implements AfterViewInit {
         private domSanitizer: DomSanitizer,
         private snackBar: MatSnackBar
     ) {
+		this.dialogRef.disableClose = true;
         this.matIconRegistry.addSvgIcon(
 			'uploadPayRollReceipt',
 			this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/icons/ico-recibo-nomina.svg')

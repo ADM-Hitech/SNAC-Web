@@ -6,6 +6,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { AuthComponent } from './auth/auth.component';
 import { VerifyEmployeeComponent } from './verify-employee/verify-employee.component';
 import { EmployeeNotFoundComponent } from './employee-not-found/employee-not-found.component';
+import { RegisterSnacComponent } from './register-snac/register-snac.component';
+import { EmailNotFoundComponent } from './email-not-found/email-not-found.component';
 
 const routes: Routes = [
     {
@@ -31,6 +33,14 @@ const routes: Routes = [
     {
         path: 'not-found',
         component: EmployeeNotFoundComponent
+    },
+    {
+        path: 'register',
+        component: RegisterSnacComponent
+    },
+    {
+        path: 'email-not-found',
+        component: EmailNotFoundComponent
     }
 ];
 

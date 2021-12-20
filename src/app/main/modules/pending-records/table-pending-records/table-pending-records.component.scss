@@ -1,0 +1,32 @@
+@import '../../../../core/scss/app';
+
+app-table-pending-records {
+    table {
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid #cacee6;
+
+        tr {
+            &:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            
+            td {
+                padding-right: 12px !important;
+            }
+        }
+
+        .content-name {
+            display: flex;
+            align-items: center;
+        }
+
+        .element-action {
+            .sub-table {
+                td {
+                    padding: 0;
+                }
+            }
+        }
+    }
+}

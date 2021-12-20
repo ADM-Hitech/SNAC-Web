@@ -21,8 +21,11 @@ export class InterceptorService implements HttpInterceptor {
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const headersNew = new HttpHeaders();
-    let authorizedRequest = req.clone();
+    let headersNew = new HttpHeaders();
+    let authorizedRequest: HttpRequest<any> = req.clone();
+
+    headersNew = headersNew.append('LicenseName', 'SNAC');
+
     if (!this.auth.isAuthenticated()) {
       if (this.router.url !== '/' && !this.router.url.includes('login')) {
         this.router.navigate(['/login']);

@@ -1,0 +1,81 @@
+<div class="container module-container">
+  <div class="content-breadcrumbs">
+    <h1 [ngStyle]="{'font-family': 'MontserratBold'}">Control de Fondeo</h1>
+    <div class="breadcrumbs">SNAC > Licencias > Control de Fondeo</div>
+  </div>
+
+  <div class="content-details matelevation-z3">
+    <div fxLayout="row" fxLayoutAlign="space-between start">
+      <div fxLayout="column" fxFlex="20" fxFlex.sm="100" fxFlex.xs="100">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <p>Cuenta Clabe:</p>
+          <p>{{ keyaccount }}</p>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <p>Saldo Inicial:</p>
+          <p>$0.00</p>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <p>Saldo Actual:</p>
+          <p>{{ currentAmount | currency }}</p>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <p>Despositos / Abonos:</p>
+          <p>{{ deposit | currency }}</p>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <p>Retiros / Cargos:</p>
+          <p>$0.00</p>
+        </div>
+        <mat-divider></mat-divider>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <p>Saldo Final:</p>
+          <p>$0.00</p>
+        </div>
+      </div>
+
+      <div fxLayout="column" fxFlex="20" fxFlex.sm="100" fxFlex.xs="100">
+        <div fxLayout="row">
+          <mat-form-field appearance="outline">
+            <mat-label>Periodo (MM/YYYY)</mat-label>
+            <input matInput [matDatepicker]="dp" placeholder="Mes y Año" [formControl]="date">
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp startView="multi-year" panelClass="example-month-picker" (yearSelected)="chosenYearHandler($event)"
+            (monthSelected)="chosenMonthHandler($event, dp)">
+            </mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <p>Adelantos de Nomina:</p>
+          <p>{{ totalAdvances | currency }}</p>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <p>Ganancias Esperadas:</p>
+          <p>$0.00</p>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <p>Cuentas por Cobrar:</p>
+          <p>{{ accountsReceivable | currency }}</p>
+        </div>
+        <mat-divider></mat-divider>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <p>Ganancias:</p>
+          <p>$0.00</p>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="column" class="mt-24">
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h1 class="title-table" [ngStyle]="{'font-family': 'MontserratBold'}">Movimientos</h1>
+      </div>
+      <div fxLayout="row" class="content-table">
+        <div class="content-loading" *ngIf="loading">
+          <mat-spinner [diameter]="25"></mat-spinner>
+        </div>
+
+        <app-table-founding [dataSource]="dataSource"></app-table-founding>
+      </div>
+    </div>
+  </div>
+</div>

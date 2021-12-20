@@ -3,13 +3,43 @@
 app-table-advance {
     table {
         width: 100%;
-        //min-width: 2700px;
         border-radius: 5px;
         border: 1px solid #cacee6;
 
         tr {
             &.back-color-row {
                 background-color: #f9f9f9;
+            }
+
+            &.detail-row {
+                height: 0;
+
+                &:not(.expanded-row) {
+                    &:hover {
+                        background-color: whitesmoke;
+                    }
+
+                    &:active {
+                        background-color: #efefef;
+                    }
+                }
+
+                td {
+
+                    .element-detail {
+                        overflow: hidden;
+                        display: flex;
+
+                        table {
+                            width: 100%;
+                            border: none;
+
+                            del {
+                                color: red;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

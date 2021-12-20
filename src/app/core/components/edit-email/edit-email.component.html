@@ -1,0 +1,30 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Agregar Email</span>
+        </div>
+    </mat-toolbar>
+
+    <div class="pl-25 pr-25 m-0" mat-dialog-content appPerfectScrollbar [formGroup]="formGroup">
+        <p class="label">Agrega tu email, con el podras iniciar sesión y recibir las notificaciones.</p>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+          </mat-form-field>
+        </div>
+    </div>
+
+    <div mat-dialog-actions class="m-0" fxLayoutAlign="space-around center">
+        <div class="content-button">
+          <div class="content-btn-left">
+            <button 
+              mat-button 
+              [disabled]="formGroup.invalid || loading"
+              [class.spinner]="loading"
+              (click)="submit()"
+            >GUARDAR</button>
+          </div>
+        </div>
+      </div>
+</div>

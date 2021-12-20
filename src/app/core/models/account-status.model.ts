@@ -21,6 +21,7 @@ export class AccountStatusModel {
         accountStatus.nameBank = object['abreviatura'] ?? '';
         accountStatus.businesNameBank = object['institucion'] ?? '';
         accountStatus.numberAccount = object['nocuenta'] ?? '';
+        accountStatus.meta = JSON.stringify(object);
 
         return accountStatus;
     }

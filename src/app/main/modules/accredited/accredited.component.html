@@ -1,7 +1,7 @@
 <div class="container module-container">
     <div class="content-breadcrumbs">
         <h1 [ngStyle]="{'font-family': 'MontserratBold'}">Lista de Acreditados</h1>
-        <div class="breadcrumbs">PrestaQi > Usuarios > Acreditados</div>
+        <div class="breadcrumbs">SNAC > Usuarios > Acreditados</div>
     </div>
     <div class="content-table mat-elevation-z3">
         <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between">
@@ -45,6 +45,7 @@
                 [companies]="companies"
                 [periodos]="periodos"
                 [typeContracts]="typeContracts"
+                [licenses]="licenses"
                 (eventDelete)="delete($event)"
             ></app-table-accredited>
             <br>
