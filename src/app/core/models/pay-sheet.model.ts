@@ -19,8 +19,8 @@ export class PaySheetModel {
      public static fromJson(object: any) {
         var paysheet = new PaySheetModel();
         paysheet.name = object['nombre'] ?? '';
-        paysheet.rfc = object['rfc'] ?? '';
-        paysheet.curp = object['curp'] ?? '';
+        paysheet.rfc = (object['rfc'] ?? '').replaceAll('-', '').replaceAll(/\s/g, '');
+        paysheet.curp = (object['curp'] ?? '').replaceAll('-', '').replaceAll(/\s/g, '');
         paysheet.nss = object['nss'] ?? '';
         paysheet.dateInitial = moment(object['fechainicio'] ?? '', 'DD/MM/YYYY').toDate();
         paysheet.dateFinish = moment(object['fechafin'] ?? '', 'DD/MM/YYYY').toDate();

@@ -1,10 +1,7 @@
 import { Component, ViewEncapsulation } from "@angular/core";
-import { MatDialog } from "@angular/material";
-import { VerifySelfieComponent } from "src/app/core/components/verify-selfie/verify-selfie.component";
-import { LoginService } from "../login.service";
-import { HubConnectionBuilder, HubConnection, LogLevel } from '@microsoft/signalr';
-import { Constant } from "src/app/core/services/constant";
-import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { MatDialog, MatIconRegistry } from "@angular/material";
+import { ViewInstructionsComponent } from "src/app/core/components/view-instructions/view-instructions.component";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
     selector: 'app-auth',
@@ -14,55 +11,36 @@ import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 })
 export class AuthComponent {
 
-    public hubConnection: HubConnection;
-    public connectId: string = '';
-
     constructor(
         private readonly matDialog: MatDialog,
-        private rest: LoginService,
-        private constant: Constant,
-        private sanitizer: DomSanitizer
+        private readonly matIconRegistry: MatIconRegistry,
+        private readonly domSanitizer: DomSanitizer
     ) {
-        const builderHub = new HubConnectionBuilder();
-		this.hubConnection = builderHub.withUrl(this.constant.hubConnectionBinaria).configureLogging(LogLevel.Information).build();
-        this.start();
-		console.log(this.hubConnection);
+        this.matIconRegistry.addSvgIcon('logoWhats', this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../../assets/icons/ico-whatsapp.svg'));
     }
 
     public dialog(): void {
-        this.matDialog.open(VerifySelfieComponent, {
-            data: {
-                service: this.rest
-            }
-        })
-    }
-
-    public async start(): Promise<any> {
-        try {
-            await this.hubConnection.start();
-            this.connectId = this.hubConnection.connectionId;
-            
-            this.hubConnection.on("ReceiveMessageAll",(data)=>{
-                console.log("ReceiveMessageAll: "+data);
-            }); 
-    
-            this.hubConnection.on('ReceiveMessageUser', (data) => {
-                console.log(data);
-            });
-    
-            this.hubConnection.on('ReceiveMessage', (data) => {
-                console.log(data);
-            });
-        } catch(err) {
-            console.log(err);
-            setTimeout(() => {
-                this.start();
-            }, 5000);
+        if (document.body.clientWidth > 768) {
+            this.matDialog.open(ViewInstructionsComponent);
+        } else {
+            window.open(`${window.location.origin}/assets/SNAC_INSTRUCCIONES.pdf`, "_blank");
         }
     }
 
-    public get iframeUrl(): SafeResourceUrl {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(`https://identityverify.azurewebsites.net/facialIdentity/id/${this.connectId}/keyws/${this.constant.tokenBinariaFace}`);
+    public showQuestion(): void {
+        if (document.body.clientWidth > 768) {
+            this.matDialog.open(ViewInstructionsComponent, {
+                data: {
+                    isQuestion: true
+                }
+            });
+        } else {
+            window.open(`${window.location.origin}/assets/SNAC_PREGUNTAS.pdf`, "_blank");
+        }
+    }
+
+    public openWhats(): void {
+        window.open("https://api.whatsapp.com/send/?phone=+5215592252019", "_blank");
     }
     
 }

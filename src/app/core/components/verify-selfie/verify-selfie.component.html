@@ -1,26 +1,12 @@
 <div class="dialog-content-wrapper">
-    <mat-toolbar matDialogTitle class="m-0">
-        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-            <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Subir Selfie</span>
-        </div>
-    </mat-toolbar>
-
-    <div class="pl-15 pr-25 m-0" mat-dialog-content>
-        <p class="label">Suba una selfie</p>
-
-        <div class="content-upload-file">
-            <div class="box-input" #boxInput>
-                <mat-icon svgIcon="logoUpload" class="icon-upload"></mat-icon>
-                <br>
-                <input type="file" class="input-file" id="file" #inputFile>
-                <label for="file">Subir (formatos: jpg, jpeg, png, pdf)</label>
-            </div>
-
-            <div *ngIf="uploadingSelfie" class="loadingUpload">
+    <div class="pl-15 pr-25 m-0" mat-dialog-content [ngClass]="{'loading': hubConnectionId === ''}">
+        <div class="content-upload-file" fxLayout="row" fxLayoutAlign="center center">
+            <div class="cnt-loading" *ngIf="hubConnectionId === ''">
                 <mat-spinner [diameter]="30"></mat-spinner>
             </div>
+            <div *ngIf="hubConnectionId !== ''">
+                <iframe [src]="iframeUrl" allow="camera; microphone" frameborder="0" width="550px" height="600px"></iframe>
+            </div>
         </div>
-    </div>
-    <div mat-dialog-actions class="m-0" fxLayoutAlign="center center">
     </div>
 </div>

@@ -1,0 +1,39 @@
+<div class="container module-container">
+    <div class="icon">
+        <img src="assets/images/logo.png" alt="snac">
+    </div>
+
+    <div class="content-form" [formGroup]="form">
+        <h3>Descargar Reporte</h3>
+        <br>
+
+        <div class="content-inputs">
+            <mat-form-field class="input-full-width">
+                <mat-label>Número de Semana</mat-label>
+                <mat-select placeholder="Numero de Semana" formControlName="NumberWeek">
+                    <mat-option *ngFor="let period of periods" [value]="period">
+                        {{ period }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors.NumberWeek.required">
+                    El numero de semana es requerido
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="input-full-width">
+                <mat-label>Contraseña</mat-label>
+                <input matInput type="password" formControlName="Password" #password>
+                <span class="pointer" matSuffix mat-icon-button (click)="password.type=password.type == 'password' ? 'text': 'password'">
+                    <mat-icon style="font-size: 18px;color: white;">{{ password.type == 'password' ? 'visibility': 'visibility_off' }}</mat-icon>
+                </span>
+                <mat-error *ngIf="formErrors.Password.required">
+                    La contraseña es requerida
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="content-button">
+            <button mat-button [disabled]="form.invalid || loading" (click)="submit();$event.preventDefault();" [class.spinner]="loading">DESCARGAR</button>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
-import { Component, ViewEncapsulation } from "@angular/core";
-import { MatDialogRef } from "@angular/material";
+import { Component, Inject, ViewEncapsulation } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
 @Component({
     selector: 'app-aviso-privacidad',
@@ -10,9 +10,14 @@ import { MatDialogRef } from "@angular/material";
 export class AvisoPrivacidadComponent {
 
     constructor(
-        private readonly dialogRef: MatDialogRef<AvisoPrivacidadComponent>
+        private readonly dialogRef: MatDialogRef<AvisoPrivacidadComponent>,
+        @Inject(MAT_DIALOG_DATA) private data: {
+            hiddeButtons: boolean
+        },
     ) {
-        this.dialogRef.disableClose = true;
+        if (!this.data?.hiddeButtons) {
+            this.dialogRef.disableClose = true;
+        }
     }
 
     public accept(): void {
@@ -21,5 +26,9 @@ export class AvisoPrivacidadComponent {
 
     public cancel(): void {
         this.dialogRef.close(false);
+    }
+
+    public get HiddeButtons(): boolean {
+        return this.data?.hiddeButtons;
     }
 }

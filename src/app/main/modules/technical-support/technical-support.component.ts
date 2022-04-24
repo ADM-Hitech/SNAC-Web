@@ -30,4 +30,8 @@ export class TechnicalSupportComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public openWhats(): void {
+    window.open("https://api.whatsapp.com/send/?phone=+5215592252019", "_blank");
+  }
+
 }

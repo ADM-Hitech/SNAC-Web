@@ -98,7 +98,7 @@ export class EditAccreditedComponent implements OnInit {
       position: [data?.user?.position, Validators.required],
       net_monthly_salary: [data?.user?.net_Monthly_Salary, Validators.required],
       rfc: [data?.user?.rfc, Validators.required],
-      interest_rate: [data?.user?.interest_Rate, Validators.required],
+      interest_rate: [60, Validators.required],
       seniority_company: [data?.user?.seniority_Company, Validators.required],
       birth_date: [data?.user?.birth_Date, Validators.required],
       age: [data?.user?.age, [Validators.required, Validators.pattern('^\\d*$')]],
@@ -106,7 +106,7 @@ export class EditAccreditedComponent implements OnInit {
       clabe: [data?.user?.clabe, [Validators.required]],
       account_number: [data?.user?.account_Number, [Validators.required]],
       enabled: [data?.user?.enabled, Validators.required],
-      moratoruim_interest_rate: [data?.user?.moratoruim_Interest_Rate, Validators.required],
+      moratoruim_interest_rate: [60, Validators.required],
       period_id: [data?.user?.period_Id, Validators.required],
       mail: [data?.user?.mail, [Validators.required, Validators.email]],
       mail_mandate_latter: [data?.user?.mail_Mandate_Latter],
@@ -120,13 +120,12 @@ export class EditAccreditedComponent implements OnInit {
       ],
       state: [data?.user?.state, Validators.required],
       type_contract_id: [data?.user?.type_Contract_Id, Validators.required],
-      end_day_payment: [data?.user?.end_Day_Payment, Validators.required],
       first_Login: [data?.user?.first_Login ?? false],
       gross_monthly_salary: [data?.user?.gross_Monthly_Salary, Validators.required],
       other_obligations: [data?.user?.other_Obligations, Validators.required],
       Outsourcing_Id: [data?.user?.outsourcing_id],
-      Period_Start_Date: [data?.user?.period_Start_Date, [Validators.required, Validators.min(1), Validators.max(31) ]],
-      Period_End_Date: [data?.user?.period_End_Date, [Validators.min(1), Validators.max(31)]],
+      Period_Start_Date: [1, [Validators.required, Validators.min(1), Validators.max(31) ]],
+      Period_End_Date: [15, [Validators.min(1), Validators.max(31)]],
       License_Id: [data?.user?.license_Id],
       curp: [data?.user?.curp, Validators.required],
       numberEmployee: [data?.user?.numberEmployee]
@@ -263,8 +262,9 @@ export class EditAccreditedComponent implements OnInit {
       this.formGroup.get('Period_End_Date').setValidators([Validators.required, Validators.min(1), Validators.max(31)]);
       this.formGroup.get('Period_End_Date').enable();
     }
+
     this.formGroup.get('Period_Start_Date').setValue(1);
-    this.formGroup.get('Period_End_Date').setValue('');
+    this.formGroup.get('Period_End_Date').setValue(15);
   }
 
 }

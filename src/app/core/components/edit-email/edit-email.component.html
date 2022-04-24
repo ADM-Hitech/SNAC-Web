@@ -1,7 +1,7 @@
 <div class="dialog-content-wrapper">
     <mat-toolbar matDialogTitle class="m-0">
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-          <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Agregar Email</span>
+          <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Completa tu información</span>
         </div>
     </mat-toolbar>
 
@@ -10,8 +10,54 @@
         <div>
           <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
-            <input matInput formControlName="email">
+            <input matInput formControlName="email" (blur)="removeSpaceInEmail()">
+            <mat-error *ngIf="getFielForm('email').invalid">
+              Email no valido, verifica que no contenga espacios.
+            </mat-error>
           </mat-form-field>
+        </div>
+
+        <p class="label">Agrega un teléfono que cuente con Whatsapp.</p>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="telefono">
+          </mat-form-field>
+        </div>
+
+        <p class="label">DIRECCIÓN</p>
+        <div>
+          <mat-form-field appearance="outline">
+              <mat-label>Calle y número (Interior si aplica)</mat-label>
+              <input matInput formControlName="address">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline">
+              <mat-label>Colonia</mat-label>
+              <input matInput formControlName="colony">
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="outline">
+              <mat-label>Delegación o Municipio</mat-label>
+              <input matInput formControlName="municipality">
+          </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Codigo Postal</mat-label>
+                <input matInput formControlName="zip_code">
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Estado</mat-label>
+                <input matInput formControlName="state">
+            </mat-form-field>
         </div>
     </div>
 

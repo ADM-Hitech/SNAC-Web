@@ -4,11 +4,13 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpHeaders
+  HttpHeaders,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -27,18 +29,24 @@ export class InterceptorService implements HttpInterceptor {
     headersNew = headersNew.append('LicenseName', 'SNAC');
 
     if (!this.auth.isAuthenticated()) {
-      if (this.router.url !== '/' && !this.router.url.includes('login')) {
+      if (this.router.url !== '/' && this.router.url !== '/download-report' && !this.router.url.includes('login')) {
         this.router.navigate(['/login']);
       }
     }
 
-    if (!req.url.includes('apimarketplace')) {
+    if (!req.url.includes('apimarketplace') && !req.url.includes('googleapis')) {
       authorizedRequest = req.clone({
         headers: headersNew.append('Authorization', `Bearer ${localStorage.getItem('token') ?? ''}`),
       });
     }
 
-    return next.handle(authorizedRequest);
+    return next.handle(authorizedRequest).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.log(error);
+
+        return throwError(error);
+      })
+    );
 
   }
 

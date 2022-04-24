@@ -29,8 +29,8 @@ export class PreviewDocumentComponent implements OnInit {
         this.data.type = [this.data.type];
       }
     }
-
-    this.data.path = this.data.path.map((item) => `${this.constant.api.replace('api/', '')}${item.split('/').pop()}`);
+    
+    this.data.path = this.data.path.map((item) => item.includes('http') ? item : `${this.constant.api.replace('api/', '')}${item.split('/').pop()}`);
   }
 
   ngOnInit() {

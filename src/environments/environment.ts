@@ -4,12 +4,14 @@
 
 export const environment = {
   production: false,
-  api: 'http://192.168.15.3:5000/api/',
+  api: 'http://192.168.15.8:5000/api/',
   apiBinaria: 'https://apimarketplace.azure-api.net/',
   tokenBinariaOCR: '655ff315512745a69652bd815447c0f2',
   tokenBinariaFace: '238371a1791b4c518b26915f8d1863ac',
+  tokenBinariaBancos: 'e4a6d81efb494111b37f24bd29728519',
   ws: 'wss://prestaqi.com:81/ws',
-  hubConnectionBinaria: 'https://binariaapiservices.azurewebsites.net/ChatHub'
+  hubConnectionBinaria: 'https://binariaapiservices.azurewebsites.net/ChatHub',
+  apiGoogle: 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBxyqx1ovc98MV7imdwemTz421H_VsCBrM',
 };
 
 /*

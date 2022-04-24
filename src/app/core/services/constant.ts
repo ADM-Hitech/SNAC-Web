@@ -26,4 +26,8 @@ export class Constant {
     get hubConnectionBinaria() {
         return environment.hubConnectionBinaria;
     }
+
+    get apiGoogle() {
+        return environment.apiGoogle;
+    }
 }

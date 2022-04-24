@@ -73,8 +73,13 @@ export class AppConfigService {
         router.events.subscribe(
             (event) => {
                 if ( event instanceof NavigationStart ) {
+
+                    console.log(event.url);
+                    
                     if (event.url.includes('login') || 
                         event.url === '/aviso-privacidad' ||
+                        event.url === '/download-report' ||
+                        event.url === '/' ||
                         event.url === '/terminos-y-condiciones')
                     {
                         this.defaultSettings.layout.navigation = 'none';

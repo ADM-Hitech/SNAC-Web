@@ -3,6 +3,9 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/fo
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { Router } from "@angular/router";
 import { forkJoin } from "rxjs";
+import { AvisoPrivacidadComponent } from "src/app/core/components/aviso-privacidad/aviso-privacidad.component";
+import { CompleteUploadFilesComponent } from "src/app/core/components/comple-upload-files/comple-upload-files.component";
+import { EditEmailComponent } from "src/app/core/components/edit-email/edit-email.component";
 import { SnakBarAlertComponent } from "src/app/core/components/snak-bar-alert/snak-bar-alert.component";
 import { UploadPayrollReceiptComponent } from "src/app/core/components/upload-payroll-receipt/upload-payroll-receipt.component";
 import { UploadingFilesComponent } from "src/app/core/components/uploading-files/uploading-files.component";
@@ -11,6 +14,7 @@ import { VerifyIneComponent } from "src/app/core/components/verify-ine/verify-in
 import { VerifySelfieComponent } from "src/app/core/components/verify-selfie/verify-selfie.component";
 import { WelcomeSnacComponent } from "src/app/core/components/welcome-snac/welcome-snac.component";
 import { AccountStatusModel } from "src/app/core/models/account-status.model";
+import { BinariaResponseModel } from "src/app/core/models/binaria-response.model";
 import { FaceDetectModal } from "src/app/core/models/face-detected-model";
 import { IneFrontModel } from "src/app/core/models/ine-front-model";
 import { IneModel } from "src/app/core/models/ine-model";
@@ -37,6 +41,7 @@ export class EmployeeNotFoundComponent {
     public hideButton: boolean = false;
     public showEmail: boolean = false;
     public prevEmail: string = '';
+    private rfc: string;
 
     constructor(
         private rest: LoginService,
@@ -78,6 +83,7 @@ export class EmployeeNotFoundComponent {
         this.rest.verifyEmployeeNumber(this.verifyForm.get('curp').value).subscribe(response => {
             if (response.success) {
                 this.employeeId = response.data.id;
+                this.rfc = response.data.rfc;
                 const welcomeDialog = this.matDialog.open(WelcomeSnacComponent);
 
                 welcomeDialog.afterClosed().subscribe((response) => {
@@ -93,8 +99,18 @@ export class EmployeeNotFoundComponent {
 
                 this.showAlert('ERROR', response.message, 'error');
             }
-        }, err => {
-            this.showAlert('ERROR', 'El usuario no fue encontrado o sus documentos ya fueron aprovados', 'error');
+        }, async err => {
+            try {
+                await this.rest.processRejectFile(err, this.advanceReq, this.showAlert, this.matDialog, this.verifyForm.get('curp').value);
+            } catch( errs ){
+                this.showAlert('ERROR', 'Ocurrio un error por favor intentelo mas marde', 'error');
+            }
+
+            if (!(err.status == 400 && err.error.rejectedFile)) {
+                this.showAlert('ERROR', 'El usuario no fue encontrado o sus documentos ya fueron aprovados', 'error');
+            }
+
+            this.loading = false;
         });
     }
 
@@ -105,9 +121,10 @@ export class EmployeeNotFoundComponent {
             }
         });
 
-        slefieDialog.afterClosed().subscribe((response) => {
+        slefieDialog.afterClosed().subscribe((response: BinariaResponseModel) => {
             this.showAlert('EXITOSO', 'La imagen se subio correctamente', 'success');
-            this.selfie = response;
+            this.selfie = new FaceDetectModal();
+            this.selfie.URL1 = response.URL1;
             this.uploadIne();
         });
     }
@@ -115,7 +132,8 @@ export class EmployeeNotFoundComponent {
     private uploadIne(): void {
         const ineDialog = this.matDialog.open(VerifyIneComponent, {
             data: {
-                service: this.rest
+                service: this.rest,
+                curp: this.verifyForm.get('curp').value
             }
         });
 
@@ -123,54 +141,68 @@ export class EmployeeNotFoundComponent {
             this.showAlert('EXITOSO', 'La imagen se subio correctamente', 'success');
             this.ine = response;
             const ine = response.find((ine) => !!(ine as IneFrontModel).curp);
-            this.uploadStatusAccount((ine as IneFrontModel).curp);
+            this.uploadStatusAccount((ine as IneFrontModel).curp, (ine as IneFrontModel).name, (ine as IneFrontModel).lastName);
         });
     }
 
-    private uploadStatusAccount(rfc: string): void {
+    private uploadStatusAccount(rfc: string, names: string, lastName: string): void {
         const statusAccount = this.matDialog.open(VerifyAccountStatusComponent, {
             data: {
                 service: this.rest,
-                rfc
+                rfc: this.rfc ?? rfc,
+                names,
+                lastName
             }
         });
 
         statusAccount.afterClosed().subscribe((response) => {
             this.showAlert('EXITOSO', 'La imagen se subio correctamente', 'success');
             this.statusAccount = response;
-            this.uploadPayrollReceiptComponent(rfc);
-        });
-    }
+            
+            var changeEmailDialog = this.matDialog.open(EditEmailComponent, {
+                data: {
+                    id: this.employeeId
+                }
+            });
 
-    private uploadPayrollReceiptComponent(rfc: string): void {
-        const payRollReceipt = this.matDialog.open(UploadPayrollReceiptComponent, {
-            data: {
-                service: this.advanceReq,
-                rfc
-            }
-        });
+            changeEmailDialog.afterClosed().subscribe((responseEmail) => {
+                if (responseEmail) {
+                    const dialogRef = this.matDialog.open(AvisoPrivacidadComponent);
 
-        payRollReceipt.afterClosed().subscribe((response) => {
-            const uploadingDialog = this.matDialog.open(UploadingFilesComponent);
-            this.payrollReceipt = response;
-            forkJoin([
-                this.advanceReq.syncIneAccredited(this.ine[0] as IneFrontModel, this.ine[1], this.employeeId),
-                this.advanceReq.syncStatusAccount(this.statusAccount, this.employeeId),
-                this.advanceReq.syncPaysheet(this.payrollReceipt, this.employeeId),
-                this.advanceReq.syncSelfie(this.selfie, this.employeeId)
-            ]).subscribe((response) => {
+                    dialogRef.afterClosed().subscribe((raviso) => {
+                        if (typeof raviso == 'boolean' && (raviso as boolean)) {
+                            const uploadingDialog = this.matDialog.open(UploadingFilesComponent);
+                            uploadingDialog.disableClose = true;
+                            this.payrollReceipt = response;
+                            forkJoin([
+                                this.advanceReq.syncIneAccredited(this.ine[0] as IneFrontModel, this.ine[1], this.employeeId),
+                                this.advanceReq.syncStatusAccount(this.statusAccount, this.employeeId),
+                                this.advanceReq.syncSelfie(this.selfie, this.employeeId)
+                            ]).subscribe((response) => {
 
-                this.advanceReq.completeUploadFiles(this.employeeId).subscribe((res) => {
-                    uploadingDialog.close();
-                    this.loading = false;
+                                this.advanceReq.completeUploadFiles(this.employeeId).subscribe((res) => {
+                                    uploadingDialog.close();
+                                    this.loading = false;
 
-                    this.showAlert('EXITOSO', 'Los documentos fueron enviados.', 'success');
-                }, err => {
-                    this.showAlert('ERROR', 'Ocurrio un error al procesar los archivos favor de intentarlo mas tarde', 'error');
-                });
+                                    this.showAlert('EXITOSO', 'Los documentos fueron enviados.', 'success');
 
-            }, err => {
-                this.showAlert('ERROR', 'Ocurrio un error al procesar los archivos favor de intentarlo mas tarde', 'error');
+                                    const dialogComplet = this.matDialog.open(CompleteUploadFilesComponent);
+
+                                    dialogComplet.afterClosed().subscribe((response) => {
+                                        this.router.navigate(['/login']);
+                                    });
+                                }, err => {
+                                    this.showAlert('ERROR', 'Ocurrio un error al procesar los archivos favor de intentarlo mas tarde', 'error');
+                                });
+
+                            }, err => {
+                                this.showAlert('ERROR', 'Ocurrio un error al procesar los archivos favor de intentarlo mas tarde', 'error');
+                            });
+                        } else {
+                            this.loading = false;
+                        }
+                    });
+                }
             });
         });
     }
@@ -195,6 +227,7 @@ export class EmployeeNotFoundComponent {
 
     public updateEmail(): void {
         this.verifyForm.get('email').enable();
+        this.loading = true;
         this.rest.updateEmail(this.verifyForm.value).subscribe((response) => {
             if (response.success) {
                 this.showAlert('EXITOSO', 'Su email fue actualizado, enviaremos nuevamente sus credenciales', 'success');
@@ -206,8 +239,10 @@ export class EmployeeNotFoundComponent {
             }
 
             this.showAlert('ERROR', response.message, 'error');
+            this.loading = false;
         }, err => {
             this.showAlert('ERROR', 'Ocurrio un error, favor de intentarlo mas tarde', 'error');
+            this.loading = false;
         });
     }
 }

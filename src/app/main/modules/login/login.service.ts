@@ -9,6 +9,16 @@ import { AppNavigationModel } from 'src/app/core/models/navigation.model';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import * as CryptoJS from 'crypto-js';
+import { Utils } from 'src/app/core/utils';
+import { MatDialog } from '@angular/material';
+import { VerifyIneComponent } from 'src/app/core/components/verify-ine/verify-ine.component';
+import { RequestAdvanceService } from '../request-advance/request-advance.service';
+import { UploadPayrollReceiptComponent } from 'src/app/core/components/upload-payroll-receipt/upload-payroll-receipt.component';
+import { VerifySelfieComponent } from 'src/app/core/components/verify-selfie/verify-selfie.component';
+import { VerifyAccountStatusComponent } from 'src/app/core/components/verify-account-status/verify-account-status.component';
+import { IneModel } from 'src/app/core/models/ine-model';
+import { IneFrontModel } from 'src/app/core/models/ine-front-model';
+import { FaceDetectModal } from 'src/app/core/models/face-detected-model';
 
 @Injectable({
   providedIn: 'root'
@@ -141,12 +151,15 @@ export class LoginService {
     });
   }
 
-  public uploadStatusAccount(base64file: string): Observable<any> {
-    return this.http.post(`${this.constant.apiBinaria}ocr/api/OCROnline/OCREdoCuentaBancos`, {
+  public uploadStatusAccount(base64file: string, institution: string): Observable<any> {
+    const url = Utils.getUrlStatusAccountBinaria(institution);
+    const tokenBinaria = Utils.getTokenStatusAccountBinaria(institution);
+
+    return this.http.post(`${this.constant.apiBinaria}${url}`, {
       imageID: base64file
     }, {
       headers: {
-        'Ocp-Apim-Subscription-Key': this.constant.tokenBinariaOCR,
+        'Ocp-Apim-Subscription-Key': tokenBinaria,
         'content-type': 'application/json'
       }
     });
@@ -160,6 +173,111 @@ export class LoginService {
 
   public updateEmail(form: string): Observable<any> {
     return this.http.put(`${this.constant.api}Login/UpdateEmail`, form);
+  }
+
+  public getInstitutions(): Observable<any> {
+    return this.http.get(`${this.constant.api}Institutions/GetList?onlyActive=true`);
+  }
+
+  public async processRejectFile(
+    err: any,
+    advanceReq: RequestAdvanceService,
+    showAlert: any,
+    matDialog: MatDialog,
+    curp: string
+  ): Promise<void> {
+    if (err.status == 400 && err.error.rejectedFile) {
+
+      if (err.error.rejectedIne) {
+          showAlert('INE Rechazada', err.error.ineMessage, 'warning');
+
+          const sleep = new Promise((res) => setTimeout(() => res(true), 1000));
+          await sleep;
+
+          const ineDialog = matDialog.open(VerifyIneComponent, {
+              data: {
+                  service: this,
+                  curp: curp
+              }
+          });
+
+          const responseIneDialog = await ineDialog.afterClosed().toPromise() as Array<IneModel>;
+          await advanceReq.syncIneAccredited(responseIneDialog[0] as IneFrontModel, responseIneDialog[1], err.error.id).toPromise();
+
+          showAlert('Exitoso', 'Su Ine fue enviada nuevamente', 'success');
+
+          await new Promise((res) => setTimeout(() => res(true), 600));
+      }
+
+      if (err.error.rejectedPaysheet) {
+          showAlert('Recibo de Nomina Rechazada', err.error.paysheetMessage, 'warning');
+
+          const sleep = new Promise((res) => setTimeout(() => res(true), 1000));
+          await sleep;
+
+          const payRollReceipt = matDialog.open(UploadPayrollReceiptComponent, {
+              data: {
+                  service: advanceReq,
+                  rfc: err.error.rfc,
+                  onlyOne: true
+              }
+          });
+
+          const responsePayRoll = await payRollReceipt.afterClosed().toPromise();
+          await advanceReq.syncPaysheet(responsePayRoll, err.error.id).toPromise();
+
+          showAlert('Exitoso', 'Su Recibo de nomina fue enviada nuevamente', 'success');
+
+          await new Promise((res) => setTimeout(() => res(true), 600));
+      }
+
+      if (err.error.rejectedSelfie) {
+          showAlert('Selfie Rechazada', err.error.selfieMessage, 'warning');
+
+          const sleep = new Promise((res) => setTimeout(() => res(true), 1000));
+          await sleep;
+
+          const slefieDialog = matDialog.open(VerifySelfieComponent, {
+              data: {
+                  service: this
+              }
+          });
+
+          const responseSelfie = await slefieDialog.afterClosed().toPromise();
+          const selfie = new FaceDetectModal();
+          selfie.URL1 = responseSelfie.URL1;
+          await advanceReq.syncSelfie(selfie, err.error.id);
+
+          showAlert('Exitoso', 'Su Selfie fue enviada nuevamente', 'success');
+
+          await new Promise((res) => setTimeout(() => res(true), 600));
+      }
+
+      if (err.error.rejectedStatusAccount) {
+          showAlert('Estado de Cuenta Rechazada', err.error.statusAccountMessage, 'warning');
+
+          const sleep = new Promise((res) => setTimeout(() => res(true), 1000));
+          await sleep;
+
+          const statusAccount = matDialog.open(VerifyAccountStatusComponent, {
+              data: {
+                  service: this,
+                  rfc: err.error.rfc ?? curp,
+                  names: '',
+                  lastName: ''
+              }
+          });
+
+          const responseStatusAccount = await statusAccount.afterClosed().toPromise();
+          await advanceReq.syncStatusAccount(responseStatusAccount, err.error.id);
+
+          showAlert('Exitoso', 'Su estado de cuenta fue enviado nuevamente', 'success');
+
+          await new Promise((res) => setTimeout(() => res(true), 600));
+      }
+
+      return;
+    }
   }
 
   public logAuth(): void {

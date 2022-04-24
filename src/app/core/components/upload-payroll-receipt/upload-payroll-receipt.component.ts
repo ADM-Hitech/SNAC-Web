@@ -64,6 +64,23 @@ export class UploadPayrollReceiptComponent implements AfterViewInit {
         this.deleteDefaultEvent(event);
         const files = (event.target as HTMLInputElement).files;
         if (files.length > 0) {
+          const validType = Utils.typeFile(files[0].type);
+          if (!validType) {
+            this.snackBar.openFromComponent(SnakBarAlertComponent, {
+              data: {
+                message: 'ERROR',
+                subMessage: 'El formato del archivo no es valido',
+                type: 'error'
+              },
+              panelClass: 'snack-message',
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              duration: 2500
+            });
+
+            return;
+          }
+
           const fileReader = new FileReader();
   
           fileReader.onload = (e) => {
@@ -115,6 +132,23 @@ export class UploadPayrollReceiptComponent implements AfterViewInit {
         this.deleteDefaultEvent(event);
         const files = event.dataTransfer.files;
         if (files.length > 0) {
+          const validType = Utils.typeFile(files[0].type);
+          if (!validType) {
+            this.snackBar.openFromComponent(SnakBarAlertComponent, {
+              data: {
+                message: 'ERROR',
+                subMessage: 'El formato del archivo no es valido',
+                type: 'error'
+              },
+              panelClass: 'snack-message',
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              duration: 2500
+            });
+
+            return;
+          }
+
           const fileReader = new FileReader();
   
           fileReader.onload = (e) => {
@@ -155,11 +189,10 @@ export class UploadPayrollReceiptComponent implements AfterViewInit {
     private profilePaySheet(response: any, file: File): void {
       const paysheet: PaySheetModel = PaySheetModel.fromJson(response);
 
-      console.log(paysheet.dateFinish.toString() === 'Invalid Date');
       var invalidDateFinish = paysheet.dateFinish.toString() === 'Invalid Date';
       var invalidDateIntial = paysheet.dateInitial.toString() === 'Invalid Date';
-      var invalidTotal = paysheet.total === null || paysheet.total === 0;
-      var invalidNeto = paysheet.neto === null || paysheet.neto === 0;
+      var invalidTotal = paysheet.total === null;// || paysheet.total === 0;
+      var invalidNeto = paysheet.neto === null;// || paysheet.neto === 0;
 
       if (invalidDateFinish || invalidDateIntial) {
         this.showMessage('ERROR', 'El documento tiene una fecha no valida', 'error');
@@ -189,13 +222,13 @@ export class UploadPayrollReceiptComponent implements AfterViewInit {
         return;
       }
 
-      if (this.listFiles.some((element) => Utils.formatDate(element.dateInitial) === Utils.formatDate(response.fechainicio) && Utils.formatDate(element.dateFinish) === Utils.formatDate(response.fechafin) ) ) {
+      if (this.listFiles.some((element) => Utils.formatDate(element.dateInitial) === Utils.formatDate(paysheet.dateInitial) && Utils.formatDate(element.dateFinish) === Utils.formatDate(paysheet.dateFinish) ) ) {
         this.showMessage('ERROR', 'El periodo ya fue agregado', 'error');
 
         return;
       }
 
-      if (userRfc.substring(0, userRfc.length > 7 ? 8 : 0).toLowerCase() !== rfc.substring(0, rfc.length > 7 ? 8 : 0).toLowerCase()) {
+      if (rfc.toLocaleUpperCase() != 'XAXX010101000' && userRfc.substring(0, userRfc.length > 7 ? 8 : 0).toLowerCase() !== rfc.substring(0, rfc.length > 7 ? 8 : 0).toLowerCase()) {
 
         this.showMessage('ERROR', 'El documento tiene un rfc distinto al del usuario', 'error');
 

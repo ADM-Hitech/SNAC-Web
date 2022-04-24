@@ -50,6 +50,7 @@ app-technical-support {
             display: flex;
             justify-content: space-between;
             gap: 24px;
+            cursor: pointer;
 
             @include media-breakpoint-down('sm') {
                 flex-direction: column;

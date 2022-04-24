@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, ViewEncapsulation } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from "@angular/material";
 import { Constant } from "../../services/constant";
 import { SnakBarAlertComponent } from "../snak-bar-alert/snak-bar-alert.component";
@@ -29,7 +29,13 @@ export class EditEmailComponent {
         this.dialogRef.disableClose = true;
         this.formGroup = this.formBuilder.group({
             email: ['', [Validators.email, Validators.required]],
-            accreditedId: [this.data.id]
+            telefono: ['', Validators.required],
+            accreditedId: [this.data.id],
+            address: ['', Validators.required],
+            colony: ['', Validators.required],
+            municipality: ['', Validators.required],
+            zip_code: ['', Validators.required],
+            state: ['', Validators.required]
         });
     }
 
@@ -71,5 +77,14 @@ export class EditEmailComponent {
 
             this.loading = false;
         });
+    }
+
+    public getFielForm(field: string): AbstractControl {
+        return this.formGroup.get(field);
+    }
+
+    public removeSpaceInEmail() {
+        const current = this.formGroup.get('email').value;
+        this.formGroup.get('email').setValue(current.replace(/ /g, ''));
     }
 }

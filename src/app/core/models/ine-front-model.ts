@@ -1,3 +1,4 @@
+import { Address } from "./address.model";
 import { IneModel } from "./ine-model";
 
 export class IneFrontModel extends IneModel {
@@ -6,12 +7,13 @@ export class IneFrontModel extends IneModel {
     curp: string;
     birthDate: string;
     address: string;
+    addressDetail: Address;
 
     public static fromJson(object: any): IneFrontModel {
         const ine = new IneFrontModel();
         ine.name = object['Nombre'] ?? '';
         ine.lastName = object['Apellidos'] ?? '';
-        ine.curp = object['CURP'] ?? '';
+        ine.curp = (object['CURP'] ?? '').replaceAll(/\s/g, '').replaceAll('-', '');
         ine.claveElector = object['ClaveElector'] ?? '';
         ine.birthDate = object['FechaDeNacimiento'] ?? '';
         ine.address = object['Direccion'] ?? '';

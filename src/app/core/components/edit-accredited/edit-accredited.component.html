@@ -147,21 +147,6 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5 p-r-12-5">
-            <mat-form-field appearance="outline">
-                <mat-label>Fecha de Pago 1</mat-label>
-                <input matInput formControlName="Period_Start_Date" *ngIf="!periodicIsWeek">
-                <mat-select formControlName="Period_Start_Date" *ngIf="periodicIsWeek">
-                    <mat-option *ngFor="let item of daysOfWeeks" [value]="item.id">{{ item.label }}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
-            <mat-form-field appearance="outline">
-                <mat-label>Fecha de Pago 2</mat-label>
-                <input matInput formControlName="Period_End_Date">
-            </mat-form-field>
-        </div>
     </div>
     <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
         <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
@@ -192,38 +177,6 @@
     <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
         <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
             <mat-form-field appearance="outline">
-                <mat-label>Tasa de interés (%)</mat-label>
-                <input matInput formControlName="interest_rate" type="number">
-                <mat-error *ngIf="formErrors?.interest_rate?.required">
-                    El Interes es requerido
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5 p-l-12-5">
-            <mat-form-field appearance="outline">
-                <mat-label>Tasa de interés moratoria (%)</mat-label>
-                <input matInput formControlName="moratoruim_interest_rate" type="number">
-                <mat-error *ngIf="formErrors?.moratoruim_interest_rate?.required">
-                    El Interes es requerido
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
-            <mat-form-field appearance="outline">
-                <mat-label>Ultima fecha de pago</mat-label>
-                <input matInput [matDatepicker]="endDatePay" formControlName="end_day_payment">
-                <mat-datepicker-toggle matSuffix [for]="endDatePay"></mat-datepicker-toggle>
-                <mat-datepicker #endDatePay></mat-datepicker>
-
-                <mat-error *ngIf="formErrors.end_day_payment.required">
-                    La fecha es requerida
-                </mat-error>
-            </mat-form-field>
-        </div>
-    </div>
-    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between">
-        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
-            <mat-form-field appearance="outline">
                 <mat-label>Fecha de nacimiento</mat-label>
                 <input matInput [matDatepicker]="pickerBirthday" formControlName="birth_date">
                 <mat-datepicker-toggle matSuffix [for]="pickerBirthday"></mat-datepicker-toggle>
@@ -246,7 +199,7 @@
             </mat-form-field>
         </div>
 
-        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-r-12-5">
+        <div fxFlex="33" fxFlex.sm="100" fxFlex.xs="100" class="p-l-12-5">
             <mat-form-field appearance="outline">
                 <mat-label>Numero de Empleado</mat-label>
                 <input matInput formControlName="numberEmployee">
@@ -334,21 +287,6 @@
                 <input matInput formControlName="account_number">
                 <mat-error *ngIf="formErrors?.account_number?.required">
                     El Número de cuenta es requerida
-                </mat-error>
-            </mat-form-field>
-        </div>
-    </div>
-    <p class="label">NOTIFICACIÓN MAIL</p>
-    <div fxLayout="row" fxLayoutAlign="space-between">
-        <div fxFlex="100">
-            <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input matInput formControlName="mail_mandate_latter">
-                <mat-error *ngIf="formErrors.mail_mandate_latter?.required">
-                    El mail es requerido
-                </mat-error>
-                <mat-error *ngIf="!formErrors?.mail_mandate_latter?.required && formErrors?.mail_mandate_latter?.email">
-                    Por favor ingresa un mail valido
                 </mat-error>
             </mat-form-field>
         </div>

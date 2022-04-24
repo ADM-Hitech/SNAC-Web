@@ -8,7 +8,6 @@ import { CookieService } from 'ngx-cookie-service';
 import * as CryptoJS from 'crypto-js';
 import { ShowConvenioComponent } from 'src/app/core/components/show-convenio/show-convenio.component';
 import { ShowCartaTransferenciaDataComponent } from 'src/app/core/components/show-carta-transferencia-data/show-carta-transferencia-data.component';
-import { AvisoPrivacidadComponent } from 'src/app/core/components/aviso-privacidad/aviso-privacidad.component';
 import { SnakBarAlertComponent } from 'src/app/core/components/snak-bar-alert/snak-bar-alert.component';
 
 @Component({
@@ -181,6 +180,6 @@ export class LoginComponent implements OnInit {
         verticalPosition: 'top',
         duration: 3300
     });
-}
+  }
 
 }

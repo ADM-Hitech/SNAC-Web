@@ -18,6 +18,17 @@ app-verify-account-status {
         color: gray;
     }
 
+    mat-select {
+        margin-bottom: 15px;
+        border: 1px solid #dfdfdf;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    .hide {
+        opacity: .3;
+    }
+
     .cnt-files {
         margin-top: 36px;
         margin-bottom: 36px;

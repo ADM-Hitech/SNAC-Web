@@ -1,23 +1,36 @@
 <div class="dialog-content-wrapper">
     <mat-toolbar matDialogTitle class="m-0">
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-            <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Estado de Cuenta</span>
+            <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Suba su estado de cuenta</span>
         </div>
     </mat-toolbar>
 
     <div class="pl-15 pr-25 m-0" mat-dialog-content>
-        <p>Suba su estado de cuenta</p>
 
-        <div class="content-upload-file">
-            <div class="box-input" #boxInput>
-                <mat-icon svgIcon="logoUpload" class="icon-upload"></mat-icon>
-                <br>
-                <input type="file" class="input-file" id="file" #inputFile>
-                <label for="file">Subir (formatos: jpg, jpeg, png, pdf)</label>
-            </div>
+        <p>Procure que la hoja principal salga completa.</p>
 
-            <div *ngIf="uploadingStatusAccount" class="loadingUpload">
+        <ng-container *ngIf="loading">
+            <div fxLayout="row" fxLayoutAlign="center center">
                 <mat-spinner [diameter]="30"></mat-spinner>
+            </div>
+        </ng-container>
+        
+        <div [ngClass]="{'hide': loading}">
+            <mat-select placeholder="Seleccione su banco" [(ngModel)]="institutionId">
+                <mat-option *ngFor="let institution of institutions" [value]="institution.id">{{ institution.description }}</mat-option>
+            </mat-select>
+    
+            <div class="content-upload-file">
+                <div class="box-input" #boxInput>
+                    <mat-icon svgIcon="logoUpload" class="icon-upload"></mat-icon>
+                    <br>
+                    <input type="file" class="input-file" id="file" accept=".jpg, .jpeg, .png, .pdf" #inputFile>
+                    <label for="file">Subir (formatos: jpg, jpeg, png, pdf)</label>
+                </div>
+    
+                <div *ngIf="uploadingStatusAccount" class="loadingUpload">
+                    <mat-spinner [diameter]="30"></mat-spinner>
+                </div>
             </div>
         </div>
     </div>

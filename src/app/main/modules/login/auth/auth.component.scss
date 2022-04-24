@@ -41,6 +41,20 @@ app-auth {
                     padding: 7px 10px;
                     font-weight: bold;
                     color: #41434C;
+
+                    .mat-icon {
+                        margin-right: 5px;
+
+                        svg {
+                            color: #25D366;
+                        }
+                    }
+
+                    .mat-button-wrapper {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
                 }
             }
         }

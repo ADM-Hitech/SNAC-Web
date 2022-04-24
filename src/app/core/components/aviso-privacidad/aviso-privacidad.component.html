@@ -2,7 +2,7 @@
     <div class="m-0" mat-dialog-content>
         <p class="title-aviso"><b>Aviso de Privacidad para la Protección de Datos Personales.</b></p>
         <p class="fx-12">
-            En términos de lo previsto en la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (en lo sucesivo denominada como “la Ley”), el Sindicato Nacional Alimenticio y del Comercio, Similares y Conexos de la República Mexicana, institución dedicada al estudio, defensa y mejoramiento de las condiciones de trabajo de sus agremiados, establece el presente Aviso de Privacidad de conformidad con lo siguiente:
+            En términos de lo previsto en la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (en lo sucesivo denominada como “la Ley”), el Sindicato Nacional Alimenticio y del Comercio, Similares y Conexos de la República Mexicana, institución dedicada al estudio, defensa y mejoramiento de las condiciones de trabajo de sus agremiados, establece el presente Aviso de Privacidad de conformidad con lo siguiente: 
             <br>
             <br>
         </p>
@@ -20,7 +20,7 @@
             <br>
         </p>
         <p class="fx-12">
-            4.- Al proporcionar tus Datos Personales por escrito, a través de una solicitud, formato en papel, formato digital, correo electrónico, o cualquier otro medio, aceptas y autorizas al sindicato a utilizar y tratar de forma automatizada tus datos personales e información suministrados, los cuales formarán parte de nuestra base de datos con la finalidad de usarlos, en forma enunciativa, más no limitativa, para: identificarte, ubicarte, comunicarte, contactarte, enviarte información, así como para enviarlos o transferirlos a terceros, dentro y fuera del territorio nacional, por cualquier medio que permita la Ley para cumplir con nuestros fines sociales. Mediante la aceptación y autorización para el tratamiento de tus datos personales en los términos antes señalados, nos facultas expresamente a transferirlos a autoridades de cualquier nivel (Federales, Estatales, Municipales), organismos públicos y privados, diversas empresas o personas físicas, dentro y fuera de México, con el propósito de darte participación de los beneficios, servicios financieros y las campañas sindicales promovidas en favor de la educación, salud o el acceso a descuentos para la adquisición de productos o servicios para nuestros agremiados.
+            4.- Al proporcionar tus Datos Personales por escrito, a través de una solicitud, formato en papel, formato digital, correo electrónico, o cualquier otro medio, aceptas y autorizas al sindicato a utilizar y tratar de forma automatizada tus datos personales e información suministrados, los cuales formarán parte de nuestra base de datos con la finalidad de usarlos, en forma enunciativa, más no limitativa, para: identificarte, ubicarte, comunicarte, contactarte, enviarte información, así como para enviarlos o transferirlos a terceros, dentro y fuera del territorio nacional, por cualquier medio que permita la Ley para cumplir con nuestros fines sociales. Mediante la aceptación y autorización para el tratamiento de tus datos personales en los términos antes señalados, nos facultas expresamente a transferirlos a autoridades de cualquier nivel (Federales, Estatales, Municipales), organismos públicos y privados, diversas empresas o personas físicas, dentro y fuera de México, con el propósito de darte participación de los beneficios, servicios financieros y las campañas sindicales promovidas en favor de la educación, salud o el acceso a descuentos para la adquisición de productos o servicios para nuestros agremiados. 
             <br>
         </p>
         <p class="fx-12">
@@ -49,7 +49,12 @@
         </p>
     </div>
 
-    <div class="cnt-button" mat-dialog-actions fxLayoutAlign="center center">
+    <div
+        class="cnt-button"
+        mat-dialog-actions
+        fxLayoutAlign="center center"
+        *ngIf="!HiddeButtons"
+    >
         <button mat-button class="btn" (click)="accept()">ACEPTAR</button>
         <button mat-button class="btn" (click)="cancel()">RECHAZAR</button>
     </div>

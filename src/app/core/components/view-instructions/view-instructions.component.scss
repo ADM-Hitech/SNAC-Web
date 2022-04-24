@@ -1,0 +1,14 @@
+@import '../../scss/app';
+
+app-view-instructions {
+    iframe {
+        width: 100%;
+        min-width: 700px;
+        height: 1000px;
+
+        @include media-breakpoint-down('sm') {
+            min-width: 400px;
+            height: 500px;
+        }
+    }
+}

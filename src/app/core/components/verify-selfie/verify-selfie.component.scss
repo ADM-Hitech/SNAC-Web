@@ -1,10 +1,29 @@
 app-verify-selfie {
+
+    .mat-dialog-content {
+        padding: 0;
+        background-color: #62b5b2;
+        padding-top: 24px;
+        min-height: 600px;
+
+        &.loading {
+            min-height: auto;
+        }
+    }
+
     .label {
         color: gray;
     }
 
     .content-upload-file {
         position: relative;
+
+        .cnt-loading {
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         
         .box-input {
             text-align: center;

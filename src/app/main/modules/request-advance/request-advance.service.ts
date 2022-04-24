@@ -85,6 +85,11 @@ export class RequestAdvanceService {
         formData.append('AccreditedId', id.toString());
         formData.append('File', front.file);
         formData.append('FileBack', back.file);
+        formData.append('Calle', front.addressDetail.calle);
+        formData.append('Colonia', front.addressDetail.colonia);
+        formData.append('Municipio', front.addressDetail.municipio);
+        formData.append('ZipCode', front.addressDetail.zipCode);
+        formData.append('Estado', front.addressDetail.estado);
 
         return this.http.post(`${this.constant.api}BinariaFiles/IneAccount`, formData);
     }
@@ -100,6 +105,7 @@ export class RequestAdvanceService {
         formData.append('BusinessNameBank', statusAccount.businesNameBank);
         formData.append('NumberAccount', statusAccount.numberAccount);
         formData.append('AccreditedId', id.toString());
+        formData.append('InstitutionId', statusAccount.institutionId.toString());
         formData.append('Meta', statusAccount.meta);
         formData.append('File', statusAccount.file);
 
@@ -134,9 +140,7 @@ export class RequestAdvanceService {
     public syncSelfie(selfie: FaceDetectModal, id: number): Observable<any> {
         const formData = new FormData();
         formData.append('AccreditedId', id.toString());
-        formData.append('metadata', selfie.meta);
-        formData.append('FaceId', selfie.faceId);
-        formData.append('File', selfie.file);
+        formData.append('URL1', selfie.URL1);
 
         return this.http.post(`${this.constant.api}BinariaFiles/Selfie`, formData);
     }

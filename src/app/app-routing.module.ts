@@ -87,6 +87,10 @@ const routes: Routes = [
   {
     path: 'registros-sin-rfc',
     loadChildren: () => import('./main/modules/request-without-rfc/request-without-rfc.module').then(module => module.RequestWithoutRfcModule)
+  },
+  {
+    path: 'download-report',
+    loadChildren: () => import('./main/modules/download-report/download-report.module').then(module => module.DownloadReportModule)
   }
 ];
 

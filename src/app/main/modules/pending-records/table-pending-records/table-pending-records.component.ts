@@ -183,7 +183,7 @@ export class TablePendingRecordsComponent {
             path.forEach((item) => {
                 const split = item.split('.');
 
-                switch (split[split.length - 1]) {
+                switch (split[split.length - 1].toLocaleLowerCase()) {
                     case 'jpg':
                     case 'jpeg':
                     case 'png':
@@ -196,7 +196,7 @@ export class TablePendingRecordsComponent {
             });
         } else {
             const split = path.split('.');
-            switch (split[split.length - 1]) {
+            switch (split[split.length - 1].toLocaleLowerCase()) {
                 case 'jpg':
                 case 'jpeg':
                 case 'png':

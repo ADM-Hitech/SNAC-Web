@@ -53,6 +53,9 @@ import { ShowCartaMandatoComponent } from '../components/show-carta-mandato/show
 import { ShowConvenioComponent } from '../components/show-convenio/show-convenio.component';
 import { ShowCartaTransferenciaDataComponent } from '../components/show-carta-transferencia-data/show-carta-transferencia-data.component';
 import { AvisoPrivacidadComponent } from '../components/aviso-privacidad/aviso-privacidad.component';
+import { BinariaService } from '../services/binaria.service';
+import { ViewInstructionsComponent } from '../components/view-instructions/view-instructions.component';
+import { CompleteUploadFilesComponent } from '../components/comple-upload-files/comple-upload-files.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +97,9 @@ import { AvisoPrivacidadComponent } from '../components/aviso-privacidad/aviso-p
     ShowCartaMandatoComponent,
     ShowConvenioComponent,
     ShowCartaTransferenciaDataComponent,
-    AvisoPrivacidadComponent
+    AvisoPrivacidadComponent,
+    ViewInstructionsComponent,
+    CompleteUploadFilesComponent
   ],
   imports: [
     CommonModule,
@@ -134,7 +139,8 @@ import { AvisoPrivacidadComponent } from '../components/aviso-privacidad/aviso-p
     AppMatchMedia,
     Constant,
     CookieService,
-    PdfViewerModule
+    PdfViewerModule,
+    BinariaService
   ],
   entryComponents: [
     ModalConfirmComponent,
@@ -168,7 +174,9 @@ import { AvisoPrivacidadComponent } from '../components/aviso-privacidad/aviso-p
     ShowCartaMandatoComponent,
     ShowConvenioComponent,
     ShowCartaTransferenciaDataComponent,
-    AvisoPrivacidadComponent
+    AvisoPrivacidadComponent,
+    ViewInstructionsComponent,
+    CompleteUploadFilesComponent
   ]
 })
 export class SharedModule { }

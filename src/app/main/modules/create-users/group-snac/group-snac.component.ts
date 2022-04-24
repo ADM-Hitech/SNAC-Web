@@ -49,6 +49,7 @@ export class GroupSnacComponent implements AfterViewInit {
       this.deleteDefaultEvent(event);
       const files = (event.target as HTMLInputElement).files;
       if (files.length > 0) {
+        
         this.labelInput = files[0].name;
         const fileReader = new FileReader();
 
@@ -101,7 +102,7 @@ export class GroupSnacComponent implements AfterViewInit {
 
   private getComopanies(): void {
     this.rest.getCompanies().subscribe((response) => {
-      this.companies = response.data;
+      this.companies = response.data.filter((item) => item.enabled);
     });
   }
 
@@ -111,50 +112,73 @@ export class GroupSnacComponent implements AfterViewInit {
   }
 
 	public submit(): void {
+
+    const activeCompany = this.companies.find((item) => item.id == this.selectedCompany);
+
+    if (!activeCompany) {
+      this.showAlert('WARNING', 'Selecciona una empresa', 'warning');
+
+      return;
+    }
+
+    if (activeCompany.description === 'Tradición  en Pastelerías, S.A. de C.V.' && !this.labelInput.includes('TAP')) {
+      this.showAlert('ERROR', 'El archivo no corresponde con la empresa seleccionada', 'error');
+
+      return;
+    }
+
+    if (activeCompany.description === 'Barcel, S.A. de C.V.' && !this.labelInput.includes('BARCEL')) {
+      this.showAlert('ERROR', 'El archivo no corresponde con la empresa seleccionada', 'error');
+      
+      return;
+    }
+
+    if (activeCompany.description === 'Moldes y Exhibidores, S.A. de C.V.' && !this.labelInput.includes('MOLDEX')) {
+      this.showAlert('ERROR', 'El archivo no corresponde con la empresa seleccionada', 'error');
+      
+      return;
+    }
+
+    if (activeCompany.description === 'Mundo Dulce, S.A. de C.V.' && !this.labelInput.includes('MD')) {
+      this.showAlert('ERROR', 'El archivo no corresponde con la empresa seleccionada', 'error');
+      
+      return;
+    }
+
+    if (activeCompany.description === 'Productos Ricolino, S.A.P.I. de C.V.' && !this.labelInput.includes('RICOLINO')) {
+      this.showAlert('ERROR', 'El archivo no corresponde con la empresa seleccionada', 'error');
+      
+      return;
+    }
+
 		this.loading = true;
 
 		this.rest.groupSnac(this.arrayBuffer, this.selectedCompany).subscribe((response) => {
 			if (response.success) {
-				this.snackBar.openFromComponent(SnakBarAlertComponent, {
-          data: {
-            message: 'EXITOSO',
-            subMessage: 'Usuarios Registrados',
-            type: 'success'
-          },
-          panelClass: 'snack-message',
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-          duration: 2500
-        });
+        this.showAlert('EXITOSO', 'Usuarios Registrados', 'success');
       } else {
-        this.snackBar.openFromComponent(SnakBarAlertComponent, {
-          data: {
-            message: 'ERROR',
-            subMessage: 'Verifique el archivo',
-            type: 'error'
-          },
-          panelClass: 'snack-message',
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-          duration: 2500
-        });
+        this.showAlert('ERROR', 'Verifica el archivo', 'error');
       }
 			
       this.loading = false;
       this.errors = response.message.replace(/\n/g, '<br>');
 		}, err => {
-			this.snackBar.openFromComponent(SnakBarAlertComponent, {
-        data: {
-          message: 'ERROR',
-          subMessage: 'Verifica el archivo',
-          type: 'error'
-        },
-        panelClass: 'snack-message',
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-        duration: 2500
-      });
+      this.showAlert('ERROR', 'Verifica el archivo', 'error');
       this.loading = false;
 		});
 	}
+
+  private showAlert(message: string, subMessage: string, type: 'error' | 'warning' | 'success'): void {
+    this.snackBar.openFromComponent(SnakBarAlertComponent, {
+      data: {
+        message: message,
+        subMessage: subMessage,
+        type
+      },
+      panelClass: 'snack-message',
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 2500
+    });
+  }
 }

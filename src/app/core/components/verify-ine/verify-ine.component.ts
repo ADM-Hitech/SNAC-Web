@@ -2,8 +2,11 @@ import { AfterViewInit, Component, ElementRef, Inject, ViewChild, ViewEncapsulat
 import { MatDialogRef, MatIconRegistry, MatSnackBar, MAT_DIALOG_DATA } from "@angular/material";
 import { DomSanitizer } from "@angular/platform-browser";
 import { LoginService } from "src/app/main/modules/login/login.service";
+import { Address } from "../../models/address.model";
 import { IneFrontModel } from "../../models/ine-front-model";
 import { IneModel } from "../../models/ine-model";
+import { GoogleService } from "../../services/google.service";
+import { Utils } from "../../utils";
 import { SnakBarAlertComponent } from "../snak-bar-alert/snak-bar-alert.component";
 
 @Component({
@@ -23,11 +26,13 @@ export class VerifyIneComponent implements AfterViewInit {
     constructor(
         private dialogRef: MatDialogRef<VerifyIneComponent>,
         @Inject(MAT_DIALOG_DATA) private data: {
-            service: LoginService
+            service: LoginService,
+			curp: string | null
         },
         private matIconRegistry: MatIconRegistry,
         private domSanitizer: DomSanitizer,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+		private googleService: GoogleService
     ) {
 		this.dialogRef.disableClose = true;
         this.matIconRegistry.addSvgIcon(
@@ -50,6 +55,23 @@ export class VerifyIneComponent implements AfterViewInit {
 			this.deleteDefaultEvent(event);
 			const files = (event.target as HTMLInputElement).files;
 			if (files.length > 0) {
+				const validType = Utils.typeFile(files[0].type);
+				if (!validType) {
+					this.snackBar.openFromComponent(SnakBarAlertComponent, {
+					data: {
+						message: 'ERROR',
+						subMessage: 'El formato del archivo no es valido',
+						type: 'error'
+					},
+					panelClass: 'snack-message',
+					horizontalPosition: 'right',
+					verticalPosition: 'top',
+					duration: 2500
+					});
+
+					return;
+				}
+
 				const fileReader = new FileReader();
 
 				fileReader.onload = (e) => {
@@ -101,6 +123,23 @@ export class VerifyIneComponent implements AfterViewInit {
 			this.deleteDefaultEvent(event);
 			const files = event.dataTransfer.files;
 			if (files.length > 0) {
+				const validType = Utils.typeFile(files[0].type);
+				if (!validType) {
+					this.snackBar.openFromComponent(SnakBarAlertComponent, {
+					data: {
+						message: 'ERROR',
+						subMessage: 'El formato del archivo no es valido',
+						type: 'error'
+					},
+					panelClass: 'snack-message',
+					horizontalPosition: 'right',
+					verticalPosition: 'top',
+					duration: 2500
+					});
+
+					return;
+				}
+
 				const fileReader = new FileReader();
 
 				fileReader.onload = (e) => {
@@ -134,11 +173,34 @@ export class VerifyIneComponent implements AfterViewInit {
 		event.stopPropagation();
 	}
 
-    private uploadIne(response: any, file: File): void {
+    private async uploadIne(response: any, file: File): Promise<void> {
         let ine: IneModel;
 
         if (this.type === 'front') {
             ine = IneFrontModel.fromJson(response);
+
+			if (typeof this.data.curp === 'string') {
+				if ((this.data.curp as any).replaceAll(' ', '').toLocaleLowerCase() !== ((ine as IneFrontModel).curp as any).replaceAll(' ', '').toLocaleLowerCase()) {
+					this.snackBar.openFromComponent(SnakBarAlertComponent, {
+						data: {
+							message: 'ERROR',
+							subMessage: 'La CURP no coincide, por favor intente nuevamente y procure que la imagen salga clara.',
+							type: 'error'
+						},
+						panelClass: 'snack-message',
+						horizontalPosition: 'right',
+						verticalPosition: 'top',
+						duration: 4000
+					});
+
+					return;
+				}
+			}
+
+			const restgoogle = await this.googleService.getGeoPosition((ine as IneFrontModel).address).toPromise();
+
+			(ine as IneFrontModel).addressDetail = Address.fromGoogleService(restgoogle);
+
             this.type = 'back';
         } else {
             ine = IneModel.fromJson(response);
