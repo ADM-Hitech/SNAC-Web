@@ -127,7 +127,7 @@ export class AccreditedComponent implements OnInit {
       License_Id: ['']
     });
 
-    this.formGroup.valueChanges.subscribe(() => {
+    this.formGroup.valueChanges.subscribe(() => {    
       this.onFormValuesChanged();
     });
 

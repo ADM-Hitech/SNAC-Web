@@ -6,14 +6,18 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="edit(element)">
-                <mat-icon svgIcon="iconEdit"></mat-icon>
-                <span>Editar Usuario</span>
-            </button>
-            <button mat-menu-item (click)="delete(element.id, element.type)">
-                <mat-icon svgIcon="iconDelete"></mat-icon>
-                <span>Eliminar</span>
-            </button>
+                <button mat-menu-item (click)="resendCredentials(element)">
+                    <mat-icon>email</mat-icon>
+                    <span>Reenviar Credenciales</span>
+                </button>
+                <button mat-menu-item (click)="edit(element)">
+                    <mat-icon svgIcon="iconEdit"></mat-icon>
+                    <span>Editar Usuario</span>
+                </button>
+                <button mat-menu-item (click)="delete(element.id, element.type)">
+                    <mat-icon svgIcon="iconDelete"></mat-icon>
+                    <span>Eliminar</span>
+                </button>
             </mat-menu>              
         </td>
     </ng-container>

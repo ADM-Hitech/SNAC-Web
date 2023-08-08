@@ -179,4 +179,21 @@ export class Utils {
 
         return token;
     }
+
+    public static dataURLtoBlob(dataUrl: string): Blob {
+        let array, binary, i , len;
+		binary = atob(dataUrl.split(',')[1]);
+		array = [];
+		i = 0;
+		len = binary.length;
+
+		while(i<len) {
+			array.push(binary.charCodeAt(i));
+			i++;
+		}
+
+		return new Blob([new Uint8Array(array)], {
+			type: 'image/jpg'
+		});
+    }
 }

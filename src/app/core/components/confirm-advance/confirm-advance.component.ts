@@ -42,7 +42,7 @@ export class ConfirmAdvanceComponent {
             this.data.service.preAdvance(this.data.paysheet, this.amount)]
         ).subscribe((response) => {
             this.bank = response[0].data.user.institution_Name;
-            this.account = '**** **** **** ' + (response[0].data.user.account_Number as string).slice(-4);
+            this.account = '**** **** **** ' + (response[0].data.user.clabe as string).slice(-4);
             this.totalDiscount = response[1].data.advance.total_Withhold;
             this.dateDetails = response[1].data.details.map((item) => moment(item.date_Payment).format('DD/MM/yyyy'));
             this.dayForPayment = response[1].data.advance.day_For_Payment;

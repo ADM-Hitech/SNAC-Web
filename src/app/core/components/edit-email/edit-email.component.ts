@@ -29,13 +29,15 @@ export class EditEmailComponent {
         this.dialogRef.disableClose = true;
         this.formGroup = this.formBuilder.group({
             email: ['', [Validators.email, Validators.required]],
-            telefono: ['', Validators.required],
+            telefono: ['', [Validators.required, Validators.minLength(10)]],
             accreditedId: [this.data.id],
             address: ['', Validators.required],
             colony: ['', Validators.required],
             municipality: ['', Validators.required],
             zip_code: ['', Validators.required],
-            state: ['', Validators.required]
+            state: ['', Validators.required],
+            clabe_interbancaria: ['', Validators.required],
+            account_number: ['', Validators.required]
         });
     }
 

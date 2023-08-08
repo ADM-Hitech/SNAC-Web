@@ -6,6 +6,10 @@ const routes: Routes = [
     {
         path: '',
         component: DownloadReportComponent,
+    },
+    {
+        path: ':company',
+        component: DownloadReportComponent
     }
 ];
 

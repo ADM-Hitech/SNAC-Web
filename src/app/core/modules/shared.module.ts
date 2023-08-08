@@ -56,6 +56,7 @@ import { AvisoPrivacidadComponent } from '../components/aviso-privacidad/aviso-p
 import { BinariaService } from '../services/binaria.service';
 import { ViewInstructionsComponent } from '../components/view-instructions/view-instructions.component';
 import { CompleteUploadFilesComponent } from '../components/comple-upload-files/comple-upload-files.component';
+import { EditBankInfoComponent } from '../components/edit-bank-info/edit-bank-info.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { CompleteUploadFilesComponent } from '../components/comple-upload-files/
     ShowCartaTransferenciaDataComponent,
     AvisoPrivacidadComponent,
     ViewInstructionsComponent,
-    CompleteUploadFilesComponent
+    CompleteUploadFilesComponent,
+    EditBankInfoComponent
   ],
   imports: [
     CommonModule,
@@ -176,7 +178,8 @@ import { CompleteUploadFilesComponent } from '../components/comple-upload-files/
     ShowCartaTransferenciaDataComponent,
     AvisoPrivacidadComponent,
     ViewInstructionsComponent,
-    CompleteUploadFilesComponent
+    CompleteUploadFilesComponent,
+    EditBankInfoComponent
   ]
 })
 export class SharedModule { }

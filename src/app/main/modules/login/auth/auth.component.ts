@@ -40,7 +40,7 @@ export class AuthComponent {
     }
 
     public openWhats(): void {
-        window.open("https://api.whatsapp.com/send/?phone=+5215592252019", "_blank");
+        window.open("https://api.whatsapp.com/send/?phone=525592252019&text=hola+me+gustar%C3%ADa+informaci%C3%B3n&app_absent=0", "_blank");
     }
     
 }

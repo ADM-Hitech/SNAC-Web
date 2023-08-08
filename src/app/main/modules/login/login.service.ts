@@ -198,7 +198,8 @@ export class LoginService {
               data: {
                   service: this,
                   curp: curp
-              }
+              },
+              panelClass: 'm-verify-ine'
           });
 
           const responseIneDialog = await ineDialog.afterClosed().toPromise() as Array<IneModel>;
@@ -238,9 +239,10 @@ export class LoginService {
           await sleep;
 
           const slefieDialog = matDialog.open(VerifySelfieComponent, {
-              data: {
-                  service: this
-              }
+            data: {
+              service: this
+            },
+            panelClass: 'm-verify-selfie'
           });
 
           const responseSelfie = await slefieDialog.afterClosed().toPromise();
@@ -265,7 +267,8 @@ export class LoginService {
                   rfc: err.error.rfc ?? curp,
                   names: '',
                   lastName: ''
-              }
+              },
+              panelClass: 'm-verify-account-status'
           });
 
           const responseStatusAccount = await statusAccount.afterClosed().toPromise();

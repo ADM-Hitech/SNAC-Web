@@ -1,0 +1,53 @@
+<mat-toolbar matDialogTitle class="m-0">
+    <span class="title dialog-title" [ngStyle]="{'font-family': 'MontserratBold'}">Editar Información</span>
+    <button mat-button class="toggle-button-navbar mat-icon-button" [mat-dialog-close]="false">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-toolbar>
+
+<div class="pl-25 pr-25 m-0" mat-dialog-content appPerfectScrollbar [formGroup]="form">
+    <div class="loading-init" *ngIf="loadingInit">
+        <mat-spinner [diameter]="20"></mat-spinner>
+    </div>
+
+    <p class="label">DATOS BANCARIOS</p>
+    <div fxLayout="row">
+        <mat-form-field appearance="outline">
+            <mat-label>Banco</mat-label>
+            <mat-select formControlName="institution_id">
+                <mat-option *ngFor="let item of institutions" [value]="item.id">{{ item.description }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formErrors?.institution_id?.required">
+                El Banco es requerido
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row">
+        <mat-form-field appearance="outline">
+            <mat-label>Clabe interbancaria</mat-label>
+            <input matInput formControlName="clabe">
+            <mat-error *ngIf="formErrors?.clabe?.required">
+                La Clabe es requerida
+            </mat-error>
+            <mat-error *ngIf="formErrors?.clabe?.minlength">
+                Formato invalido
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row">
+        <mat-form-field appearance="outline">
+            <mat-label>Numero de cuenta</mat-label>
+            <input matInput formControlName="account_number">
+        </mat-form-field>
+    </div>
+</div>
+
+<div mat-dialog-actions class="m-0" fxLayoutAlign="space-around center">
+    <div class="content-botton" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="content-btn-left"><button mat-button [mat-dialog-close]="false">CANCELAR</button></div>
+
+        <div class="content-btn-right">
+            <button mat-button (click)="submit()" [disabled]="form.invalid || loading" [class.spinner]="loading">GUARDAR</button>
+        </div>
+    </div>
+</div>

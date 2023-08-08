@@ -221,7 +221,7 @@
                                     [@detailExpand]="subelementAdviser == subExpandedElement ? 'expanded' : 'collapsed'">
                                     <div class="element-description">
 
-                                        <table mat-table [dataSource]="subelementAdviser.advances" class="sub-table" multiTemplateDataRows>
+                                        <table mat-table [dataSource]="subelementAdviser.payments" class="sub-table" multiTemplateDataRows>
                                             <ng-container matColumnDef="options">
                                                 <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': coptionssWidth + 'px'}"></td>
                                             </ng-container>
@@ -256,19 +256,19 @@
                                         
                                             <ng-container matColumnDef="day">
                                                 <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': cdayWidth + 'px', 'text-align': 'center'}">
-                                                    {{ subelement.requested_Day }}
+                                                    {{ subelement.created_at | date: 'dd' }}
                                                 </td>
                                             </ng-container>
                                         
                                             <ng-container matColumnDef="interestRate">
                                                 <td mat-cell *matCellDef="let subelement" style="text-align: center;" [ngStyle]="{'width': cinterestRateWidth + 'px'}">
-                                                    {{ subelement.interest_Rate }}
+                                                    
                                                 </td>
                                             </ng-container>
                                         
                                             <ng-container matColumnDef="interestRateMora">
                                                 <td mat-cell *matCellDef="let subelement" style="text-align: center;" [ngStyle]="{'width': cinterestRateMoraWidth + 'px'}">
-                                                    {{ subelement.moratoruim_Interest_Rate }}
+                                                    
                                                 </td>
                                             </ng-container>
                                         
@@ -280,7 +280,7 @@
                                         
                                             <ng-container matColumnDef="interestMora">
                                                 <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': cinterestMoraWidth + 'px', 'text-align': 'center'}">
-                                                    {{ subelement.interest_Moratorium | currency }}
+                                                    
                                                 </td>
                                             </ng-container>
                                         
@@ -292,13 +292,13 @@
                                         
                                             <ng-container matColumnDef="settings">
                                                 <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': csettingsWidth + 'px', 'text-align': 'center'}">
-                                                    {{ subelement.promotional_Setting | currency }}
+                                                    
                                                 </td>
                                             </ng-container>
                                         
                                             <ng-container matColumnDef="subtotalReceivable">
                                                 <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': csubtotalReceivableWidth + 'px', 'text-align': 'center'}">
-                                                    {{ subelement.subtotal + subelement.vat | currency }}
+                                                    
                                                 </td>
                                             </ng-container>
                                         
@@ -310,7 +310,7 @@
                                         
                                             <ng-container matColumnDef="daysMoraPayInteres">
                                                 <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': cdaysMoraPayInteresWidth + 'px', 'text-align': 'center'}">
-                                                    {{ subelement.day_Moratorium }}
+                                                    
                                                 </td>
                                             </ng-container>
                                         
@@ -331,7 +331,7 @@
                                                         [@detailExpand]="subelementAdviser == subExpandedElementDetail ? 'expanded' : 'collapsed'">
                                                         <div class="element-description">
 
-                                                            <table mat-table [dataSource]="subelementAdviser.details" class="sub-table" multiTemplateDataRows>
+                                                            <table mat-table [dataSource]="subelementAdviser.payments" class="sub-table" multiTemplateDataRows>
                                                                 <ng-container matColumnDef="options">
                                                                     <td mat-cell *matCellDef="let subelement" [ngStyle]="{'width': coptionssWidth + 'px'}"></td>
                                                                 </ng-container>

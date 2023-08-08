@@ -1,13 +1,24 @@
+@import '../../scss/app';
+
 app-verify-selfie {
+
+    .dialog-content-wrapper {
+        @include media-breakpoint-down('sm') {
+            height: 100% !important;
+        }
+    }
 
     .mat-dialog-content {
         padding: 0;
-        background-color: #62b5b2;
-        padding-top: 24px;
-        min-height: 600px;
 
         &.loading {
             min-height: auto;
+        }
+
+        @include media-breakpoint-down('sm') {
+            max-height: 100% !important;
+            height: calc(100% - 56px) !important;
+            display: flex;
         }
     }
 
@@ -17,12 +28,33 @@ app-verify-selfie {
 
     .content-upload-file {
         position: relative;
+        max-width: 350px;
+        padding: 24px;
+
+        @include media-breakpoint-down('sm') {
+            max-width: 100%;
+            width: 100%;
+        }
+
+        #camera {
+            opacity: 0;
+            position: absolute;
+        }
+
+        .counter {
+            margin: 12px 0;
+        }
 
         .cnt-loading {
             padding: 40px;
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        .nota {
+            margin: 0;
+            margin-bottom: 12px;
         }
         
         .box-input {
@@ -68,6 +100,64 @@ app-verify-selfie {
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        .content-video {
+            position: relative;
+
+            #video
+            {
+                transform: rotateY(180deg);
+                -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+                -moz-transform:rotateY(180deg); /* Firefox */
+            }
+
+            .circle-face {
+                position: absolute;
+                width: 180px;
+                height: 80%;
+                top: 10%;
+                left: 85px;
+                border: 4px solid white;
+                border-radius: 9px;
+
+                @include media-breakpoint-down('sm') {
+                    width: 60%;
+                    left: 20%;
+                    height: 60%;
+                    top: 20%;
+                }
+            }
+        }
+
+        button {
+            background-color: #41434C;
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            min-width: 140px;
+    
+            &:disabled {
+                color: white !important;
+            }
+
+            &.spinner {
+                &:before {
+                    content: '';
+                    box-sizing: border-box;
+                    position: absolute;
+                    top: 50%;
+                    left: 90%;
+                    width: 20px;
+                    height: 20px;
+                    margin-top: -10px;
+                    margin-left: -10px;
+                    border-radius: 50%;
+                    border: 2px solid #ffffff;
+                    border-top-color: #41434C;
+                    animation: spinner .8s linear infinite;
+                }
+            }
         }
     }
 

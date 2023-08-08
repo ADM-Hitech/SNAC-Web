@@ -38,6 +38,7 @@ export class EditAccreditedComponent implements OnInit {
     id: 6,
     label: 'Sábado'
   }];
+  public showPasswordAdmin: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<EditAccreditedComponent>,
@@ -128,8 +129,13 @@ export class EditAccreditedComponent implements OnInit {
       Period_End_Date: [15, [Validators.min(1), Validators.max(31)]],
       License_Id: [data?.user?.license_Id],
       curp: [data?.user?.curp, Validators.required],
-      numberEmployee: [data?.user?.numberEmployee]
+      numberEmployee: [data?.user?.numberEmployee],
+      complete_register: [false]
     });
+
+    if (data?.user?.approvedDocuments && data?.user?.completeUpload) {
+      this.formGroup.get('complete_register').setValue(true);
+    }
 
     this.changePeriodic(data?.user?.period_Id);
     this.formGroup.get('Period_Start_Date').setValue(data?.user?.period_Start_Date);
@@ -137,7 +143,6 @@ export class EditAccreditedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.formGroup.valueChanges.subscribe(() => {
       this.onFormValuesChanged();
     });
@@ -175,7 +180,7 @@ export class EditAccreditedComponent implements OnInit {
       return;
     }
 
-    if (this.periodicIsQuincenal && (this.formGroup.get('Period_End_Date').value - this.formGroup.get('Period_Start_Date').value) > 15) {
+    if (this.periodicIsQuincenal && (this.formGroup.get('Period_End_Date').value - this.formGroup.get('Period_Start_Date').value) > 17) {
       this.snackBar.openFromComponent(SnakBarAlertComponent, {
         data: {
           message: 'ERROR FECHAS',

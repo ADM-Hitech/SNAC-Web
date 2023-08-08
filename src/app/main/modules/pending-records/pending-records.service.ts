@@ -34,4 +34,8 @@ export class PendingRecordService {
     public approveDocuments(id: number): Observable<any> {
         return this.http.put(`${this.constant.api}Accrediteds/ApproveDocuments/${id}`, {});
     }
+
+    public getLugaresTrabajoActivos(): Observable<any> {
+        return this.http.get(`${this.constant.api}lugarestrabajo/only-active`);
+    }
 }

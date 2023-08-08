@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialog, MatSnackBar } from "@angular/material";
+import { ActivatedRoute } from "@angular/router";
 import { SnakBarAlertComponent } from "src/app/core/components/snak-bar-alert/snak-bar-alert.component";
 import { DownloadReportService } from "./download-report.service";
 
@@ -18,7 +19,8 @@ export class DownloadReportComponent {
     constructor(
         private readonly rest: DownloadReportService,
         private readonly formBuild: FormBuilder,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private readonly route: ActivatedRoute
     ) {
         this.formErrors = {
             NumberWeek: {},
@@ -27,7 +29,8 @@ export class DownloadReportComponent {
 
         this.form = this.formBuild.group({
             NumberWeek: ['', Validators.required],
-            Password: ['', Validators.required]
+            Password: ['', Validators.required],
+            Company: [this.route.snapshot.params.company]
         });
     }
 

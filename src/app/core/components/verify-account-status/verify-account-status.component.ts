@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, ElementRef, Inject, ViewChild, ViewEncapsulation } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild, ViewEncapsulation } from "@angular/core";
 import { MatDialogRef, MatIconRegistry, MatSnackBar, MAT_DIALOG_DATA } from "@angular/material";
 import { DomSanitizer } from "@angular/platform-browser";
-import * as moment from "moment";
 import { LoginService } from "src/app/main/modules/login/login.service";
 import { AccountStatusModel } from "../../models/account-status.model";
 import { AuthService } from "../../services/auth/auth.service";
@@ -14,7 +13,7 @@ import { SnakBarAlertComponent } from "../snak-bar-alert/snak-bar-alert.componen
     styleUrls: ['./verify-account-status.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class VerifyAccountStatusComponent implements AfterViewInit {
+export class VerifyAccountStatusComponent implements AfterViewInit, OnDestroy {
 
     @ViewChild('boxInput') boxInput: ElementRef;
 	@ViewChild('inputFile') inputFile: ElementRef;
@@ -22,6 +21,9 @@ export class VerifyAccountStatusComponent implements AfterViewInit {
     public uploadingStatusAccount: boolean = false;
 	public institutionId: number;
 	public loading = true;
+	public takePicker: boolean = false;
+	private canvas: HTMLCanvasElement;
+	private video: HTMLVideoElement;
     
     constructor(
         private dialogRef: MatDialogRef<VerifyAccountStatusComponent>,
@@ -49,7 +51,16 @@ export class VerifyAccountStatusComponent implements AfterViewInit {
 		);
 
 		this.getInstitutions();
+		this.checkHaveCameraBack();
     }
+
+	private async checkHaveCameraBack(): Promise<void> {
+		const devices = await navigator.mediaDevices.enumerateDevices();
+		const supports = await navigator.mediaDevices.getSupportedConstraints();
+		const back = devices.filter(item => item.kind == 'videoinput' && (item.label.includes('back') || item.label.includes('trasera'))).length;
+
+		this.takePicker = back > 0 && supports['facingMode'];
+	}
 
 	private getInstitutions(): void {
 		this.data.service.getInstitutions().subscribe((response) => {
@@ -60,38 +71,31 @@ export class VerifyAccountStatusComponent implements AfterViewInit {
 	}
 
     ngAfterViewInit(): void {
-        (this.boxInput.nativeElement as HTMLDivElement).addEventListener('click', (event) => {
+        this.observerBoxInput();
+		this.onloadCapture();
+    }
+
+	ngOnDestroy(): void {
+		if (this.video) {
+			this.video.pause();
+			this.video.src = "";
+			this.video.srcObject = null;
+		}
+	}
+
+	private observerBoxInput(): void {
+		if (!!!this.boxInput) {
+			return;
+		}
+
+		(this.boxInput.nativeElement as HTMLDivElement).addEventListener('click', (event) => {
 			(this.inputFile.nativeElement as HTMLInputElement).click();
 		});
 
 		(this.inputFile.nativeElement as HTMLInputElement).addEventListener('change', (event) => {
 			this.deleteDefaultEvent(event);
 			const files = (event.target as HTMLInputElement).files;
-			if (files.length > 0) {
-				const validType = Utils.typeFile(files[0].type);
-				if (!validType) {
-					this.snackBar.openFromComponent(SnakBarAlertComponent, {
-					data: {
-						message: 'ERROR',
-						subMessage: 'El formato del archivo no es valido',
-						type: 'error'
-					},
-					panelClass: 'snack-message',
-					horizontalPosition: 'right',
-					verticalPosition: 'top',
-					duration: 2500
-					});
-
-					return;
-				}
-				const fileReader = new FileReader();
-
-				fileReader.onload = (e) => {
-					this.sendBinaria(fileReader, files[0]);
-				};
-
-				fileReader.readAsDataURL(files[0]);
-			}
+			this.processFile(files);
 		});
 
 		(this.boxInput.nativeElement as HTMLDivElement).addEventListener('drag', (event) => {
@@ -116,10 +120,63 @@ export class VerifyAccountStatusComponent implements AfterViewInit {
 		(this.boxInput.nativeElement as HTMLDivElement).addEventListener('drop', (event) => {
 			this.deleteDefaultEvent(event);
 			const files = event.dataTransfer.files;
-			if (files.length > 0) {
-				const validType = Utils.typeFile(files[0].type);
-				if (!validType) {
-					this.snackBar.openFromComponent(SnakBarAlertComponent, {
+			this.processFile(files);
+		});
+	}
+
+	private onloadCapture(): void {
+		let streaming = false;
+		this.canvas = document.getElementById('camera') as HTMLCanvasElement;
+		this.video = document.getElementById('video') as HTMLVideoElement;
+
+		const widthBody = document.body.clientWidth;
+		let width = 350;
+		let height = 0;
+
+		this.video.addEventListener('canplay', function(_) {
+			if (!streaming) {
+				height = this.videoHeight / (this.videoWidth / width);
+				this.setAttribute('width', widthBody > 500 ? width.toString() : '100%');
+				this.setAttribute('height', height.toString());
+				streaming = true;
+			}
+		}, false);
+
+		navigator.mediaDevices.getUserMedia({
+			video: {
+				facingMode: { exact: 'environment' }
+			},
+			audio: false
+		}).then(stream => {
+			this.video.srcObject = stream;
+			this.video.play();
+			(window as any).stream = stream;
+		}, err => {
+			this.takePicker = false;
+			console.log('new forma', err);
+		});
+	}
+
+	public takePicture(): void {
+		this.uploadingStatusAccount = true;
+		this.canvas.width = 342 * 3;
+		this.canvas.height = 262 * 3;
+		this.canvas.getContext('2d').drawImage(this.video, 0, 0, 342 * 3, 262 * 3);
+		
+		const blobcustom = Utils.dataURLtoBlob(this.canvas.toDataURL());
+
+		const fileReader = new FileReader();
+		this.sendBinaria(fileReader, new File([blobcustom], "cap_account_status.jpg", {
+			lastModified: Date.now(),
+			type: 'image/jpg'
+		}));
+	}
+
+	private processFile(files: FileList): void {
+		if (files.length > 0) {
+			const validType = Utils.typeFile(files[0].type);
+			if (!validType) {
+				this.snackBar.openFromComponent(SnakBarAlertComponent, {
 					data: {
 						message: 'ERROR',
 						subMessage: 'El formato del archivo no es valido',
@@ -129,21 +186,20 @@ export class VerifyAccountStatusComponent implements AfterViewInit {
 					horizontalPosition: 'right',
 					verticalPosition: 'top',
 					duration: 2500
-					});
+				});
 
-					return;
-				}
-				
-				const fileReader = new FileReader();
-
-				fileReader.onload = (e) => {
-					this.sendBinaria(fileReader, files[0]);
-				};
-
-				fileReader.readAsDataURL(files[0]);
+				return;
 			}
-		});
-    }
+			
+			const fileReader = new FileReader();
+
+			fileReader.onload = (e) => {
+				this.sendBinaria(fileReader, files[0]);
+			};
+
+			fileReader.readAsDataURL(files[0]);
+		}
+	}
 
     private deleteDefaultEvent(event: DragEvent | any): void {
 		event.preventDefault();
@@ -173,105 +229,29 @@ export class VerifyAccountStatusComponent implements AfterViewInit {
 			return;
 		}
 
-		this.data.service.uploadStatusAccount(fileReader.result.toString(), institutionActive.description).subscribe((response) => {
-			this.uploadAccountStatus(response, file);
-		}, err => {
-			this.uploadingStatusAccount = false;
-			this.snackBar.openFromComponent(SnakBarAlertComponent, {
-				data: {
-					message: 'ERROR',
-					subMessage: 'Error al procesar el archivo, o su estado de cuenta no es valida',
-					type: 'error'
-				},
-				panelClass: 'snack-message',
-				horizontalPosition: 'right',
-				verticalPosition: 'top',
-				duration: 2500
-			});
-		}, () => this.uploadingStatusAccount = false);
+		this.uploadAccountStatus({}, file);
 	}
 
     private uploadAccountStatus(response: any, file: File): void {
         const accountStatus: AccountStatusModel = AccountStatusModel.fromJson(response);
 		accountStatus.institutionId = this.institutionId;
 		accountStatus.file = file;
-		const rfc = this.data.rfc || this.auth.rfc;
-		const date = moment();
 
-		if (typeof accountStatus.date2 == undefined) {
-			this.snackBar.openFromComponent(SnakBarAlertComponent, {
-                data: {
-                    message: 'ERROR',
-                    subMessage: 'El documento no es del ultimo periodo',
-                    type: 'error'
-                },
-                panelClass: 'snack-message',
-                horizontalPosition: 'right',
-                verticalPosition: 'top',
-                duration: 2500
-            });
+		if (this.video) {
+			this.video.pause();
+			this.video.src = "";
+			this.video.srcObject = null;
 
-			return;
+			try {
+				(window as any).stream.getTracks().forEach(function(track) {
+					track.stop();
+				});	
+			} catch (_) {}
 		}
 
-		var difDays = accountStatus.date2.diff(date, 'days');
-		difDays = difDays > 0 ? difDays : (difDays * -1);
-
-		if (difDays > 120) {
-			this.snackBar.openFromComponent(SnakBarAlertComponent, {
-                data: {
-                    message: 'ERROR',
-                    subMessage: 'El documento no es del ultimo periodo',
-                    type: 'error'
-                },
-                panelClass: 'snack-message',
-                horizontalPosition: 'right',
-                verticalPosition: 'top',
-                duration: 2500
-            });
-
-			return;
-		}
-
-		if (accountStatus.rfc == '') {
-
-			const name = this.data.names.split(' ');
-			const lastName = this.data.lastName.split(' ');
-			const validName = name.length > 0 && accountStatus.name.toLocaleLowerCase().includes(name[0].toLocaleLowerCase());
-			const validLastName = lastName.length > 0 && accountStatus.name.toLocaleLowerCase().includes(lastName[0].toLocaleLowerCase());
-
-			if (!(validName && validLastName)) {
-				this.snackBar.openFromComponent(SnakBarAlertComponent, {
-					data: {
-						message: 'ERROR',
-						subMessage: 'El documento tiene el nombre distinto al del usuario',
-						type: 'error'
-					},
-					panelClass: 'snack-message',
-					horizontalPosition: 'right',
-					verticalPosition: 'top',
-					duration: 2500
-				});
-
-				return;
-			}
-
-		} else if (accountStatus.rfc.toLocaleUpperCase() != 'XAXX010101000' && rfc.substring(0, rfc.length > 7 ? 8 : 0).toLowerCase() !== accountStatus.rfc.substring(0, accountStatus.rfc.length > 7 ? 8 : 0).toLowerCase()) {
-            this.snackBar.openFromComponent(SnakBarAlertComponent, {
-                data: {
-                    message: 'ERROR',
-                    subMessage: 'El documento tiene un rfc distinto al del usuario',
-                    type: 'error'
-                },
-                panelClass: 'snack-message',
-                horizontalPosition: 'right',
-                verticalPosition: 'top',
-                duration: 2500
-            });
-
-            return;
-        }
-
-        this.dialogRef.close(accountStatus);
+		setTimeout(() => {
+			this.uploadingStatusAccount = false;
+			this.dialogRef.close(accountStatus);
+		}, 1500);
     }
 }

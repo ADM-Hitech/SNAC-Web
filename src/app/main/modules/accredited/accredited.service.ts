@@ -69,4 +69,11 @@ export class AccreditedService {
   public getLicenses(): Observable<any> {
     return this.http.get(`${this.constant.api}License/All`);
   }
+
+  public resendCredentials(curp: string, email: string): Observable<any> {
+    return this.http.put(`${this.constant.api}Login/UpdateEmail`, {
+      curp,
+      email
+    });
+  }
 }

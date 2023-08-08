@@ -42,6 +42,9 @@ export class AdvancesReceivableComponent implements OnInit {
       this.loading = false;
       if (response.success) {
         this.data = response.data;
+
+        console.log(this.data);
+        
       }
     }, (error) => {
       this.loading = false;

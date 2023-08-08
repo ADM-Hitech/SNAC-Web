@@ -129,33 +129,40 @@ export class AccreditedComponent implements OnInit {
       if (response) {
         this.rest.delete(event.id, event.type).subscribe(res => {
           if (res.success) {
-            this.snackBar.openFromComponent(SnakBarAlertComponent, {
-              data: {
-                message: 'EXITOSO',
-                subMessage: res.message,
-                type: 'success'
-              },
-              panelClass: 'snack-message',
-              horizontalPosition: 'right',
-              verticalPosition: 'top',
-              duration: 2500
-            });
+            this.showMessage('EXITOSO', res.message, 'success');
             this.fetchData();
           } else {
-            this.snackBar.openFromComponent(SnakBarAlertComponent, {
-              data: {
-                message: 'ERROR',
-                subMessage: res.message,
-                type: 'error'
-              },
-              panelClass: 'snack-message',
-              horizontalPosition: 'right',
-              verticalPosition: 'top',
-              duration: 2500
-            });
+            this.showMessage('ERROR', res.message, 'error');
           }
         });
       }
+    });
+  }
+
+  onSendCredentials(row: any): void {
+    if (row.completeUpload && row.approvedDocuments) {
+      this.showMessage('Procesando', 'Enviando...', 'success', 1500);
+      this.rest.resendCredentials(row.curp, row.mail).subscribe((response) => {
+        this.showMessage('Exitoso', 'Las credenciales han sido enviadas.', 'success');
+      }, _ => {
+        this.showMessage('ERROR', 'Ocurrio un error por favor intentelo más tarde.', 'error');
+      });
+    } else {
+      this.showMessage('ERROR', 'El usuario aun no completa su registro o no han sido aprovados sus documentos.', 'error', 400);
+    }
+  }
+
+  showMessage(message: string, subMessage: string, type: string, duration: number = 2500): void {
+    this.snackBar.openFromComponent(SnakBarAlertComponent, {
+      data: {
+        message: message,
+        subMessage: subMessage,
+        type: type
+      },
+      panelClass: 'snack-message',
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: duration
     });
   }
 

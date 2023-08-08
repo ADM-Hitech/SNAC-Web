@@ -14,7 +14,6 @@ import { VerifyIneComponent } from "src/app/core/components/verify-ine/verify-in
 import { VerifySelfieComponent } from "src/app/core/components/verify-selfie/verify-selfie.component";
 import { WelcomeSnacComponent } from "src/app/core/components/welcome-snac/welcome-snac.component";
 import { AccountStatusModel } from "src/app/core/models/account-status.model";
-import { BinariaResponseModel } from "src/app/core/models/binaria-response.model";
 import { FaceDetectModal } from "src/app/core/models/face-detected-model";
 import { IneFrontModel } from "src/app/core/models/ine-front-model";
 import { IneModel } from "src/app/core/models/ine-model";
@@ -80,6 +79,7 @@ export class EmployeeNotFoundComponent {
 
     public initialProcess(): void {
         this.loading = true;
+
         this.rest.verifyEmployeeNumber(this.verifyForm.get('curp').value).subscribe(response => {
             if (response.success) {
                 this.employeeId = response.data.id;
@@ -87,7 +87,9 @@ export class EmployeeNotFoundComponent {
                 const welcomeDialog = this.matDialog.open(WelcomeSnacComponent);
 
                 welcomeDialog.afterClosed().subscribe((response) => {
-                    this.uploadSelfie();
+                    if (typeof response !== 'undefined') {
+                        this.uploadSelfie();
+                    }
                 });
             } else {
                 this.loading = false;
@@ -101,7 +103,7 @@ export class EmployeeNotFoundComponent {
             }
         }, async err => {
             try {
-                await this.rest.processRejectFile(err, this.advanceReq, this.showAlert, this.matDialog, this.verifyForm.get('curp').value);
+                await this.processRejectFile(err, this.matDialog, this.verifyForm.get('curp').value);
             } catch( errs ){
                 this.showAlert('ERROR', 'Ocurrio un error por favor intentelo mas marde', 'error');
             }
@@ -118,14 +120,16 @@ export class EmployeeNotFoundComponent {
         const slefieDialog = this.matDialog.open(VerifySelfieComponent, {
             data: {
                 service: this.rest
-            }
+            },
+            panelClass: 'm-verify-selfie'
         });
 
-        slefieDialog.afterClosed().subscribe((response: BinariaResponseModel) => {
-            this.showAlert('EXITOSO', 'La imagen se subio correctamente', 'success');
-            this.selfie = new FaceDetectModal();
-            this.selfie.URL1 = response.URL1;
-            this.uploadIne();
+        slefieDialog.afterClosed().subscribe((response: File) => {
+            if (typeof response !== 'undefined') {
+                this.selfie = new FaceDetectModal();
+                this.selfie.file = response;
+                this.uploadIne();
+            }
         });
     }
 
@@ -134,14 +138,15 @@ export class EmployeeNotFoundComponent {
             data: {
                 service: this.rest,
                 curp: this.verifyForm.get('curp').value
-            }
+            },
+            panelClass: 'm-verify-ine'
         });
 
         ineDialog.afterClosed().subscribe((response: Array<IneModel>) => {
-            this.showAlert('EXITOSO', 'La imagen se subio correctamente', 'success');
-            this.ine = response;
-            const ine = response.find((ine) => !!(ine as IneFrontModel).curp);
-            this.uploadStatusAccount((ine as IneFrontModel).curp, (ine as IneFrontModel).name, (ine as IneFrontModel).lastName);
+            if (typeof response !== 'undefined') {
+                this.ine = response;
+                this.uploadStatusAccount('', '', '');
+            }
         });
     }
 
@@ -152,10 +157,15 @@ export class EmployeeNotFoundComponent {
                 rfc: this.rfc ?? rfc,
                 names,
                 lastName
-            }
+            },
+            panelClass: 'm-verify-account-status'
         });
 
         statusAccount.afterClosed().subscribe((response) => {
+            if (typeof response === 'undefined') {
+                return;
+            }
+
             this.showAlert('EXITOSO', 'La imagen se subio correctamente', 'success');
             this.statusAccount = response;
             
@@ -207,7 +217,7 @@ export class EmployeeNotFoundComponent {
         });
     }
 
-    private showAlert(message: string, submessage: string, type: 'success' | 'error'): void {
+    private showAlert(message: string, submessage: string, type: 'success' | 'error' | 'warning'): void {
         this.snackBar.openFromComponent(SnakBarAlertComponent, {
             data: {
               message: message,
@@ -244,5 +254,107 @@ export class EmployeeNotFoundComponent {
             this.showAlert('ERROR', 'Ocurrio un error, favor de intentarlo mas tarde', 'error');
             this.loading = false;
         });
+    }
+
+    private async processRejectFile(
+        err: any,
+        matDialog: MatDialog,
+        curp: string
+      ): Promise<void> {
+        if (err.status == 400 && err.error.rejectedFile) {
+    
+          if (err.error.rejectedIne) {
+              this.showAlert('INE Rechazada', err.error.ineMessage, 'warning');
+    
+              const sleep = new Promise((res) => setTimeout(() => res(true), 1000));
+              await sleep;
+    
+              const ineDialog = matDialog.open(VerifyIneComponent, {
+                  data: {
+                      service: this.rest,
+                      curp: curp
+                  },
+                  panelClass: 'm-verify-ine'
+              });
+    
+              const responseIneDialog = await ineDialog.afterClosed().toPromise() as Array<IneModel>;
+              await this.advanceReq.syncIneAccredited(responseIneDialog[0] as IneFrontModel, responseIneDialog[1], err.error.id).toPromise();
+    
+              this.showAlert('Exitoso', 'Su Ine fue enviada nuevamente', 'success');
+    
+              await new Promise((res) => setTimeout(() => res(true), 600));
+          }
+    
+          if (err.error.rejectedPaysheet) {
+            this.showAlert('Recibo de Nomina Rechazada', err.error.paysheetMessage, 'warning');
+    
+              const sleep = new Promise((res) => setTimeout(() => res(true), 1000));
+              await sleep;
+    
+              const payRollReceipt = matDialog.open(UploadPayrollReceiptComponent, {
+                  data: {
+                      service: this.advanceReq,
+                      rfc: err.error.rfc,
+                      onlyOne: true
+                  }
+              });
+    
+              const responsePayRoll = await payRollReceipt.afterClosed().toPromise();
+              await this.advanceReq.syncPaysheet(responsePayRoll, err.error.id).toPromise();
+    
+              this.showAlert('Exitoso', 'Su Recibo de nomina fue enviada nuevamente', 'success');
+    
+              await new Promise((res) => setTimeout(() => res(true), 600));
+          }
+    
+          if (err.error.rejectedSelfie) {
+            this.showAlert('Selfie Rechazada', err.error.selfieMessage, 'warning');
+    
+              const sleep = new Promise((res) => setTimeout(() => res(true), 1000));
+              await sleep;
+    
+              const slefieDialog = matDialog.open(VerifySelfieComponent, {
+                data: {
+                  service: this.rest
+                },
+                panelClass: 'm-verify-selfie'
+              });
+    
+              const responseSelfie = await slefieDialog.afterClosed().toPromise();
+              const selfie = new FaceDetectModal();
+              selfie.URL1 = responseSelfie.URL1;
+              await this.advanceReq.syncSelfie(selfie, err.error.id);
+    
+              this.showAlert('Exitoso', 'Su Selfie fue enviada nuevamente', 'success');
+    
+              await new Promise((res) => setTimeout(() => res(true), 600));
+          }
+    
+          if (err.error.rejectedStatusAccount) {
+            this.showAlert('Estado de Cuenta Rechazada', err.error.statusAccountMessage, 'warning');
+    
+              const sleep = new Promise((res) => setTimeout(() => res(true), 1000));
+              await sleep;
+    
+              const statusAccount = matDialog.open(VerifyAccountStatusComponent, {
+                  data: {
+                      service: this.rest,
+                      rfc: err.error.rfc ?? curp,
+                      names: '',
+                      lastName: ''
+                  },
+                  panelClass: 'm-verify-account-status'
+              });
+    
+              const responseStatusAccount = await statusAccount.afterClosed().toPromise();
+              await this.advanceReq.syncStatusAccount(responseStatusAccount, err.error.id);
+    
+              this.showAlert('Exitoso', 'Su estado de cuenta fue enviado nuevamente', 'success');
+    
+              await new Promise((res) => setTimeout(() => res(true), 600));
+          }
+    
+          return;
+        }
     }
 }

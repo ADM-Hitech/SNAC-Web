@@ -73,7 +73,7 @@ export class TableAdvanceComponent implements OnInit {
     }
 
     public orderDetails(items: Array<any>):Array<any> {
-        return items.sort((a, b) => a.detail.date_Payment > b.detail.date_Payment ? 1 : 0);
+        return items.sort((a, b) => a.date_Payment > b.date_Payment ? 1 : 0);
     }
 
     public updatedWidthColumns(): void {

@@ -1,0 +1,7 @@
+.m-verify-selfie, .m-verify-ine, .m-verify-account-status {
+    @include media-breakpoint-down('sm') {
+        max-width: 100% !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+}

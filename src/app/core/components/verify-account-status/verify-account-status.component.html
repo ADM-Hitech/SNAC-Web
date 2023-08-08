@@ -5,7 +5,7 @@
         </div>
     </mat-toolbar>
 
-    <div class="pl-15 pr-25 m-0" mat-dialog-content>
+    <div class="pl-15 pr-25 m-0 mb-24" mat-dialog-content>
 
         <p>Procure que la hoja principal salga completa.</p>
 
@@ -20,20 +20,32 @@
                 <mat-option *ngFor="let institution of institutions" [value]="institution.id">{{ institution.description }}</mat-option>
             </mat-select>
     
-            <div class="content-upload-file">
+            <div class="content-upload-file" [ngClass]="{'hide': takePicker}">
                 <div class="box-input" #boxInput>
                     <mat-icon svgIcon="logoUpload" class="icon-upload"></mat-icon>
                     <br>
                     <input type="file" class="input-file" id="file" accept=".jpg, .jpeg, .png, .pdf" #inputFile>
-                    <label for="file">Subir (formatos: jpg, jpeg, png, pdf)</label>
+                    <label>Subir (formatos: jpg, jpeg, png, pdf)</label>
                 </div>
     
                 <div *ngIf="uploadingStatusAccount" class="loadingUpload">
                     <mat-spinner [diameter]="30"></mat-spinner>
                 </div>
             </div>
+
+            <div class="content-take-picker" [ngClass]="{'hide': !takePicker}">
+                <p class="labelin m-0 mb-12">Asegúrate que toda la caratula de tu estado de cuenta este dentro del recuadro.</p>
+                <div class="content-video">
+                    <video id="video" playsinline></video>
+                    <span class="circle-face"></span>
+                </div>
+    
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <button class="mt-12 btn" mat-button (click)="takePicture()">Tomar Foto</button>
+                </div>
+                
+                <canvas id="camera" ></canvas>
+            </div>
         </div>
-    </div>
-    <div mat-dialog-actions class="m-0" fxLayoutAlign="center center">
     </div>
 </div>

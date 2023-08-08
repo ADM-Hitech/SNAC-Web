@@ -1,0 +1,73 @@
+@import '../../../core/scss/app';
+
+app-lugar-trabajo {
+    .container {
+        padding: 25px !important;
+        @include media-breakpoint-down('sm') {
+            overflow: auto;
+        }
+
+        .content-breadcrumbs {
+            
+            h1 {
+                color: #41434C;
+                font-size: 27px;
+            }
+        }
+
+        .mat-form-field-outline {
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        .mat-form-field-wrapper {
+            padding-bottom: 0;
+        }
+
+        .mat-checkbox-label {
+            display: flex;
+            gap: 8px;
+        }
+
+        .ctn-items {
+            margin-top: 12px;
+            height: calc(100% - 160px);
+            overflow: auto;
+            padding-bottom: 24px;
+            position: relative;
+
+            .content-loading {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                width: 100%;
+            }
+
+            @include media-breakpoint-down('sm') {
+                padding-bottom: 0;
+            }
+
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                display: grid;
+                grid-column: 1 1 1;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+                
+                @include media-breakpoint-down('sm') {
+                    grid-template-columns: 1fr;
+                }
+
+                li {
+                    background-color: #4f96a1;
+                    color: white;
+                    padding: 5px 20px;
+                    border-radius: 50px;
+                }
+            }
+        }
+    }
+}

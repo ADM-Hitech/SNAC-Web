@@ -181,6 +181,15 @@ export class AppNavigationModel {
                 });
             }
 
+            allMenus.push({
+                id: 'lugartrabajo',
+                title: 'Lugar de Trabajo',
+                type: 'item',
+                url  : 'lugar-trabajos',
+                icon: 'logoControls',
+                iconCustom: true
+            });
+
             if (menuUser.length > 0) {
                 allMenus.push({
                     id: 'users',
@@ -213,6 +222,7 @@ export class AppNavigationModel {
                     iconCustom: true
                 });
             }
+
 
             allMenus.push(
                 {

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from "@angular/material";
 import { RequestAdvanceService } from "src/app/main/modules/request-advance/request-advance.service";
 import { PaySheetModel } from "../../models/pay-sheet.model";
+import { AuthService } from "../../services/auth/auth.service";
 import { SnakBarAlertComponent } from "../snak-bar-alert/snak-bar-alert.component";
 
 @Component({
@@ -24,7 +25,8 @@ export class NewAdvanceComponent {
             paysheet: Array<PaySheetModel>
         },
         private readonly snackBar: MatSnackBar,
-        private formBuild: FormBuilder
+        private formBuild: FormBuilder,
+        private authService: AuthService
     ) {
         this.form = this.formBuild.group({
             amount: [{ value: 0, disabled: false }, Validators.min(1)]
@@ -55,5 +57,13 @@ export class NewAdvanceComponent {
         this.dialogRef.close({
             amount: this.form.get('amount').value
         });
+    }
+
+    public get stepAmount(): number {
+        if (this.authService.getTypeCalculator() == 1) {
+            return 1;
+        }
+
+        return 1000;
     }
 }

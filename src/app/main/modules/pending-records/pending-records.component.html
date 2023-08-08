@@ -1,15 +1,40 @@
 <div class="container module-container">
-    <div class="content-breadcrumbs">
-        <h1 [ngStyle]="{'font-family': 'MontserratBold'}">Lista de Solicitudes</h1>
-        <div class="breadcrumbs">SNAC > Solicitudes</div>
+    <div class="head-breadcrumbs" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-between center">
+        <div class="content-breadcrumbs">
+            <h1 [ngStyle]="{'font-family': 'MontserratBold'}">Lista de Solicitudes</h1>
+            <div class="breadcrumbs">SNAC > Solicitudes</div>
+        </div>
+        <div class="colors-code">
+            <ul>
+                <li><span class="color orange mat-elevation-z3"></span>En espera de documentos rechazados.</li>
+                <li><span class="color greenligth mat-elevation-z3"></span>Nuevo documento recibido</li>
+                <li><span class="color green mat-elevation-z3"></span>Acreditados en centro de trabajo activo</li>
+                <li><span class="color red mat-elevation-z3"></span>Acreditados en centro de trabajo no activo</li>
+            </ul>
+        </div>
     </div>
     <div class="content-table mat-elevation-z3">
+        <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="start center" fxLayoutAlign.gt-sm="end center">
+            <div fxFlex="100" fxFlex.gt-sm="30">
+                <div class="content-search">
+                    <mat-form-field appearance="outline">
+                        <input matInput placeholder="Buscar" #Filter [formControl]="filterControl">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
         <div class="table" id="contentTable">
             <div class="content-loading" *ngIf="loading">
                 <mat-spinner diameter="40"></mat-spinner>
             </div>
 
-            <app-table-pending-records [dataSource]="dataSource" [totalRow]="totalRow" (changePage)="changePage($event)"></app-table-pending-records>
+            <app-table-pending-records
+                [dataSource]="dataSource"
+                [totalRow]="totalRow"
+                [lugaresTrabajoActivos]="lugaresTrabajoActivos"
+                (changePage)="changePage($event)"
+            ></app-table-pending-records>
         </div>
     </div>
 </div>

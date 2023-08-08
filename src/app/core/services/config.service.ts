@@ -78,7 +78,7 @@ export class AppConfigService {
                     
                     if (event.url.includes('login') || 
                         event.url === '/aviso-privacidad' ||
-                        event.url === '/download-report' ||
+                        event.url.includes('download-report') ||
                         event.url === '/' ||
                         event.url === '/terminos-y-condiciones')
                     {

@@ -61,7 +61,7 @@ export class RequestAdvanceService {
     }
 
     public uploadPaySheet(base64file: string): Observable<any> {
-        return this.http.post(`${this.constant.apiBinaria}ocr/api/OCROnline/OCRNomina`, {
+        return this.http.post(`${this.constant.apiBinaria}nomina/api/OCROnline/OCRNomina`, {
             imageID: base64file
         }, {
             headers: {
@@ -85,11 +85,11 @@ export class RequestAdvanceService {
         formData.append('AccreditedId', id.toString());
         formData.append('File', front.file);
         formData.append('FileBack', back.file);
-        formData.append('Calle', front.addressDetail.calle);
-        formData.append('Colonia', front.addressDetail.colonia);
-        formData.append('Municipio', front.addressDetail.municipio);
-        formData.append('ZipCode', front.addressDetail.zipCode);
-        formData.append('Estado', front.addressDetail.estado);
+        formData.append('Calle', ''); //front.addressDetail.calle);
+        formData.append('Colonia', '');
+        formData.append('Municipio', '');
+        formData.append('ZipCode', '');
+        formData.append('Estado', '');
 
         return this.http.post(`${this.constant.api}BinariaFiles/IneAccount`, formData);
     }
@@ -140,6 +140,7 @@ export class RequestAdvanceService {
     public syncSelfie(selfie: FaceDetectModal, id: number): Observable<any> {
         const formData = new FormData();
         formData.append('AccreditedId', id.toString());
+        formData.append('File', selfie.file);
         formData.append('URL1', selfie.URL1);
 
         return this.http.post(`${this.constant.api}BinariaFiles/Selfie`, formData);

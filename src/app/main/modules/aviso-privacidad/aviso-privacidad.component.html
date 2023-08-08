@@ -1,20 +1,13 @@
 <div class="module-container" appPerfectScrollbar (scroll)="onScroll($event)">
     <div class="header" [ngClass]="{'active': positionScroll > 65}">
         <div class="content-logo">
-            <img src="assets/icons/icon_login_color.png" alt="" [@fadeInOut]="positionScroll > 65 ? '1' : '0'">
-        </div>
-        <div class="content-buttons">
-            <div>
-                <button mat-button class="btn-login" [routerLink]="['/login']">
-                    <img src="assets/icons/icon_login_landing.png" alt=""><span>Login</span>
-                </button>
-            </div>
+            <p [@fadeInOut]="positionScroll > 65 ? '1' : '0'" [ngStyle]="{'font-family': 'MontserratBold'}">SNAC</p>
         </div>
     </div>
 
     <div class="content-head">
         <div class="content-text">
-            <p class="text-head">SNAC te Hace el Paro</p>
+            <p class="text-head">SNAC Te Hace El Paro</p>
             <h1 class="text-body">Aviso de <span [ngStyle]="{'font-family': 'MontserratBold'}">Privacidad</span></h1>
         </div>
     </div>

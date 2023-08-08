@@ -24,7 +24,7 @@
         </div>
 
         <ng-container *ngIf="!loading">
-            <mat-slider formControlName="amount" style="width: 100%;" min="0" [max]="maxAmount" step="1000"></mat-slider>
+            <mat-slider formControlName="amount" style="width: 100%;" min="0" [max]="maxAmount" [step]="stepAmount"></mat-slider>
 
             <div class="mb-12" fxLayout="row" fxLayoutAlign="space-between center">
                 <span>$0</span>

@@ -7,6 +7,7 @@ import { NewAdvanceComponent } from "src/app/core/components/new-advance/new-adv
 import { ShowCartaMandatoComponent } from "src/app/core/components/show-carta-mandato/show-carta-mandato.component";
 import { UploadPayrollReceiptComponent } from "src/app/core/components/upload-payroll-receipt/upload-payroll-receipt.component";
 import { PaySheetModel } from "src/app/core/models/pay-sheet.model";
+import { AuthService } from "src/app/core/services/auth/auth.service";
 import { RequestAdvanceService } from "./request-advance.service";
 
 @Component({
@@ -24,7 +25,8 @@ export class RequestAdvanceComponent implements OnInit {
 
     constructor(
         private readonly service: RequestAdvanceService,
-        private readonly matDialog: MatDialog
+        private readonly matDialog: MatDialog,
+        private readonly authService: AuthService
     ) {
         let dayWeek: number = this.nextDatePayment.weekday();
         let date = this.nextDatePayment;
@@ -82,7 +84,6 @@ export class RequestAdvanceComponent implements OnInit {
         });
 
         dialog.afterClosed().subscribe((response) => {
-            console.log(response);
             if (!(typeof response === 'boolean' && !(response as boolean))) {
                 this.showCarta(response, amount, paysheet);
             }
@@ -117,6 +118,13 @@ export class RequestAdvanceComponent implements OnInit {
     }
 
     public uploadPayrollReceipt(): void {
+
+        if (this.authService.getTypeCalculator() == 1) {
+            this.newRequest([]);
+            
+            return;
+        }
+
         const dialog = this.matDialog.open(UploadPayrollReceiptComponent, {
             data: {
                 service: this.service
@@ -131,6 +139,6 @@ export class RequestAdvanceComponent implements OnInit {
     }
 
     public get totalToPay(): number {
-        return this.data.reduce((sum, advance) => sum + advance.details.filter(detail => moment(detail.detail.date_Payment).format('DD/MM/YYYY') == this.nextDatePayment.format('DD/MM/YYYY')).reduce((sum2, detail) => sum2 + detail.detail.total_Payment, 0), 0);
+        return this.data.reduce((sum, advance) => sum + advance.payments.filter(detail => moment(detail.date_Payment).format('DD/MM/YYYY') == this.nextDatePayment.format('DD/MM/YYYY')).reduce((sum2, detail) => sum2 + detail.total_Payment, 0), 0);
     }
 }

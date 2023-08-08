@@ -1,4 +1,20 @@
+@import '../../scss/app';
+
 app-very-ine {
+    .dialog-content-wrapper {
+        @include media-breakpoint-down('sm') {
+            height: 100% !important;
+
+            .mat-dialog-content {
+                max-height: 100% !important;
+                height: calc(100% - 56px) !important;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+    }
+
     .cnt-icon {
         text-align: center;
         margin-top: 30px;
@@ -96,6 +112,7 @@ app-very-ine {
                 overflow: hidden;
                 position: absolute;
                 z-index: -1;
+                top: -200%;
             }
 
             .icon-upload {
@@ -121,6 +138,42 @@ app-very-ine {
         }
     }
 
+    .content-take-picker {
+        position: relative;
+        max-width: 100%;
+        width: 100%;
+        margin: auto;
+        overflow-x: hidden;
+        overflow-y: visible;
+
+        > p {
+            margin: 0;
+            margin-bottom: 12px;
+        }
+
+        #camera {
+            opacity: 0;
+            position: absolute;
+            top: -200%;
+            left: 0;
+        }
+
+        .content-video {
+            position: relative;
+            margin: auto;
+
+            .circle-face {
+                position: absolute;
+                width: 80%;
+                height: 50%;
+                top: 25%;
+                left: 10%;
+                border: 4px solid white;
+                border-radius: 9px;
+            }
+        }
+    }
+
     .btn {
         background-color: #41434C;
         color: white;
@@ -130,5 +183,18 @@ app-very-ine {
         &:disabled {
             color: white !important;
         }
+    }
+
+    .hide {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    #video
+    {
+        width: 100% !important;
     }
 }

@@ -31,6 +31,10 @@ const routes: Routes = [
     loadChildren: () => import('./main/modules/administrator/administrator.module').then(module => module.AdministratorModule)
   },
   {
+    path: 'lugar-trabajos',
+    loadChildren: () => import('./main/modules/lugar-trabajo/lugar-trabajo.module').then(module => module.LugarTrabajoModule)
+  },
+  {
     path: 'fondeo-control',
     loadChildren: () => import('./main/modules/fondeo-control/fondeo-control.module').then(module => module.FondeoControlModule)
   },

@@ -1,37 +1,63 @@
 <table mat-table #table [dataSource]="dataSource">
+    <ng-container matColumnDef="colorstatus">
+        <th mat-header-cell *matHeaderCellDef > </th>
+        <td mat-cell *matCellDef="let row">
+            <ul>
+                <li class="replay mat-elevation-z3" *ngIf="isReplay(row) != null"></li>
+                <li class="rejection mat-elevation-z3" *ngIf="isRejection(row)"></li>
+                <li class="lugaractive mat-elevation-z3" *ngIf="lugarIsActive(row.lugarTrabajo)"></li>
+                <li class="lugarnoactivo mat-elevation-z3" *ngIf="!lugarIsActive(row.lugarTrabajo)"></li>
+            </ul>
+        </td>
+    </ng-container>
+
     <ng-container matColumnDef="fullname">
-        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <th mat-header-cell *matHeaderCellDef > Nombre </th>
         <td mat-cell *matCellDef="let row"> {{ row.first_Name }} {{ row.last_Name }} </td>
     </ng-container>
 
-    <ng-container matColumnDef="employee_number">
+    <ng-container matColumnDef="telephone" >
+        <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+        <td mat-cell *matCellDef="let row"> {{ row.telefono }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="employee_number" >
         <th mat-header-cell *matHeaderCellDef> Numero de Empleado </th>
         <td mat-cell *matCellDef="let row"> {{ row.numberEmployee }} </td>
     </ng-container>
 
     <ng-container matColumnDef="curp">
-        <th mat-header-cell *matHeaderCellDef> CURP </th>
+        <th mat-header-cell *matHeaderCellDef > CURP </th>
         <td mat-cell *matCellDef="let row"> {{ row.curp }} </td>
     </ng-container>
 
     <ng-container matColumnDef="account_number">
-        <th mat-header-cell *matHeaderCellDef> Numero de Cuenta </th>
+        <th mat-header-cell *matHeaderCellDef > Numero de Cuenta </th>
         <td mat-cell *matCellDef="let row"> {{ row.account_Number }} </td>
     </ng-container>
 
     <ng-container matColumnDef="clabe">
-        <th mat-header-cell *matHeaderCellDef> CLABE interbancaria </th>
+        <th mat-header-cell *matHeaderCellDef > CLABE interbancaria </th>
         <td mat-cell *matCellDef="let row"> {{ row.clabe }} </td>
     </ng-container>
 
     <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef> Fecha de Registro </th>
-        <td mat-cell *matCellDef="let row"> {{ row.created_at | date }} </td>
+        <th mat-header-cell *matHeaderCellDef > Fecha de Registro </th>
+        <td mat-cell *matCellDef="let row"> {{ getMaxDate(row) | date: 'dd/MM/yyyy' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lugarTrabajo">
+        <th mat-header-cell *matHeaderCellDef > Lugar de Trabajo </th>
+        <td mat-cell *matCellDef="let row"> {{ row.lugarTrabajo }} </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Estatus </th>
-        <td mat-cell *matCellDef="let row"> {{ row.approvedDocuments ? 'Aprobado' : 'Por Aprobar' }} </td>
+        <th mat-header-cell *matHeaderCellDef > Estatus </th>
+        <td mat-cell *matCellDef="let row">
+            <span>
+                {{ row.approvedDocuments ? 'Aprobado' : 'Por Aprobar' }}
+            </span>
+        </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
@@ -49,19 +75,19 @@
                         <mat-icon>done</mat-icon>
                         <span>Aprobar</span>
                     </button>
-                    <button mat-menu-item (click)="viewDocument('SELFIE', row)" >
+                    <button mat-menu-item (click)="viewDocument('SELFIE', row)" [ngClass]="{'replay': isReplay(row) == 'selfie'}">
                         <mat-icon>photo_camera</mat-icon>
                         <span>Selfie</span>
                     </button>
-                    <button mat-menu-item (click)="viewDocument('INE', row)">
+                    <button mat-menu-item (click)="viewDocument('INE', row)" [ngClass]="{'replay': isReplay(row) == 'ine'}">
                         <mat-icon>account_box</mat-icon>
                         <span>Ine</span>
                     </button>
-                    <button mat-menu-item (click)="viewDocument('ESTADO DE CUENTA', row)">
+                    <button mat-menu-item (click)="viewDocument('ESTADO DE CUENTA', row)" [ngClass]="{'replay': isReplay(row) == 'statusaccount'}">
                         <mat-icon>description</mat-icon>
                         <span>Estado de Cuenta</span>
                     </button>
-                    <button mat-menu-item>
+                    <button mat-menu-item (click)="editBankInfo(row)">
                         <mat-icon>description</mat-icon>
                         <span>Datos Bancarios</span>
                     </button>
@@ -71,7 +97,10 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnToDisplay"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnToDisplay;"></tr>
+    <tr 
+        mat-row 
+        *matRowDef="let row; columns: columnToDisplay;"
+    ></tr>
 </table>
 
 <mat-paginator 

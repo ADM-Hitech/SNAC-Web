@@ -54,6 +54,7 @@ export class TableAccreditedComponent implements OnInit {
   @Input() licenses: Array<any> = [];
   @Output() changePage: EventEmitter<any> = new EventEmitter<any>();
   @Output() eventDelete: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onSendCredentials: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -113,6 +114,10 @@ export class TableAccreditedComponent implements OnInit {
         advances: user.advances
       }
     });
+  }
+
+  resendCredentials(user: any): void {
+    this.onSendCredentials.emit(user);
   }
 
 }

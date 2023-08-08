@@ -1,5 +1,7 @@
-import { Component, Input, Output, ViewEncapsulation, EventEmitter, ErrorHandler } from '@angular/core';
-import { MatDialog, MatSnackBar, MatTableDataSource } from '@angular/material';
+import { Component, Input, Output, ViewEncapsulation, EventEmitter, ErrorHandler, AfterViewInit, ViewChild } from '@angular/core';
+import { MatDialog, MatSnackBar, MatSort, MatTableDataSource } from '@angular/material';
+import * as moment from 'moment';
+import { EditBankInfoComponent } from 'src/app/core/components/edit-bank-info/edit-bank-info.component';
 import { PreviewDocumentComponent } from 'src/app/core/components/preview_document/preview_document.component';
 import { SnakBarAlertComponent } from 'src/app/core/components/snak-bar-alert/snak-bar-alert.component';
 import { PendingRecordService } from '../pending-records.service';
@@ -13,18 +15,22 @@ import { PendingRecordService } from '../pending-records.service';
 export class TablePendingRecordsComponent {
 
     public columnToDisplay = [
+        'colorstatus',
         'fullname',
+        'telephone',
         'employee_number',
         'curp',
         'account_number',
         'clabe',
         'date',
+        'lugarTrabajo',
         'status',
         'actions'
     ];
 
     @Input() totalRow: number;
     @Input() dataSource: MatTableDataSource<any> = new MatTableDataSource();
+    @Input() lugaresTrabajoActivos: Array<any> = [];
     @Output() changePage: EventEmitter<any> = new EventEmitter<any>();
     public proccessIds: Array<number> = [];
 
@@ -249,5 +255,69 @@ export class TablePendingRecordsComponent {
 
     public loadingProccess(id: number): boolean {
         return this.proccessIds.filter(item => item === id).length > 0;
+    }
+
+    public editBankInfo(item: any): void {
+        const dialogResult = this.dialog.open(EditBankInfoComponent, {
+            data: {
+                id: item.id,
+                institution_id: item.institution_Id,
+                clabe: item.clabe,
+                account_number: item.account_Number
+            }
+        });
+
+        dialogResult.afterClosed().subscribe((response) => {
+            if (response) {
+                this.changePage.emit({ pageIndex: 0, pageSize: 50 });
+            }
+        });
+    }
+
+    public isReplay(item: any): string | null {
+        if (item.selfie) {
+            if (item.selfie.replay) {
+                return 'selfie';
+            }
+        }
+
+        if (item.statusAccount) {
+            if (item.statusAccount.replay) {
+                return 'statusaccount';
+            }
+        }
+
+        if (item.ineAccount) {
+            if (item.ineAccount.replay) {
+                return 'ine';
+            }
+        }
+
+        return null;
+    }
+
+    public isRejection(item: any): boolean {
+        return item.selfie?.approved == false || item.statusAccount?.approved == false || item.ineAccount?.approved == false;
+    }
+
+    public getMaxDate(item: any): any {
+        let dates = [];
+        if (item.selfie) {
+            dates.push(moment(item.selfie.created_at));
+        }
+
+        if (item.statusAccount) {
+            dates.push(moment(item.selfie.created_at));
+        }
+
+        if (item.ineAccount) {
+            dates.push(moment(item.selfie.created_at));
+        }
+
+        return moment.max(dates);
+    }
+
+    public lugarIsActive(value: string): boolean {
+        return this.lugaresTrabajoActivos.findIndex(l => l.label.toLocaleLowerCase() == (value ?? '').toLocaleLowerCase()) >= 0;
     }
 }

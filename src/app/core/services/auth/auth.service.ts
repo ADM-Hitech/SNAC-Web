@@ -35,6 +35,17 @@ export class AuthService {
     return '';
   }
 
+  public getTypeCalculator(): number {
+    const token = localStorage.getItem('token');
+    const user = this.jwtHelper.decodeToken(token);
+
+    if (!!user) {
+      return parseInt(user.TypeCalculator.toString(), 10);
+    }
+
+    return 0;
+  }
+
   public get typeId(): number {
     const token = localStorage.getItem('token');
     const user = this.jwtHelper.decodeToken(token);

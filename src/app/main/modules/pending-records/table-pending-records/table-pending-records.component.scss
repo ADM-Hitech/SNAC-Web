@@ -13,6 +13,39 @@ app-table-pending-records {
             
             td {
                 padding-right: 12px !important;
+
+                ul {
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+
+                    li {
+                        width: 9px;
+                        height: 9px;
+                        border-radius: 50%;
+                        margin-bottom: 5px;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        &.replay {
+                            background-color: #caffca !important;
+                        }
+                        
+                        &.rejection {
+                            background-color: orange !important;
+                        }
+                        
+                        &.lugaractive {
+                            background-color: green !important;
+                        }
+                        
+                        &.lugarnoactivo {
+                            background-color: red !important;
+                        }
+                    }
+                }
             }
         }
 
@@ -29,4 +62,20 @@ app-table-pending-records {
             }
         }
     }
+}
+
+.replay {
+    background-color: #caffca !important;
+}
+
+.rejection {
+    background-color: orange !important;
+}
+
+.lugaractive {
+    background-color: green !important;
+}
+
+.lugarnoactivo {
+    background-color: red !important;
 }

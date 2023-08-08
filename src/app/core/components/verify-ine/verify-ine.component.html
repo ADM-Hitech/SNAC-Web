@@ -5,8 +5,9 @@
         </div>
     </mat-toolbar>
 
-    <div class="pl-15 pr-25 m-0" mat-dialog-content>
-        <p>Suba su INE por ambos lados</p>
+    <div class="pl-15 pr-25 m-0 mb-24" mat-dialog-content>
+        <p *ngIf="!takePicker">Suba su INE por ambos lados</p>
+        <p class="nota" *ngIf="takePicker">Coloca tu ine dentro del rectangulo y presiona el botón para tomar la foto.</p>
 
         <div class="content-ine">
             <div class="item" [ngClass]="{'active': type === 'front'}">
@@ -19,19 +20,31 @@
             </div>
         </div>
 
-        <div class="content-upload-file">
+        <div class="content-take-picker" [ngClass]="{'hide': !takePicker}">
+            <p>Coloca la parte de <b>{{ type === 'front' ? 'adelante' : 'atrás' }}</b> de tu INE dentro del recuadro</p>
+            <div class="content-video">
+                <video id="video" playsinline></video>
+                <span class="circle-face"></span>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button class="mt-12 btn" [disabled]="uploadingINE" [class.spinner]="uploadingINE" mat-button (click)="takePicture()">Tomar Foto</button>
+            </div>
+            
+            <canvas id="camera" ></canvas>
+        </div>
+
+        <div class="content-upload-file" [ngClass]="{'hide': takePicker}">
             <div class="box-input" #boxInput>
                 <mat-icon svgIcon="logoUpload" class="icon-upload"></mat-icon>
                 <br>
                 <input type="file" class="input-file" accept=".jpg, .jpeg, .png, .pdf" id="file" #inputFile>
-                <label for="file">Subir (formatos: jpg, jpeg, png, pdf)</label>
+                <label>Subir (formatos: jpg, jpeg, png, pdf)</label>
             </div>
 
             <div *ngIf="uploadingINE" class="loadingUpload">
                 <mat-spinner [diameter]="30"></mat-spinner>
             </div>
         </div>
-    </div>
-    <div mat-dialog-actions class="m-0" fxLayoutAlign="center center">
     </div>
 </div>

@@ -60,6 +60,10 @@ app-edit-accredited {
                     width: 100%;
                     background: #41434C;
                     color: white;
+
+                    &:disabled {
+                        opacity: .5;
+                    }
                 }
             }
 
